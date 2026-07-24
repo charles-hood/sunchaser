@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunchaser</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+<meta name="description" content="Where the good weather is right now, across 108 vetted nomad cities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root {
+  --bg: #f7f5f0; --card: #ffffff; --ink: #1a1c1e; --muted: #6b7075;
+  --line: #e4e1d8; --accent: #e08020; --good: #2e8b40; --bad: #c04030;
+  --shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a; --card: #1d2026; --ink: #e8e6e1; --muted: #9aa0a6;
+    --line: #2c3038; --accent: #f0a040; --good: #4fba63; --bad: #e06050;
+    --shadow: 0 1px 3px rgba(0,0,0,.4);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 60px; }
+header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+h1 { font-size: 30px; font-weight: 800; margin: 0; }
+h1 .sun { color: var(--accent); }
+.sub { color: var(--muted); font-size: 14px; }
+h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
+.mono { font-family: "IBM Plex Mono", monospace; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 16px; box-shadow: var(--shadow);
+}
+.card .cname { font-weight: 700; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
+.badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
+.bigtemp { font-size: 34px; font-weight: 800; margin: 6px 0 2px; }
+.cond { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+.stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+.stats b { color: var(--ink); font-weight: 600; }
+.scores { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 12.5px; display: flex; gap: 12px; }
+.scores .v { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
+#verdict { line-height: 1.5; }
+#verdict .card { padding: 18px 22px; }
+#verdict h3 { margin: 14px 0 4px; font-size: 15.5px; color: var(--accent); }
+#verdict h3:first-child { margin-top: 0; }
+#verdict p { margin: 4px 0 10px; font-size: 14.5px; }
+.vmeta { color: var(--muted); font-size: 12px; margin-top: 8px; }
+.week { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.wcity .cname { font-weight: 700; margin-bottom: 8px; font-size: 14.5px; }
+.wrow { display: grid; grid-template-columns: 34px 26px 1fr 42px; gap: 8px; align-items: center; font-size: 12.5px; margin: 3px 0; }
+.wbarwrap { position: relative; height: 8px; background: color-mix(in oklab, var(--line) 60%, transparent); border-radius: 4px; }
+.wbar { position: absolute; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #58a0d8, var(--accent)); }
+.wrain { color: var(--muted); text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+#map { height: 440px; border-radius: 12px; border: 1px solid var(--line); }
+.legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 3px -1px 8px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); font-size: 13px; }
+th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+th { cursor: pointer; user-select: none; background: color-mix(in oklab, var(--card) 70%, var(--bg)); font-size: 12px; white-space: nowrap; }
+th:hover { color: var(--accent); }
+td.num, th.num { text-align: right; font-family: "IBM Plex Mono", monospace; }
+tr:last-child td { border-bottom: none; }
+.tablewrap { overflow-x: auto; border-radius: 12px; }
+.routeform { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+input, select, button {
+  font: inherit; padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink);
+}
+button { background: var(--accent); color: #fff; border: none; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; }
+.daycards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 12px; }
+.daycard h4 { margin: 0 0 6px; font-size: 14px; color: var(--accent); }
+.daycard div { font-size: 13px; margin: 2px 0; }
+.daycard .mutedline { color: var(--muted); font-size: 12px; }
+.err { color: var(--bad); font-size: 13.5px; margin-top: 8px; }
+footer { margin-top: 44px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+a { color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .card, #map, table { animation: fade .4s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="sun">☀</span> Sunchaser</h1>
+    <span class="sub" id="updated">loading…</span>
+  </header>
+  <div class="sub">Where the good weather is right now, across 108 vetted nomad cities.</div>
+
+  <h2>The verdict</h2>
+  <div id="verdict"><div class="card">Loading verdict…</div></div>
+
+  <h2>Leaders, current conditions</h2>
+  <div class="cards" id="cards"></div>
+
+  <h2>The week ahead</h2>
+  <div class="week" id="week"></div>
+
+  <h2>All 108 cities</h2>
+  <div id="map"></div>
+  <div class="legend">CombinedScore:
+    <span class="dot" style="background:hsl(8,70%,50%)"></span>bad
+    <span class="dot" style="background:hsl(60,70%,45%)"></span>meh
+    <span class="dot" style="background:hsl(120,60%,40%)"></span>great
+    &nbsp;·&nbsp; ring = curated 30 &nbsp;·&nbsp; click a dot for details
+  </div>
+
+  <div class="tablewrap" style="margin-top:14px">
+    <table id="tbl">
+      <thead><tr id="tblhead"></tr></thead>
+      <tbody id="tblbody"></tbody>
+    </table>
+  </div>
+
+  <h2>Drive there</h2>
+  <div class="routeform">
+    <input id="from" placeholder='From: e.g. "Atlanta, GA"' size="22">
+    <select id="to"></select>
+    <button id="go">Plan route</button>
+    <span class="sub" id="routemeta"></span>
+  </div>
+  <div class="err" id="routeerr"></div>
+  <div class="daycards" id="days"></div>
+
+  <footer>
+    Weather data by <a href="https://open-meteo.com/">Open-Meteo</a>. Supercharger locations by
+    <a href="https://supercharge.info/">supercharge.info</a>. Routing by
+    <a href="http://project-osrm.org/">OSRM</a>. City vetting by rotation-optimizer.
+    Verdict written by Claude from the deterministic scores; ties are honest ties.
+  </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const WMO = {
+  0: ["Clear", "☀️"], 1: ["Mostly clear", "🌤️"], 2: ["Partly cloudy", "⛅"], 3: ["Overcast", "☁️"],
+  45: ["Fog", "🌫️"], 48: ["Rime fog", "🌫️"], 51: ["Light drizzle", "🌦️"], 53: ["Drizzle", "🌦️"],
+  55: ["Heavy drizzle", "🌧️"], 56: ["Freezing drizzle", "🌧️"], 57: ["Freezing drizzle", "🌧️"],
+  61: ["Light rain", "🌧️"], 63: ["Rain", "🌧️"], 65: ["Heavy rain", "🌧️"], 66: ["Freezing rain", "🌧️"],
+  67: ["Freezing rain", "🌧️"], 71: ["Light snow", "🌨️"], 73: ["Snow", "🌨️"], 75: ["Heavy snow", "❄️"],
+  77: ["Snow grains", "🌨️"], 80: ["Light showers", "🌦️"], 81: ["Showers", "🌧️"], 82: ["Violent showers", "⛈️"],
+  85: ["Snow showers", "🌨️"], 86: ["Snow showers", "❄️"], 95: ["Thunderstorm", "⛈️"],
+  96: ["Thunderstorm w/ hail", "⛈️"], 99: ["Thunderstorm w/ hail", "⛈️"],
+};
+const wmo = (code) => WMO[code] || ["–", "·"];
+const dayName = (iso) => new Date(iso + "T12:00").toLocaleDateString(undefined, { weekday: "short" });
+const scoreColor = (s) => `hsl(${Math.max(0, Math.min(120, (s - 30) * (120 / 60)))},65%,42%)`;
+
+let SNAP = null;
+
+function renderVerdictMd(md) {
+  // Markdown-lite: our verdict contract only uses ## headings and paragraphs.
+  const html = md.split(/\n{2,}/).map((blk) => {
+    blk = blk.trim();
+    if (blk.startsWith("## ")) return `<h3>${esc(blk.slice(3))}</h3>`;
+    if (!blk) return "";
+    return `<p>${esc(blk).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>")}</p>`;
+  }).join("");
+  return html;
+}
+
+function renderCards(top) {
+  $("cards").innerHTML = top.map((c) => {
+    const cur = c.current;
+    const code = cur ? cur.weather_code : c.days[0].code;
+    const [label, icon] = wmo(code);
+    const d0 = c.days[0];
+    return `<div class="card">
+      <div class="cname"><span>${esc(c.name)}</span>${c.curated ? '<span class="badge">curated</span>' : ""}</div>
+      <div class="bigtemp">${icon} ${cur ? Math.round(cur.temperature_2m) + "°" : Math.round(d0.hi) + "°"}</div>
+      <div class="cond">${esc(label)}${cur ? `, feels ${Math.round(cur.apparent_temperature)}°` : " (daily hi)"} </div>
+      <div class="stats">
+        <span>H/L <b>${Math.round(d0.hi)}°/${Math.round(d0.lo)}°</b></span>
+        <span>Rain <b>${d0.precipProb}%</b></span>
+        ${cur ? `<span>Wind <b>${Math.round(cur.wind_speed_10m)} mph</b></span>` : ""}
+        ${cur ? `<span>Hum <b>${cur.relative_humidity_2m}%</b></span>` : ""}
+      </div>
+      <div class="scores">
+        <span>now <span class="v" style="color:${scoreColor(c.scores.now)}">${c.scores.now}</span></span>
+        <span>week <span class="v" style="color:${scoreColor(c.scores.week)}">${c.scores.week}</span></span>
+        <span>combined <span class="v" style="color:${scoreColor(c.scores.combined)}">${c.scores.combined}</span></span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderWeek(top) {
+  const all = top.flatMap((c) => c.days);
+  const min = Math.min(...all.map((d) => d.lo)), max = Math.max(...all.map((d) => d.hi));
+  const span = Math.max(1, max - min);
+  $("week").innerHTML = top.map((c) => `<div class="card wcity">
+    <div class="cname">${esc(c.name)}</div>
+    ${c.days.map((d) => {
+      const [, icon] = wmo(d.code);
+      const l = ((d.lo - min) / span) * 100, w = ((d.hi - d.lo) / span) * 100;
+      return `<div class="wrow">
+        <span>${dayName(d.date)}</span><span>${icon}</span>
+        <span class="wbarwrap" title="${Math.round(d.hi)}°/${Math.round(d.lo)}°">
+          <span class="wbar" style="left:${l}%;width:${Math.max(3, w)}%"></span></span>
+        <span class="wrain">${d.precipProb}%</span>
+      </div>`;
+    }).join("")}
+  </div>`).join("");
+}
+
+let map, routeLayer;
+function renderMap(cities) {
+  map = L.map("map", { scrollWheelZoom: false }).setView([39.5, -98.5], 4);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+  routeLayer = L.layerGroup().addTo(map);
+  for (const c of cities) {
+    L.circleMarker([c.lat, c.lon], {
+      radius: c.curated ? 8 : 6,
+      color: c.curated ? "#333" : scoreColor(c.scores.combined),
+      weight: c.curated ? 2 : 1,
+      fillColor: scoreColor(c.scores.combined),
+      fillOpacity: 0.85,
+    }).bindPopup(
+      `<b>${esc(c.name)}</b>${c.curated ? " (curated)" : ""}<br>` +
+      `combined ${c.scores.combined} · now ${c.scores.now} · week ${c.scores.week}<br>` +
+      `today ${Math.round(c.days[0].hi)}°/${Math.round(c.days[0].lo)}°, rain ${c.days[0].precipProb}%<br>` +
+      `<span style="color:#888">${c.tier} tier · scene ${c.scene} · services ${c.services}</span>`
+    ).addTo(map);
+  }
+}
+
+const COLS = [
+  ["#", (c, i) => i + 1, "num"], ["City", (c) => esc(c.name)],
+  ["Now", (c) => c.scores.now, "num"], ["Week", (c) => c.scores.week, "num"],
+  ["Combined", (c) => c.scores.combined, "num"],
+  ["Hi", (c) => Math.round(c.days[0].hi), "num"], ["Lo", (c) => Math.round(c.days[0].lo), "num"],
+  ["Rain%", (c) => c.days[0].precipProb, "num"], ["Tier", (c) => c.tier], ["Curated", (c) => c.curated ? "★" : ""],
+];
+let sortKey = 4, sortDesc = true;
+function renderTable() {
+  const rows = [...SNAP.cities].sort((a, b) => {
+    const va = COLS[sortKey][1](a, 0), vb = COLS[sortKey][1](b, 0);
+    const cmp = typeof va === "number" ? va - vb : String(va).localeCompare(String(vb));
+    return sortDesc ? -cmp : cmp;
+  });
+  $("tblhead").innerHTML = COLS.map(([h, , cls], i) =>
+    `<th class="${cls || ""}" data-i="${i}">${h}${i === sortKey ? (sortDesc ? " ▾" : " ▴") : ""}</th>`).join("");
+  $("tblbody").innerHTML = rows.map((c, i) =>
+    `<tr>${COLS.map(([, fn, cls]) => `<td class="${cls || ""}">${fn(c, i)}</td>`).join("")}</tr>`).join("");
+  document.querySelectorAll("#tblhead th").forEach((th) => th.onclick = () => {
+    const i = +th.dataset.i;
+    if (i === sortKey) sortDesc = !sortDesc; else { sortKey = i; sortDesc = true; }
+    renderTable();
+  });
+}
+
+async function planRoute() {
+  const from = $("from").value.trim();
+  if (!from) { $("routeerr").textContent = "Enter a starting point."; return; }
+  $("routeerr").textContent = ""; $("go").disabled = true; $("routemeta").textContent = "planning…";
+  try {
+    const r = await fetch(`/api/route?from=${encodeURIComponent(from)}&to=${encodeURIComponent($("to").value)}`);
+    const plan = await r.json();
+    if (!r.ok) throw new Error(plan.error || r.status);
+    $("routemeta").textContent =
+      `${plan.totals.miles} mi · ${plan.totals.driveHours} h · ${plan.totals.days} day(s) · ~${plan.totals.chargeStopsEstimate} charge stops` +
+      (plan.feasibility.gapWarning ? ` · ⚠ ${plan.feasibility.gapWarning}` : "");
+    $("days").innerHTML = plan.days.map((d) => `<div class="card daycard">
+      <h4>Day ${d.day}</h4>
+      <div><b>${esc(d.from)}</b> → <b>${esc(d.to)}</b></div>
+      <div>${d.miles} mi · ~${d.driveHours} h · ${d.chargeStops} charge stop${d.chargeStops === 1 ? "" : "s"}</div>
+      ${d.stopover ? `
+        <div class="mutedline">overnight: ${esc(d.stopover.name)}${d.stopover.curated ? " ★ curated" : d.stopover.vetted ? " · vetted" : ""}</div>
+        <div class="mutedline">⚡ ${esc(d.stopover.supercharger.name)} (${d.stopover.supercharger.stalls} stalls, ${d.stopover.supercharger.kw} kW)</div>
+        ${d.stopover.night ? `<div class="mutedline">night: ${d.stopover.night.hi}°/${d.stopover.night.lo}°, rain ${d.stopover.night.precipProb}%</div>` : ""}
+      ` : `<div class="mutedline">arrive 🎉</div>`}
+    </div>`).join("");
+    routeLayer.clearLayers();
+    const line = L.polyline(plan.polyline, { color: "#e08020", weight: 4, opacity: 0.8 }).addTo(routeLayer);
+    map.fitBounds(line.getBounds(), { padding: [30, 30] });
+    $("map").scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch (e) {
+    $("routeerr").textContent = "Route failed: " + e.message;
+    $("routemeta").textContent = "";
+  } finally { $("go").disabled = false; }
+}
+
+async function load() {
+  const [snapRes, verdictRes] = await Promise.all([fetch("/api/snapshot"), fetch("/api/verdict")]);
+  SNAP = await snapRes.json();
+  $("updated").textContent =
+    `updated ${new Date(SNAP._meta.generated_at).toLocaleString()} · season: ${SNAP._meta.season}` +
+    ` · ${SNAP._meta.counts.active} active / ${SNAP.cities.length - SNAP._meta.counts.active} dormant`;
+
+  if (verdictRes.ok) {
+    const v = await verdictRes.json();
+    $("verdict").innerHTML = `<div class="card">${renderVerdictMd(v.markdown)}
+      <div class="vmeta">by ${esc(v.model)} · ${new Date(v.generated_at).toLocaleString()} · ties: ${esc(v.ties.join("; ") || "none")}</div>
+    </div>`;
+  } else {
+    $("verdict").innerHTML = `<div class="card">No verdict yet. Run <span class="mono">node cli.js verdict</span>.</div>`;
+  }
+
+  const top = SNAP.cities.slice(0, 4);
+  renderCards(top);
+  renderWeek(top);
+  renderMap(SNAP.cities);
+  renderTable();
+
+  const sorted = [...SNAP.cities].sort((a, b) => a.name.localeCompare(b.name));
+  $("to").innerHTML = sorted.map((c) =>
+    `<option${c.name === SNAP.cities[0].name ? " selected" : ""}>${esc(c.name)}</option>`).join("");
+  $("go").onclick = planRoute;
+  $("from").addEventListener("keydown", (e) => { if (e.key === "Enter") planRoute(); });
+}
+
+load().catch((e) => { $("updated").textContent = "load failed: " + e.message; });
+</script>
+</body>
+</html>

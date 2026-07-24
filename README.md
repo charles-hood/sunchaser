@@ -12,7 +12,9 @@ node cli.js rank             # fetch (honoring cache TTLs), score, print table
 node cli.js rank --all       # full 108-city table
 node cli.js verdict          # rank + AI verdict (needs ANTHROPIC_API_KEY)
 node cli.js verdict --deep   # use the deep model (claude-opus-4-8)
+node cli.js route --from "Atlanta, GA" [--to "City, ST"] [--ai]
 node cli.js fetch --force    # force a refresh, ignoring TTLs
+node server/index.js         # web UI at http://127.0.0.1:3005
 node --test 'test/**/*.test.js'
 ```
 
