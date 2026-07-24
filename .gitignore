@@ -1,0 +1,12 @@
+# Secrets
+.env
+*.env
+
+# Runtime state: weather snapshots, caches, verdicts
+var/
+
+# OS noise
+.DS_Store
+
+# Just in case a dependency ever sneaks in (project is zero-dep by design)
+node_modules/
