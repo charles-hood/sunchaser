@@ -1,0 +1,1853 @@
+{
+  "_meta": {
+    "source": "/Users/charles/Projects/seasonal-rotation/rotation-optimizer/data/pool.json",
+    "source_sha256": "602670c5c0b68514",
+    "source_mtime": "2026-06-23T03:19:45.530Z",
+    "extracted_at": "2026-07-24T00:35:17.009Z",
+    "counts": {
+      "total": 108,
+      "curated": 30,
+      "by_season": {
+        "summer": 46,
+        "winter": 61,
+        "shoulder": 107
+      }
+    }
+  },
+  "cities": [
+    {
+      "name": "Aiken, SC",
+      "state": "SC",
+      "lat": 33.56,
+      "lon": -81.72,
+      "pop": 32000,
+      "metro_pop": 611000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 50,
+      "services": 69.4,
+      "curated": false
+    },
+    {
+      "name": "Asheville, NC",
+      "state": "NC",
+      "lat": 35.6,
+      "lon": -82.55,
+      "pop": 95000,
+      "metro_pop": 469015,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 76.5,
+      "services": 85.6,
+      "curated": true
+    },
+    {
+      "name": "Ashland, OR",
+      "state": "OR",
+      "lat": 42.19,
+      "lon": -122.71,
+      "pop": 21000,
+      "metro_pop": 223259,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 71,
+      "services": 77,
+      "curated": true
+    },
+    {
+      "name": "Austin, TX",
+      "state": "TX",
+      "lat": 30.27,
+      "lon": -97.74,
+      "pop": 975000,
+      "metro_pop": 975000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 81.8,
+      "services": 86.5,
+      "curated": true
+    },
+    {
+      "name": "Bentonville, AR",
+      "state": "AR",
+      "lat": 36.37,
+      "lon": -94.21,
+      "pop": 60000,
+      "metro_pop": 546725,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 63,
+      "services": 79.3,
+      "curated": false
+    },
+    {
+      "name": "Billings, MT",
+      "state": "MT",
+      "lat": 45.78,
+      "lon": -108.5,
+      "pop": 120000,
+      "metro_pop": 120000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 51,
+      "services": 85.2,
+      "curated": false
+    },
+    {
+      "name": "Biloxi, MS",
+      "state": "MS",
+      "lat": 30.4,
+      "lon": -88.89,
+      "pop": 49000,
+      "metro_pop": 416259,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 51.5,
+      "services": 67.6,
+      "curated": false
+    },
+    {
+      "name": "Bisbee, AZ",
+      "state": "AZ",
+      "lat": 31.45,
+      "lon": -109.92,
+      "pop": 5000,
+      "metro_pop": 125447,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 60.5,
+      "services": 46.6,
+      "curated": true
+    },
+    {
+      "name": "Boerne, TX",
+      "state": "TX",
+      "lat": 29.79,
+      "lon": -98.73,
+      "pop": 21000,
+      "metro_pop": 2558143,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 52.5,
+      "services": 65.3,
+      "curated": false
+    },
+    {
+      "name": "Boise, ID",
+      "state": "ID",
+      "lat": 43.62,
+      "lon": -116.21,
+      "pop": 240000,
+      "metro_pop": 240000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 63.5,
+      "services": 88.3,
+      "curated": true
+    },
+    {
+      "name": "Boulder, CO",
+      "state": "CO",
+      "lat": 40.01,
+      "lon": -105.27,
+      "pop": 105000,
+      "metro_pop": 105000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 71.5,
+      "services": 76.2,
+      "curated": false
+    },
+    {
+      "name": "Bozeman, MT",
+      "state": "MT",
+      "lat": 45.68,
+      "lon": -111.04,
+      "pop": 57000,
+      "metro_pop": 118960,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 62.5,
+      "services": 86.1,
+      "curated": true
+    },
+    {
+      "name": "Branson, MO",
+      "state": "MO",
+      "lat": 36.64,
+      "lon": -93.22,
+      "pop": 12000,
+      "metro_pop": 56066,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 51,
+      "services": 57.5,
+      "curated": false
+    },
+    {
+      "name": "Brownsville, TX",
+      "state": "TX",
+      "lat": 25.9,
+      "lon": -97.5,
+      "pop": 190000,
+      "metro_pop": 190000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 49.5,
+      "services": 72.1,
+      "curated": true
+    },
+    {
+      "name": "Buckeye, AZ",
+      "state": "AZ",
+      "lat": 33.37,
+      "lon": -112.58,
+      "pop": 110000,
+      "metro_pop": 110000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 40.5,
+      "services": 67.2,
+      "curated": false
+    },
+    {
+      "name": "Burlington, VT",
+      "state": "VT",
+      "lat": 44.48,
+      "lon": -73.21,
+      "pop": 44000,
+      "metro_pop": 225562,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 75.5,
+      "services": 87.8,
+      "curated": false
+    },
+    {
+      "name": "Carson City, NV",
+      "state": "NV",
+      "lat": 39.16,
+      "lon": -119.77,
+      "pop": 58000,
+      "metro_pop": 58639,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 48.5,
+      "services": 68.8,
+      "curated": true
+    },
+    {
+      "name": "Casa Grande, AZ",
+      "state": "AZ",
+      "lat": 32.88,
+      "lon": -111.76,
+      "pop": 60000,
+      "metro_pop": 4845832,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 40.5,
+      "services": 66.7,
+      "curated": false
+    },
+    {
+      "name": "Chandler, AZ",
+      "state": "AZ",
+      "lat": 33.31,
+      "lon": -111.84,
+      "pop": 280000,
+      "metro_pop": 280000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 65.5,
+      "services": 86.5,
+      "curated": true
+    },
+    {
+      "name": "Charleston, SC",
+      "state": "SC",
+      "lat": 32.78,
+      "lon": -79.93,
+      "pop": 155000,
+      "metro_pop": 155000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 70.5,
+      "services": 84.7,
+      "curated": false
+    },
+    {
+      "name": "Chattanooga, TN",
+      "state": "TN",
+      "lat": 35.05,
+      "lon": -85.31,
+      "pop": 185000,
+      "metro_pop": 185000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 64,
+      "services": 82.9,
+      "curated": false
+    },
+    {
+      "name": "Cheyenne, WY",
+      "state": "WY",
+      "lat": 41.14,
+      "lon": -104.82,
+      "pop": 65000,
+      "metro_pop": 100512,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 42.5,
+      "services": 64.9,
+      "curated": false
+    },
+    {
+      "name": "Chico, CA",
+      "state": "CA",
+      "lat": 39.73,
+      "lon": -121.84,
+      "pop": 102000,
+      "metro_pop": 102000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 57.5,
+      "services": 70.3,
+      "curated": false
+    },
+    {
+      "name": "Coeur d'Alene, ID",
+      "state": "ID",
+      "lat": 47.68,
+      "lon": -116.78,
+      "pop": 56000,
+      "metro_pop": 171362,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 54,
+      "services": 71.2,
+      "curated": true
+    },
+    {
+      "name": "Colorado Springs, CO",
+      "state": "CO",
+      "lat": 38.83,
+      "lon": -104.82,
+      "pop": 480000,
+      "metro_pop": 480000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 60,
+      "services": 85.6,
+      "curated": false
+    },
+    {
+      "name": "Columbia, SC",
+      "state": "SC",
+      "lat": 34,
+      "lon": -81.03,
+      "pop": 140000,
+      "metro_pop": 140000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 57,
+      "services": 82,
+      "curated": false
+    },
+    {
+      "name": "Corpus Christi, TX",
+      "state": "TX",
+      "lat": 27.8,
+      "lon": -97.4,
+      "pop": 320000,
+      "metro_pop": 320000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 53,
+      "services": 77,
+      "curated": false
+    },
+    {
+      "name": "Duluth, MN",
+      "state": "MN",
+      "lat": 46.79,
+      "lon": -92.1,
+      "pop": 86000,
+      "metro_pop": 291638,
+      "season_tags": [
+        "summer"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 58.5,
+      "services": 82.9,
+      "curated": false
+    },
+    {
+      "name": "El Paso, TX",
+      "state": "TX",
+      "lat": 31.76,
+      "lon": -106.49,
+      "pop": 680000,
+      "metro_pop": 680000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 53.8,
+      "services": 81.1,
+      "curated": true
+    },
+    {
+      "name": "Fairhope, AL",
+      "state": "AL",
+      "lat": 30.52,
+      "lon": -87.9,
+      "pop": 24000,
+      "metro_pop": 231767,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 54,
+      "services": 66.2,
+      "curated": false
+    },
+    {
+      "name": "Fayetteville, AR",
+      "state": "AR",
+      "lat": 36.06,
+      "lon": -94.16,
+      "pop": 100000,
+      "metro_pop": 100000,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 65.5,
+      "services": 78.4,
+      "curated": false
+    },
+    {
+      "name": "Flagstaff, AZ",
+      "state": "AZ",
+      "lat": 35.2,
+      "lon": -111.65,
+      "pop": 77000,
+      "metro_pop": 145101,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 62.5,
+      "services": 84.2,
+      "curated": false
+    },
+    {
+      "name": "Fort Collins, CO",
+      "state": "CO",
+      "lat": 40.59,
+      "lon": -105.08,
+      "pop": 170000,
+      "metro_pop": 170000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 66,
+      "services": 70.8,
+      "curated": false
+    },
+    {
+      "name": "Fort Myers, FL",
+      "state": "FL",
+      "lat": 26.64,
+      "lon": -81.87,
+      "pop": 92000,
+      "metro_pop": 760822,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 53.5,
+      "services": 77.5,
+      "curated": false
+    },
+    {
+      "name": "Gainesville, FL",
+      "state": "FL",
+      "lat": 29.65,
+      "lon": -82.32,
+      "pop": 145000,
+      "metro_pop": 145000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 62.5,
+      "services": 82,
+      "curated": false
+    },
+    {
+      "name": "Galveston, TX",
+      "state": "TX",
+      "lat": 29.3,
+      "lon": -94.8,
+      "pop": 53000,
+      "metro_pop": 7122240,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 56.5,
+      "services": 63.1,
+      "curated": false
+    },
+    {
+      "name": "Georgetown, TX",
+      "state": "TX",
+      "lat": 30.63,
+      "lon": -97.68,
+      "pop": 90000,
+      "metro_pop": 2283371,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 53.5,
+      "services": 74.3,
+      "curated": true
+    },
+    {
+      "name": "Grand Junction, CO",
+      "state": "CO",
+      "lat": 39.06,
+      "lon": -108.55,
+      "pop": 68000,
+      "metro_pop": 155703,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 50.5,
+      "services": 84.2,
+      "curated": false
+    },
+    {
+      "name": "Grand Rapids, MI",
+      "state": "MI",
+      "lat": 42.96,
+      "lon": -85.67,
+      "pop": 200000,
+      "metro_pop": 200000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 65,
+      "services": 85.6,
+      "curated": false
+    },
+    {
+      "name": "Greenville, SC",
+      "state": "SC",
+      "lat": 34.85,
+      "lon": -82.39,
+      "pop": 72000,
+      "metro_pop": 928195,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 65,
+      "services": 82.5,
+      "curated": false
+    },
+    {
+      "name": "Gulf Shores, AL",
+      "state": "AL",
+      "lat": 30.25,
+      "lon": -87.7,
+      "pop": 15000,
+      "metro_pop": 231767,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 40.5,
+      "services": 59,
+      "curated": false
+    },
+    {
+      "name": "Henderson, NV",
+      "state": "NV",
+      "lat": 36.04,
+      "lon": -114.98,
+      "pop": 320000,
+      "metro_pop": 320000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 66,
+      "services": 84.2,
+      "curated": true
+    },
+    {
+      "name": "Hendersonville, NC",
+      "state": "NC",
+      "lat": 35.32,
+      "lon": -82.46,
+      "pop": 15000,
+      "metro_pop": 469015,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 55,
+      "services": 75.7,
+      "curated": false
+    },
+    {
+      "name": "Hot Springs, AR",
+      "state": "AR",
+      "lat": 34.5,
+      "lon": -93.05,
+      "pop": 38000,
+      "metro_pop": 100180,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 55,
+      "services": 60.9,
+      "curated": false
+    },
+    {
+      "name": "Ithaca, NY",
+      "state": "NY",
+      "lat": 42.44,
+      "lon": -76.5,
+      "pop": 32000,
+      "metro_pop": 105162,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 71.5,
+      "services": 89.2,
+      "curated": false
+    },
+    {
+      "name": "Jacksonville, FL",
+      "state": "FL",
+      "lat": 30.33,
+      "lon": -81.66,
+      "pop": 950000,
+      "metro_pop": 1605848,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 57.5,
+      "services": 83.8,
+      "curated": false
+    },
+    {
+      "name": "Johnson City, TN",
+      "state": "TN",
+      "lat": 36.31,
+      "lon": -82.35,
+      "pop": 72000,
+      "metro_pop": 207285,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 53.5,
+      "services": 77.5,
+      "curated": false
+    },
+    {
+      "name": "Kennewick, WA",
+      "state": "WA",
+      "lat": 46.21,
+      "lon": -119.14,
+      "pop": 85000,
+      "metro_pop": 319428,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 46,
+      "services": 80.2,
+      "curated": false
+    },
+    {
+      "name": "Kerrville, TX",
+      "state": "TX",
+      "lat": 30.05,
+      "lon": -99.14,
+      "pop": 25000,
+      "metro_pop": 52598,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 65.5,
+      "services": 49.2,
+      "curated": true
+    },
+    {
+      "name": "Klamath Falls, OR",
+      "state": "OR",
+      "lat": 42.22,
+      "lon": -121.78,
+      "pop": 22000,
+      "metro_pop": 69413,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 38.5,
+      "services": 48.2,
+      "curated": false
+    },
+    {
+      "name": "Knoxville, TN",
+      "state": "TN",
+      "lat": 35.96,
+      "lon": -83.92,
+      "pop": 195000,
+      "metro_pop": 195000,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 66.5,
+      "services": 83.8,
+      "curated": true
+    },
+    {
+      "name": "Lafayette, LA",
+      "state": "LA",
+      "lat": 30.22,
+      "lon": -92.02,
+      "pop": 121000,
+      "metro_pop": 121000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 76,
+      "services": 79.3,
+      "curated": false
+    },
+    {
+      "name": "Lake Charles, LA",
+      "state": "LA",
+      "lat": 30.21,
+      "lon": -93.22,
+      "pop": 85000,
+      "metro_pop": 254652,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 58,
+      "services": 67.6,
+      "curated": false
+    },
+    {
+      "name": "Lake Havasu City, AZ",
+      "state": "AZ",
+      "lat": 34.48,
+      "lon": -114.32,
+      "pop": 58000,
+      "metro_pop": 213267,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 41.5,
+      "services": 49.3,
+      "curated": false
+    },
+    {
+      "name": "Lakeland, FL",
+      "state": "FL",
+      "lat": 28.04,
+      "lon": -81.95,
+      "pop": 120000,
+      "metro_pop": 120000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 52,
+      "services": 72.1,
+      "curated": true
+    },
+    {
+      "name": "Las Vegas, NV",
+      "state": "NV",
+      "lat": 36.17,
+      "lon": -115.14,
+      "pop": 660000,
+      "metro_pop": 660000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 74.5,
+      "services": 86.1,
+      "curated": true
+    },
+    {
+      "name": "Marquette, MI",
+      "state": "MI",
+      "lat": 46.54,
+      "lon": -87.4,
+      "pop": 20000,
+      "metro_pop": 66017,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 51.5,
+      "services": 66.3,
+      "curated": false
+    },
+    {
+      "name": "McAllen, TX",
+      "state": "TX",
+      "lat": 26.2,
+      "lon": -98.23,
+      "pop": 145000,
+      "metro_pop": 145000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 51,
+      "services": 76.2,
+      "curated": true
+    },
+    {
+      "name": "Medford, OR",
+      "state": "OR",
+      "lat": 42.33,
+      "lon": -122.87,
+      "pop": 88000,
+      "metro_pop": 223259,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 52.5,
+      "services": 83.3,
+      "curated": false
+    },
+    {
+      "name": "Mesa, AZ",
+      "state": "AZ",
+      "lat": 33.42,
+      "lon": -111.83,
+      "pop": 510000,
+      "metro_pop": 510000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 60.5,
+      "services": 86.5,
+      "curated": true
+    },
+    {
+      "name": "Mesquite, NV",
+      "state": "NV",
+      "lat": 36.8,
+      "lon": -114.07,
+      "pop": 24000,
+      "metro_pop": 2265461,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 42,
+      "services": 52.3,
+      "curated": false
+    },
+    {
+      "name": "Missoula, MT",
+      "state": "MT",
+      "lat": 46.87,
+      "lon": -114,
+      "pop": 76000,
+      "metro_pop": 122457,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 64,
+      "services": 84.2,
+      "curated": false
+    },
+    {
+      "name": "Montrose, CO",
+      "state": "CO",
+      "lat": 38.48,
+      "lon": -107.88,
+      "pop": 20000,
+      "metro_pop": 42679,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 46.5,
+      "services": 65.6,
+      "curated": false
+    },
+    {
+      "name": "Naples, FL",
+      "state": "FL",
+      "lat": 26.14,
+      "lon": -81.79,
+      "pop": 22000,
+      "metro_pop": 375752,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 63,
+      "services": 75.2,
+      "curated": true
+    },
+    {
+      "name": "New Braunfels, TX",
+      "state": "TX",
+      "lat": 29.7,
+      "lon": -98.12,
+      "pop": 110000,
+      "metro_pop": 110000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 69.5,
+      "services": 72.5,
+      "curated": true
+    },
+    {
+      "name": "Newport, RI",
+      "state": "RI",
+      "lat": 41.49,
+      "lon": -71.31,
+      "pop": 25000,
+      "metro_pop": 85643,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 67,
+      "services": 69.8,
+      "curated": false
+    },
+    {
+      "name": "Ogden, UT",
+      "state": "UT",
+      "lat": 41.22,
+      "lon": -111.97,
+      "pop": 87000,
+      "metro_pop": 637197,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 57,
+      "services": 73.9,
+      "curated": false
+    },
+    {
+      "name": "Oklahoma City, OK",
+      "state": "OK",
+      "lat": 35.47,
+      "lon": -97.52,
+      "pop": 695000,
+      "metro_pop": 695000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 65.5,
+      "services": 82.9,
+      "curated": false
+    },
+    {
+      "name": "Palm Springs, CA",
+      "state": "CA",
+      "lat": 33.83,
+      "lon": -116.55,
+      "pop": 48000,
+      "metro_pop": 4599839,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 71,
+      "services": 87.4,
+      "curated": false
+    },
+    {
+      "name": "Paso Robles, CA",
+      "state": "CA",
+      "lat": 35.63,
+      "lon": -120.69,
+      "pop": 31000,
+      "metro_pop": 282424,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 58.5,
+      "services": 69.4,
+      "curated": false
+    },
+    {
+      "name": "Pensacola, FL",
+      "state": "FL",
+      "lat": 30.42,
+      "lon": -87.22,
+      "pop": 54000,
+      "metro_pop": 511503,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 57,
+      "services": 82,
+      "curated": true
+    },
+    {
+      "name": "Pittsburgh, PA",
+      "state": "PA",
+      "lat": 40.44,
+      "lon": -79.99,
+      "pop": 300000,
+      "metro_pop": 2370930,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 67.5,
+      "services": 85.2,
+      "curated": false
+    },
+    {
+      "name": "Portland, ME",
+      "state": "ME",
+      "lat": 43.66,
+      "lon": -70.26,
+      "pop": 68000,
+      "metro_pop": 551740,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 74.5,
+      "services": 88.8,
+      "curated": false
+    },
+    {
+      "name": "Portsmouth, NH",
+      "state": "NH",
+      "lat": 43.07,
+      "lon": -70.76,
+      "pop": 22000,
+      "metro_pop": 330000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 70.5,
+      "services": 80.2,
+      "curated": true
+    },
+    {
+      "name": "Prescott, AZ",
+      "state": "AZ",
+      "lat": 34.54,
+      "lon": -112.47,
+      "pop": 46000,
+      "metro_pop": 236209,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 65.5,
+      "services": 54.7,
+      "curated": true
+    },
+    {
+      "name": "Providence, RI",
+      "state": "RI",
+      "lat": 41.82,
+      "lon": -71.41,
+      "pop": 190000,
+      "metro_pop": 1676579,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 69.5,
+      "services": 85.6,
+      "curated": false
+    },
+    {
+      "name": "Rapid City, SD",
+      "state": "SD",
+      "lat": 44.08,
+      "lon": -103.23,
+      "pop": 78000,
+      "metro_pop": 139074,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 49,
+      "services": 83.3,
+      "curated": false
+    },
+    {
+      "name": "Redding, CA",
+      "state": "CA",
+      "lat": 40.59,
+      "lon": -122.39,
+      "pop": 95000,
+      "metro_pop": 182155,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 50,
+      "services": 79.3,
+      "curated": false
+    },
+    {
+      "name": "Reno, NV",
+      "state": "NV",
+      "lat": 39.53,
+      "lon": -119.81,
+      "pop": 275000,
+      "metro_pop": 275000,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 59.5,
+      "services": 87.4,
+      "curated": false
+    },
+    {
+      "name": "Roanoke, VA",
+      "state": "VA",
+      "lat": 37.27,
+      "lon": -79.94,
+      "pop": 100000,
+      "metro_pop": 100000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 57.5,
+      "services": 85.2,
+      "curated": false
+    },
+    {
+      "name": "Salt Lake City, UT",
+      "state": "UT",
+      "lat": 40.76,
+      "lon": -111.89,
+      "pop": 205000,
+      "metro_pop": 205000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 68.5,
+      "services": 88.3,
+      "curated": false
+    },
+    {
+      "name": "San Antonio, TX",
+      "state": "TX",
+      "lat": 29.42,
+      "lon": -98.49,
+      "pop": 1470000,
+      "metro_pop": 1470000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 70,
+      "services": 85.6,
+      "curated": false
+    },
+    {
+      "name": "San Diego, CA",
+      "state": "CA",
+      "lat": 32.72,
+      "lon": -117.16,
+      "pop": 1390000,
+      "metro_pop": 1390000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 78,
+      "services": 89.7,
+      "curated": false
+    },
+    {
+      "name": "San Luis Obispo, CA",
+      "state": "CA",
+      "lat": 35.28,
+      "lon": -120.66,
+      "pop": 48000,
+      "metro_pop": 282424,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 67.5,
+      "services": 83.8,
+      "curated": false
+    },
+    {
+      "name": "Sandpoint, ID",
+      "state": "ID",
+      "lat": 48.28,
+      "lon": -116.55,
+      "pop": 9000,
+      "metro_pop": 47110,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 51.5,
+      "services": 43.7,
+      "curated": false
+    },
+    {
+      "name": "Sarasota, FL",
+      "state": "FL",
+      "lat": 27.34,
+      "lon": -82.53,
+      "pop": 58000,
+      "metro_pop": 833716,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 66.5,
+      "services": 85.6,
+      "curated": false
+    },
+    {
+      "name": "Saratoga Springs, NY",
+      "state": "NY",
+      "lat": 43.08,
+      "lon": -73.78,
+      "pop": 28000,
+      "metro_pop": 235509,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 74,
+      "services": 75.7,
+      "curated": false
+    },
+    {
+      "name": "Savannah, GA",
+      "state": "GA",
+      "lat": 32.08,
+      "lon": -81.09,
+      "pop": 148000,
+      "metro_pop": 148000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 67,
+      "services": 82,
+      "curated": false
+    },
+    {
+      "name": "Sedona, AZ",
+      "state": "AZ",
+      "lat": 34.87,
+      "lon": -111.76,
+      "pop": 10000,
+      "metro_pop": 145101,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 53.5,
+      "services": 59,
+      "curated": false
+    },
+    {
+      "name": "Sheridan, WY",
+      "state": "WY",
+      "lat": 44.8,
+      "lon": -106.96,
+      "pop": 19000,
+      "metro_pop": 30921,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 51.5,
+      "services": 50.7,
+      "curated": true
+    },
+    {
+      "name": "Sierra Vista, AZ",
+      "state": "AZ",
+      "lat": 31.55,
+      "lon": -110.3,
+      "pop": 45000,
+      "metro_pop": 125447,
+      "season_tags": [
+        "summer",
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 31.5,
+      "services": 51.1,
+      "curated": false
+    },
+    {
+      "name": "Sioux Falls, SD",
+      "state": "SD",
+      "lat": 43.54,
+      "lon": -96.73,
+      "pop": 210000,
+      "metro_pop": 210000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 54,
+      "services": 87.8,
+      "curated": false
+    },
+    {
+      "name": "Spokane, WA",
+      "state": "WA",
+      "lat": 47.66,
+      "lon": -117.43,
+      "pop": 230000,
+      "metro_pop": 230000,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 62,
+      "services": 86.1,
+      "curated": false
+    },
+    {
+      "name": "Springfield, MO",
+      "state": "MO",
+      "lat": 37.21,
+      "lon": -93.29,
+      "pop": 170000,
+      "metro_pop": 170000,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 54,
+      "services": 82.9,
+      "curated": false
+    },
+    {
+      "name": "St. Augustine, FL",
+      "state": "FL",
+      "lat": 29.9,
+      "lon": -81.31,
+      "pop": 15000,
+      "metro_pop": 273135,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 66.5,
+      "services": 79.8,
+      "curated": true
+    },
+    {
+      "name": "St. George, UT",
+      "state": "UT",
+      "lat": 37.1,
+      "lon": -113.58,
+      "pop": 100000,
+      "metro_pop": 100000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 46,
+      "services": 86.5,
+      "curated": true
+    },
+    {
+      "name": "St. Petersburg, FL",
+      "state": "FL",
+      "lat": 27.77,
+      "lon": -82.64,
+      "pop": 260000,
+      "metro_pop": 260000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 67,
+      "services": 80.2,
+      "curated": false
+    },
+    {
+      "name": "Surprise, AZ",
+      "state": "AZ",
+      "lat": 33.63,
+      "lon": -112.37,
+      "pop": 150000,
+      "metro_pop": 150000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 46.5,
+      "services": 75.2,
+      "curated": false
+    },
+    {
+      "name": "Tampa, FL",
+      "state": "FL",
+      "lat": 27.95,
+      "lon": -82.46,
+      "pop": 400000,
+      "metro_pop": 3175275,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 69.5,
+      "services": 84.7,
+      "curated": true
+    },
+    {
+      "name": "The Villages, FL",
+      "state": "FL",
+      "lat": 28.93,
+      "lon": -81.96,
+      "pop": 80000,
+      "metro_pop": 129752,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 58,
+      "services": 73.9,
+      "curated": false
+    },
+    {
+      "name": "Traverse City, MI",
+      "state": "MI",
+      "lat": 44.76,
+      "lon": -85.62,
+      "pop": 15000,
+      "metro_pop": 153448,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 61,
+      "services": 83.3,
+      "curated": true
+    },
+    {
+      "name": "Tucson, AZ",
+      "state": "AZ",
+      "lat": 32.22,
+      "lon": -110.97,
+      "pop": 545000,
+      "metro_pop": 545000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": false,
+      "scene": 63,
+      "services": 86.5,
+      "curated": true
+    },
+    {
+      "name": "Tulsa, OK",
+      "state": "OK",
+      "lat": 36.15,
+      "lon": -95.99,
+      "pop": 410000,
+      "metro_pop": 410000,
+      "season_tags": [
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 72,
+      "services": 83.8,
+      "curated": false
+    },
+    {
+      "name": "Twin Falls, ID",
+      "state": "ID",
+      "lat": 42.56,
+      "lon": -114.46,
+      "pop": 55000,
+      "metro_pop": 114283,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 45,
+      "services": 52,
+      "curated": false
+    },
+    {
+      "name": "Vero Beach, FL",
+      "state": "FL",
+      "lat": 27.64,
+      "lon": -80.4,
+      "pop": 17000,
+      "metro_pop": 159788,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": true,
+      "no_income_tax": true,
+      "scene": 52.5,
+      "services": 55.6,
+      "curated": false
+    },
+    {
+      "name": "Waco, TX",
+      "state": "TX",
+      "lat": 31.55,
+      "lon": -97.15,
+      "pop": 140000,
+      "metro_pop": 140000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 53,
+      "services": 74.8,
+      "curated": false
+    },
+    {
+      "name": "Wenatchee, WA",
+      "state": "WA",
+      "lat": 47.42,
+      "lon": -120.31,
+      "pop": 36000,
+      "metro_pop": 122300,
+      "season_tags": [
+        "summer",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": true,
+      "scene": 48,
+      "services": 67.2,
+      "curated": false
+    },
+    {
+      "name": "Wilmington, NC",
+      "state": "NC",
+      "lat": 34.21,
+      "lon": -77.89,
+      "pop": 120000,
+      "metro_pop": 120000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 60.5,
+      "services": 82.9,
+      "curated": false
+    }
+  ]
+}
