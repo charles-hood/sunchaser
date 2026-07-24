@@ -217,6 +217,10 @@ const localDate = (daysFromNow = 0) => {
   return d.toLocaleDateString("en-CA"); // YYYY-MM-DD
 };
 
+// Calendar arithmetic on ISO dates, timezone-free (noon UTC dodges DST).
+const addDays = (iso, n) =>
+  new Date(Date.parse(iso + "T12:00:00Z") + n * 86400000).toISOString().slice(0, 10);
+
 async function planRoute(fromInput, toInput, { log = console.error } = {}) {
   const cacheFile = path.join(cfg.VAR_DIR, "route-cache.json");
   let cache = {};
@@ -261,7 +265,13 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
     cursor = stop.mile;
   }
 
-  const wx = await stopoverWeather(stopovers);
+  // The origin rides along in the weather batch solely to learn the ORIGIN's
+  // local calendar date: trip day N is "origin today + N", which is then
+  // matched against each stopover's own local forecast dates. Anchoring to
+  // the server's clock (or the stopover's) picks the wrong night across
+  // timezones.
+  const wx = stopovers.length ? await stopoverWeather([from, ...stopovers]) : [];
+  const departDate = wx[0]?.daily?.time?.[0] || localDate(0);
   const waypoints = [
     { name: from.name, lat: from.lat, lon: from.lon, mile: 0 },
     ...stopovers,
@@ -277,11 +287,11 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
     const isLast = i === waypoints.length - 2;
     let night = null;
     if (!isLast) {
-      const w = wx[i];
+      const w = wx[i + 1]; // wx[0] is the origin
       if (w?.daily?.time) {
         // Match the arrival CALENDAR DATE against the stopover's local
         // forecast dates; beyond the 7-day horizon stays honestly null.
-        const di = w.daily.time.indexOf(localDate(i));
+        const di = w.daily.time.indexOf(addDays(departDate, i));
         if (di >= 0) {
           night = {
             date: w.daily.time[di],
@@ -352,5 +362,5 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
 
 module.exports = {
   planRoute, geocode, haversine,
-  cumulative, pointAtMile, projectOntoRoute, // exported for tests
+  cumulative, pointAtMile, projectOntoRoute, addDays, // exported for tests
 };

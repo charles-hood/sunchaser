@@ -104,10 +104,12 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    // Static files. Resolve inside PUBLIC only.
+    // Static files. Resolve inside PUBLIC only; the boundary check must be
+    // separator-aware so a sibling like "publicX/" can never match.
     let file = url.pathname === "/" ? "/index.html" : url.pathname;
     const full = path.join(PUBLIC, path.normalize(file));
-    if (!full.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
+    const rel = path.relative(PUBLIC, full);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) { res.writeHead(403); return res.end(); }
     fs.readFile(full, (err, data) => {
       if (err) { res.writeHead(404); return res.end("not found"); }
       res.writeHead(200, { "content-type": MIME[path.extname(full)] || "application/octet-stream" });

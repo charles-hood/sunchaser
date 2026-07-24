@@ -78,6 +78,19 @@ now fixed, and are regression surface for pass 2):**
 - R3a: any batched multi-coordinate response with a count mismatch is
   discarded whole, never index-assigned.
 
+**Rubric addendum 2 (added after GLM pass 1; fixed, regression surface):**
+
+- R8b: stopover arrival dates are anchored to the ORIGIN's local calendar
+  (from its own forecast dates), then matched against each stopover's local
+  forecast dates. Neither the server clock nor the stopover clock anchors
+  trip days.
+- R5b: the daily AI counter increments under an exclusive lock; concurrent
+  processes cannot both claim the same slot.
+- R6a: static-path containment is separator-aware (a `publicX/` sibling can
+  never satisfy the boundary check).
+- R4c: a null or daily-less element inside an otherwise count-correct batch
+  response skips that one city, never crashes the refresh.
+
 **Report format.** For each finding: severity (**blocker** = wrong results,
 crash, security hole, or uncapped spend; **should-fix** = real defect with
 narrow trigger; **nit** = anything else), `file:line`, a one-sentence claim,

@@ -128,6 +128,9 @@ async function refresh({ force = false, log = console.error } = {}) {
           throw new Error(`expected ${batch.length} results, got ${results.length}`);
         }
         batch.forEach((c, j) => {
+          // A null or daily-less element skips just that city (keeping any
+          // stale record) instead of crashing the whole refresh.
+          if (!results[j]?.daily) return;
           raw.cities[c.name] = {
             tier: full ? "active" : "dormant",
             fetched_at: now.toISOString(),

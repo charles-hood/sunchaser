@@ -89,14 +89,38 @@ function counters() {
   catch { return {}; }
 }
 
+// Increment the daily counter under a best-effort exclusive lock so two
+// concurrent processes can't both read N and both write N+1. If the lock
+// can't be won within ~1 s we proceed unlocked (overshoot stays bounded by
+// the number of racers, same as before, instead of deadlocking).
 function bumpCounter() {
-  const c = counters();
-  const day = new Date().toISOString().slice(0, 10);
-  c[day] = (c[day] || 0) + 1;
-  for (const k of Object.keys(c)) if (k < day) delete c[k];
   fs.mkdirSync(cfg.VAR_DIR, { recursive: true });
-  fs.writeFileSync(cfg.COUNTERS_FILE, JSON.stringify(c));
-  return c[day];
+  const lockFile = cfg.COUNTERS_FILE + ".lock";
+  let fd = null;
+  const deadline = Date.now() + 1000;
+  while (fd === null && Date.now() < deadline) {
+    try { fd = fs.openSync(lockFile, "wx"); }
+    catch {
+      try {
+        if (Date.now() - fs.statSync(lockFile).mtimeMs > 5000) fs.unlinkSync(lockFile);
+      } catch {}
+      const spin = Date.now() + 20;
+      while (Date.now() < spin);
+    }
+  }
+  try {
+    const c = counters();
+    const day = new Date().toISOString().slice(0, 10);
+    c[day] = (c[day] || 0) + 1;
+    for (const k of Object.keys(c)) if (k < day) delete c[k];
+    fs.writeFileSync(cfg.COUNTERS_FILE, JSON.stringify(c));
+    return c[day];
+  } finally {
+    if (fd !== null) {
+      fs.closeSync(fd);
+      try { fs.unlinkSync(lockFile); } catch {}
+    }
+  }
 }
 
 // Shared low-level Anthropic call: allowlisted model, capped, cached system

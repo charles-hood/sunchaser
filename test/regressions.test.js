@@ -3,7 +3,7 @@
 const { test } = require("node:test");
 const assert = require("node:assert");
 const { scoreCity, buildSnapshot } = require("../engine/score");
-const { cumulative, pointAtMile, projectOntoRoute } = require("../engine/route");
+const { cumulative, pointAtMile, projectOntoRoute, addDays } = require("../engine/route");
 
 const goodDaily = (n = 7) => ({
   time: Array.from({ length: n }, (_, i) => `2026-07-${23 + i}`),
@@ -62,6 +62,13 @@ test("F12: on-route point projects near zero even with sparse vertices", () => {
   const p = projectOntoRoute({ lat: 0, lon: 4 }, coords, cum);
   assert.ok(p.offMi < 1, `offMi=${p.offMi}`);
   assert.ok(Math.abs(p.mile - cum[1] * 0.8) < 3, `mile=${p.mile}`);
+});
+
+test("B1: addDays is pure calendar arithmetic across month/year/DST edges", () => {
+  assert.equal(addDays("2026-07-31", 1), "2026-08-01");
+  assert.equal(addDays("2026-12-31", 1), "2027-01-01");
+  assert.equal(addDays("2026-11-01", 1), "2026-11-02"); // US DST fall-back day
+  assert.equal(addDays("2026-07-23", 0), "2026-07-23");
 });
 
 test("F12b: pointAtMile interpolates instead of snapping to a vertex", () => {
