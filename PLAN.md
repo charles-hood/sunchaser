@@ -1,5 +1,10 @@
 # Sunchaser: Project Plan
 
+> **Status (2026-07-23): shipped.** All seven milestones are built and the
+> site is live at https://sunchaser.rockofpages.com/. This document is the
+> original plan, kept for reference; where it disagrees with the code, the
+> code (and README.md) wins.
+
 > "Go to where the good weather is." Sunchaser answers, on any given day: **of my
 > vetted nomad cities, where is the best weather right now and for the coming
 > week, and how do I drive there?**

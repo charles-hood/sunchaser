@@ -5,6 +5,9 @@
 and has Claude adjudicate and explain the best place to be right now and for
 the coming week. See PLAN.md for the full design.
 
+**Live at https://sunchaser.rockofpages.com/** (deployed 2026-07-23; a
+systemd timer on the droplet refreshes weather and the verdict every 3 h).
+
 ## Usage
 
 ```
@@ -29,6 +32,14 @@ calls/day. Copy `.env.example` to `.env` and add a dedicated key.
   `node tools/extract-cities.js` when rotation-optimizer's pool changes)
 - `engine/` - config, fetcher (tiering/cache/backoff), scorer (pure,
   tested), verdict (Claude adjudication)
-- `var/` - runtime state, gitignored: raw weather, snapshot, verdict, counters
-- Milestones 5-7 (route planner, frontend, droplet deploy) are planned in
-  PLAN.md and not yet built.
+- `var/` - runtime state, gitignored: raw weather, snapshot, verdict,
+  counters, route cache
+- `server/` + `public/` - the web app (local: `node server/index.js`)
+
+## Deployment and reviews
+
+Production deploys are owned by Charles's webmaster AI (hand off via
+DEPLOY-PROMPT.md; do not deploy directly). Systemd unit files live in the
+reverse-proxy repo under `sunchaser/`, not here. Code review runs against
+the frozen rubric in REVIEW-PROMPT.md (two-model pass 1 complete, 21
+findings fixed; pass 2 closure pending).
