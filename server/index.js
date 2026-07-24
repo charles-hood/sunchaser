@@ -12,7 +12,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const cfg = require("../engine/config");
-const { refresh, loadCities } = require("../engine/fetch");
+const { refresh, loadCities, setPromotions } = require("../engine/fetch");
 const { buildSnapshot } = require("../engine/score");
 const { planRoute } = require("../engine/route");
 
@@ -45,6 +45,9 @@ async function getSnapshot() {
       const snap = buildSnapshot(raw, loadCities());
       fs.mkdirSync(cfg.VAR_DIR, { recursive: true });
       fs.writeFileSync(cfg.SNAPSHOT_FILE, JSON.stringify(snap));
+      // Promotions must persist regardless of which entry point built the
+      // snapshot, or dormant near-leaders never get active-tier data.
+      if (snap.promotions.length) setPromotions(snap.promotions);
       return snap;
     } finally { refreshing = null; }
   })();

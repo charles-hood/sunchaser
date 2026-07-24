@@ -100,12 +100,18 @@ function extractDays(daily) {
   }));
 }
 
-// One city's raw record -> scores.
+// One city's raw record -> scores. Throws on malformed records; callers skip.
 function scoreCity(rec, W = WEIGHTS) {
-  const days = extractDays(rec.daily).map((d) => ({ ...d, score: dayComfort(d, W) }));
+  if (!Array.isArray(rec?.daily?.time) || !Array.isArray(rec.daily.temperature_2m_max)) {
+    throw new Error("malformed daily block");
+  }
+  const days = extractDays(rec.daily)
+    .filter((d) => Number.isFinite(d.hi) && Number.isFinite(d.lo))
+    .map((d) => ({ ...d, score: dayComfort(d, W) }));
+  if (!days.length) throw new Error("no usable forecast days");
 
   let nudge = 0;
-  if (rec.current) {
+  if (rec.current && Number.isFinite(rec.current.apparent_temperature)) {
     const app = rec.current.apparent_temperature;
     const mid = (W.HI_IDEAL_LOW + W.HI_IDEAL_HIGH) / 2;
     nudge = clamp((15 - Math.abs(app - mid)) / 15, -1, 1) * W.NOW_NUDGE_MAX;
@@ -126,10 +132,13 @@ function scoreCity(rec, W = WEIGHTS) {
 // Full raw snapshot + city metadata -> ranked snapshot object.
 function buildSnapshot(raw, cities) {
   const scored = [];
+  let skipped = 0;
   for (const c of cities) {
     const rec = raw.cities[c.name];
     if (!rec) continue;
-    const s = scoreCity(rec);
+    let s;
+    try { s = scoreCity(rec); }
+    catch { skipped++; continue; } // one malformed record never sinks the snapshot
     scored.push({
       ...c,
       tier: rec.tier,
@@ -158,7 +167,7 @@ function buildSnapshot(raw, cities) {
       season: raw.season,
       scoring_version: SCORING_VERSION,
       tie_epsilon: cfg.TIE_EPSILON,
-      counts: { scored: scored.length, active: scored.filter((c) => c.tier === "active").length },
+      counts: { scored: scored.length, skipped, active: scored.filter((c) => c.tier === "active").length },
     },
     ties,
     promotions,

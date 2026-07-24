@@ -90,7 +90,13 @@ async function refresh({ force = false, log = console.error } = {}) {
   try {
     lockFd = fs.openSync(lockFile, "wx"); // single-flight
   } catch {
-    throw new Error("another fetch is in progress (var/fetch.lock exists)");
+    // A crashed process can orphan the lock; reclaim it once it is older
+    // than any plausible in-flight refresh.
+    let stale = true;
+    try { stale = Date.now() - fs.statSync(lockFile).mtimeMs > 10 * 60 * 1000; } catch {}
+    if (!stale) throw new Error("another fetch is in progress (var/fetch.lock exists)");
+    try { fs.unlinkSync(lockFile); } catch {}
+    lockFd = fs.openSync(lockFile, "wx"); // still throws if we lost the reclaim race
   }
   try {
     const cities = loadCities();
@@ -104,7 +110,9 @@ async function refresh({ force = false, log = console.error } = {}) {
       // A dormant record satisfies an active slot only if it also has current
       // data; tier upgrades therefore force a refetch.
       if (ttl === cfg.ACTIVE_TTL_MS && !prev.current) return true;
-      return now.getTime() - Date.parse(prev.fetched_at) > ttl;
+      // A corrupt or future timestamp must mean "refetch", never "fresh forever".
+      const age = now.getTime() - Date.parse(prev.fetched_at);
+      return !(Number.isFinite(age) && age >= 0 && age <= ttl);
     };
     const activeDue = active.filter((c) => due(c, cfg.ACTIVE_TTL_MS));
     const dormantDue = dormant.filter((c) => due(c, cfg.DORMANT_TTL_MS));
@@ -133,8 +141,20 @@ async function refresh({ force = false, log = console.error } = {}) {
       }
     }
 
+    // Keep stored tier labels in sync with the current season and promotions
+    // even for cities that weren't due this run. Data richness is tracked by
+    // the presence of `current`, not by this label.
+    for (const c of active) if (raw.cities[c.name]) raw.cities[c.name].tier = "active";
+    for (const c of dormant) if (raw.cities[c.name]) raw.cities[c.name].tier = "dormant";
+
     raw.season = season;
     raw.updated_at = now.toISOString();
+    // Merge promotions written by another process while we were fetching,
+    // so a slow refresh can't clobber them.
+    try {
+      const disk = JSON.parse(fs.readFileSync(RAW_FILE, "utf8"));
+      raw.promotions = { ...disk.promotions, ...raw.promotions };
+    } catch {}
     fs.writeFileSync(RAW_FILE, JSON.stringify(raw));
     log(`season=${season} active=${active.length} dormant=${dormant.length} ` +
         `fetched=${activeDue.length + dormantDue.length} requests=${calls}`);

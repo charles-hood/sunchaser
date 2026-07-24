@@ -54,6 +54,30 @@ meets / gap found. This rubric is the terminating condition of the review.
   indexing, and date labels behave correctly across timezones and around
   midnight; nothing mixes UTC and local time in a way that changes behavior.
 
+**Rubric addendum (added after pass 1; all items below were pass-1 findings,
+now fixed, and are regression surface for pass 2):**
+
+- R4a: a crashed process must not permanently wedge the fetch lock; corrupt
+  or missing `fetched_at` timestamps must mean "refetch", never "fresh".
+- R4b: one malformed city record (missing daily arrays, null temps, empty
+  `current`) must be skipped, never crash scoring or produce NaN scores.
+- R2a: promotions must persist from EVERY snapshot entry point (CLI and
+  server), survive concurrent writers, and stored tier labels must update at
+  season boundaries even for cities not due for refetch.
+- R5a: the daily AI cap must be reserve-before-spend (increment then check).
+- R7a: geocoding with an explicit state must match Open-Meteo's full
+  `admin1` names (expanded from abbreviations) or error, never silently pick
+  another state.
+- R7b: off-route projection must measure distance to route segments, not
+  sampled vertices; mile lookups interpolate.
+- R7c: every planned day must respect `max_day_mi` (or carry an explicit
+  warning); day miles include off-route detours; displayed totals equal the
+  sum of displayed day values.
+- R8a: stopover night weather is matched by calendar date in the stopover's
+  local timezone; nights beyond the forecast horizon are null, not reused.
+- R3a: any batched multi-coordinate response with a count mismatch is
+  discarded whole, never index-assigned.
+
 **Report format.** For each finding: severity (**blocker** = wrong results,
 crash, security hole, or uncapped spend; **should-fix** = real defect with
 narrow trigger; **nit** = anything else), `file:line`, a one-sentence claim,

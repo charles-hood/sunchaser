@@ -104,8 +104,10 @@ function bumpCounter() {
 async function callClaude(system, userMsg, { modelId, maxTokens = cfg.VERDICT_MAX_TOKENS, log = console.error } = {}) {
   const key = loadEnvKey();
   if (!key) throw new Error("no ANTHROPIC_API_KEY in environment or .env");
-  const today = new Date().toISOString().slice(0, 10);
-  if ((counters()[today] || 0) >= cfg.VERDICT_DAILY_CAP) {
+  // Reserve the budget slot BEFORE spending: increment-then-check, so a
+  // failed or concurrent call can never push spend past the cap. A failed
+  // call still consumes a slot; that errs on the cheap side.
+  if (bumpCounter() > cfg.VERDICT_DAILY_CAP) {
     throw new Error(`daily AI call cap reached (${cfg.VERDICT_DAILY_CAP})`);
   }
   const res = await fetch(cfg.ANTHROPIC_URL, {
@@ -128,7 +130,6 @@ async function callClaude(system, userMsg, { modelId, maxTokens = cfg.VERDICT_MA
     throw new Error(`anthropic HTTP ${res.status}: ${body.slice(0, 300)}`);
   }
   const msg = await res.json();
-  bumpCounter();
   if (msg.stop_reason === "refusal") throw new Error("model refused the request");
   if (msg.stop_reason === "max_tokens") log("warning: output hit max_tokens");
   return msg;
