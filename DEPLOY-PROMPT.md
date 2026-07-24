@@ -1,8 +1,3 @@
-# Deployment handoff: Sunchaser
-
-Paste everything below the line to the webmaster AI.
-
----
 
 Please deploy a new site, **Sunchaser**, to the droplet as
 `sunchaser.rockofpages.com`. Follow the same house patterns you use for
@@ -41,7 +36,7 @@ layout intact relative to its root: `engine/`, `server/`, `public/`,
 ## Secrets: /etc/sunchaser.env (mode 600)
 
 ```
-ANTHROPIC_API_KEY=<NEW dedicated key>
+ANTHROPIC_API_KEY=<Charles's existing key, from /etc/lotcheck-pro.env>
 PORT=<chosen port>
 ```
 
@@ -86,8 +81,8 @@ rockofpages.com isn't wildcarded.)
 - `GET /api/health` → `{ok, snapshot_age_min, verdict_age_min,
   ai_calls_today, ai_daily_cap}`. Healthy after first timer run: all
   non-null, ages under ~200 min.
-- `GET /api/snapshot` → scored cities JSON (~1 MB; may take ~20 s on a cold
-  cache while it fetches weather, then instant).
+- `GET /api/snapshot` → scored cities JSON (~180 KB raw; may take ~20 s on a
+  cold cache while it fetches weather, then instant).
 - `GET /api/verdict` → cached AI verdict; 404 until the first CLI run.
 - `GET /api/route?from=Atlanta,%20GA` → trip plan JSON (calls OSRM's public
   server + Open-Meteo geocoding; throttled to 6/min per IP in-app).
