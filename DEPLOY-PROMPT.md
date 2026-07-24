@@ -45,12 +45,12 @@ ANTHROPIC_API_KEY=<NEW dedicated key>
 PORT=<chosen port>
 ```
 
-Charles must mint a NEW spend-capped Anthropic key for this app in the
-Anthropic console (do not reuse lotcheck-pro's; spend must stay
-attributable). The app also enforces its own hard cap of 12 Anthropic calls
-per day, tracked in `var/counters.json` and visible at `/api/health`.
-Expected spend is a few cents/day (claude-sonnet-5, ~2k-token calls, prompt
-cached).
+Reuse Charles's existing Anthropic key (the same one lotcheck-pro uses on
+the droplet; copy it from `/etc/lotcheck-pro.env`, or ask Charles if it
+isn't there). No new key needed. The app enforces its own hard cap of 12
+Anthropic calls per day, tracked in `var/counters.json` and visible at
+`/api/health`. Expected spend is a few cents/day (claude-sonnet-5,
+~2k-token calls, prompt cached).
 
 ## Scheduled refresh (systemd timer)
 
@@ -105,6 +105,5 @@ rubric in `REVIEW-PROMPT.md`; 21 findings fixed, commits `7a08b62` and
 
 ## Out of scope for you
 
-Don't create the Anthropic key (Charles does that), don't run `npm install`
-(there is nothing to install), and don't set up any database (state is flat
-files in `./var/`).
+Don't run `npm install` (there is nothing to install), and don't set up any
+database (state is flat files in `./var/`).
