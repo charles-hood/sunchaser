@@ -99,6 +99,41 @@ function bumpCounter() {
   return c[day];
 }
 
+// Shared low-level Anthropic call: allowlisted model, capped, cached system
+// block, stop_reason guarded. Every AI leg in sunchaser goes through this.
+async function callClaude(system, userMsg, { modelId, maxTokens = cfg.VERDICT_MAX_TOKENS, log = console.error } = {}) {
+  const key = loadEnvKey();
+  if (!key) throw new Error("no ANTHROPIC_API_KEY in environment or .env");
+  const today = new Date().toISOString().slice(0, 10);
+  if ((counters()[today] || 0) >= cfg.VERDICT_DAILY_CAP) {
+    throw new Error(`daily AI call cap reached (${cfg.VERDICT_DAILY_CAP})`);
+  }
+  const res = await fetch(cfg.ANTHROPIC_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": cfg.ANTHROPIC_VERSION,
+    },
+    body: JSON.stringify({
+      model: modelId,
+      max_tokens: maxTokens,
+      output_config: { effort: "medium" },
+      system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
+      messages: [{ role: "user", content: userMsg }],
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`anthropic HTTP ${res.status}: ${body.slice(0, 300)}`);
+  }
+  const msg = await res.json();
+  bumpCounter();
+  if (msg.stop_reason === "refusal") throw new Error("model refused the request");
+  if (msg.stop_reason === "max_tokens") log("warning: output hit max_tokens");
+  return msg;
+}
+
 async function getVerdict(snapshot, { model = "default", force = false, log = console.error } = {}) {
   const modelId = cfg.MODELS[model];
   if (!modelId) throw new Error(`model must be one of: ${Object.keys(cfg.MODELS)}`); // allowlist
@@ -116,39 +151,8 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
     }
   } catch {}
 
-  const key = loadEnvKey();
-  if (!key) {
-    throw new Error("no ANTHROPIC_API_KEY in environment or .env; cannot generate verdict");
-  }
-  const today = new Date().toISOString().slice(0, 10);
-  if ((counters()[today] || 0) >= cfg.VERDICT_DAILY_CAP) {
-    throw new Error(`daily verdict cap reached (${cfg.VERDICT_DAILY_CAP})`);
-  }
-
   log(`verdict: calling ${modelId}`);
-  const res = await fetch(cfg.ANTHROPIC_URL, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": key,
-      "anthropic-version": cfg.ANTHROPIC_VERSION,
-    },
-    body: JSON.stringify({
-      model: modelId,
-      max_tokens: cfg.VERDICT_MAX_TOKENS,
-      output_config: { effort: "medium" },
-      system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-      messages: [{ role: "user", content: userMsg }],
-    }),
-  });
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`anthropic HTTP ${res.status}: ${body.slice(0, 300)}`);
-  }
-  const msg = await res.json();
-  bumpCounter();
-  if (msg.stop_reason === "refusal") throw new Error("model refused the request");
-  if (msg.stop_reason === "max_tokens") log("verdict: warning, output hit max_tokens");
+  const msg = await callClaude(SYSTEM, userMsg, { modelId, log });
 
   let markdown = msg.content.filter((b) => b.type === "text").map((b) => b.text).join("\n");
   const firstHeading = markdown.indexOf("## ");
@@ -169,4 +173,4 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
   return verdict;
 }
 
-module.exports = { getVerdict, buildUserMessage, SYSTEM };
+module.exports = { getVerdict, callClaude, buildUserMessage, SYSTEM };

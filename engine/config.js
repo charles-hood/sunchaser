@@ -34,6 +34,23 @@ module.exports = {
   VERDICT_MAX_TOKENS: 2000,
   VERDICT_DAILY_CAP: 12,   // hard cap on paid calls per day
 
+  // Route planner (milestone 5).
+  SUPERCHARGERS_FILE: path.join(ROOT, "data", "superchargers.json"),
+  OSRM_URL: "https://router.project-osrm.org/route/v1/driving",
+  GEOCODE_URL: "https://geocoding-api.open-meteo.com/v1/search",
+  ROUTE_CACHE_TTL_MS: 24 * 3600 * 1000,
+  VEHICLE: {
+    name: "2026 Tesla Model X",
+    range_mi: 330,      // rated; correct me if the spec sheet says otherwise
+    first_leg_mi: 280,  // morning stretch on a full overnight charge
+    leg_cap_mi: 220,    // conservative charge-to-charge planning distance
+    max_day_mi: 500,    // driving-day ceiling
+    avg_day_hours: 8,   // driving + charging budget per day
+  },
+  CORRIDOR_MI: 25,      // how far off-route a stopover city may sit
+  SC_NEAR_MI: 10,       // stopover must have a supercharger within this
+  SC_GAP_WARN_MI: 150,  // warn if consecutive on-route superchargers gap more
+
   // Month -> season, mirroring rotation-optimizer's buckets.
   seasonForMonth(m /* 1-12 */) {
     if (m >= 6 && m <= 8) return "summer";
