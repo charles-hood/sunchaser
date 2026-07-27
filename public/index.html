@@ -159,6 +159,9 @@ const WMO = {
   96: ["Thunderstorm w/ hail", "⛈️"], 99: ["Thunderstorm w/ hail", "⛈️"],
 };
 const wmo = (code) => WMO[code] || ["–", "·"];
+// Upstream numerics are coerced at the sink, not merely escaped: anything
+// non-finite renders as a dash and can never reach innerHTML verbatim.
+const num = (v) => (Number.isFinite(v) ? v : "–");
 const dayName = (iso) => new Date(iso + "T12:00").toLocaleDateString(undefined, { weekday: "short" });
 const scoreColor = (s) => `hsl(${Math.max(0, Math.min(120, (s - 30) * (120 / 60)))},65%,42%)`;
 
@@ -187,9 +190,9 @@ function renderCards(top) {
       <div class="cond">${esc(label)}${cur ? `, feels ${Math.round(cur.apparent_temperature)}°` : " (daily hi)"} </div>
       <div class="stats">
         <span>H/L <b>${Math.round(d0.hi)}°/${Math.round(d0.lo)}°</b></span>
-        <span>Rain <b>${d0.precipProb}%</b></span>
+        <span>Rain <b>${num(d0.precipProb)}%</b></span>
         ${cur ? `<span>Wind <b>${Math.round(cur.wind_speed_10m)} mph</b></span>` : ""}
-        ${cur ? `<span>Hum <b>${cur.relative_humidity_2m}%</b></span>` : ""}
+        ${cur ? `<span>Hum <b>${num(cur.relative_humidity_2m)}%</b></span>` : ""}
       </div>
       <div class="scores">
         <span>now <span class="v" style="color:${scoreColor(c.scores.now)}">${c.scores.now}</span></span>
@@ -213,7 +216,7 @@ function renderWeek(top) {
         <span>${dayName(d.date)}</span><span>${icon}</span>
         <span class="wbarwrap" title="${Math.round(d.hi)}°/${Math.round(d.lo)}°">
           <span class="wbar" style="left:${l}%;width:${Math.max(3, w)}%"></span></span>
-        <span class="wrain">${d.precipProb}%</span>
+        <span class="wrain">${num(d.precipProb)}%</span>
       </div>`;
     }).join("")}
   </div>`).join("");
@@ -236,7 +239,7 @@ function renderMap(cities) {
     }).bindPopup(
       `<b>${esc(c.name)}</b>${c.curated ? " (curated)" : ""}<br>` +
       `combined ${c.scores.combined} · now ${c.scores.now} · week ${c.scores.week}<br>` +
-      `today ${Math.round(c.days[0].hi)}°/${Math.round(c.days[0].lo)}°, rain ${c.days[0].precipProb}%<br>` +
+      `today ${Math.round(c.days[0].hi)}°/${Math.round(c.days[0].lo)}°, rain ${num(c.days[0].precipProb)}%<br>` +
       `<span style="color:#888">${c.tier} tier · scene ${c.scene} · services ${c.services}</span>`
     ).addTo(map);
   }
@@ -247,7 +250,7 @@ const COLS = [
   ["Now", (c) => c.scores.now, "num"], ["Week", (c) => c.scores.week, "num"],
   ["Combined", (c) => c.scores.combined, "num"],
   ["Hi", (c) => Math.round(c.days[0].hi), "num"], ["Lo", (c) => Math.round(c.days[0].lo), "num"],
-  ["Rain%", (c) => c.days[0].precipProb, "num"], ["Tier", (c) => c.tier], ["Curated", (c) => c.curated ? "★" : ""],
+  ["Rain%", (c) => num(c.days[0].precipProb), "num"], ["Tier", (c) => c.tier], ["Curated", (c) => c.curated ? "★" : ""],
 ];
 let sortKey = 4, sortDesc = true;
 function renderTable() {
@@ -284,8 +287,8 @@ async function planRoute() {
       <div>${d.miles} mi · ~${d.driveHours} h · ${d.chargeStops} charge stop${d.chargeStops === 1 ? "" : "s"}</div>
       ${d.stopover ? `
         <div class="mutedline">overnight: ${esc(d.stopover.name)}${d.stopover.curated ? " ★ curated" : d.stopover.vetted ? " · vetted" : ""}</div>
-        <div class="mutedline">⚡ ${esc(d.stopover.supercharger.name)} (${d.stopover.supercharger.stalls} stalls, ${d.stopover.supercharger.kw} kW)</div>
-        ${d.stopover.night ? `<div class="mutedline">night: ${d.stopover.night.hi}°/${d.stopover.night.lo}°, rain ${d.stopover.night.precipProb}%</div>` : ""}
+        <div class="mutedline">⚡ ${esc(d.stopover.supercharger.name)} (${num(d.stopover.supercharger.stalls)} stalls, ${num(d.stopover.supercharger.kw)} kW)</div>
+        ${d.stopover.night ? `<div class="mutedline">night: ${num(d.stopover.night.hi)}°/${num(d.stopover.night.lo)}°, rain ${num(d.stopover.night.precipProb)}%</div>` : ""}
       ` : `<div class="mutedline">arrive 🎉</div>`}
     </div>`).join("");
     routeLayer.clearLayers();

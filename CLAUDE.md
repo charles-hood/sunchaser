@@ -37,12 +37,13 @@ hand off. Systemd units live in the reverse-proxy repo under `sunchaser/`.
 
 ## Reviews
 
-Cross-model review rubric is frozen in REVIEW-PROMPT.md (base + two
-addenda). Pass 1 (Codex + GLM 5.2) complete, 21 findings fixed with
-regression tests in `test/regressions.test.js`. Pass 2 closure pending: new
-findings are only valid if in-rubric or regressions from fixes; two clean
-passes terminate. Confirmed findings get fixed, folded into the rubric, and
-regression-tested.
+Cross-model review rubric is frozen in REVIEW-PROMPT.md (base + three
+addenda). Pass 1 (Codex + GLM 5.2) complete, 21 findings fixed. Kimi K3
+pass 2 complete: 3 findings plus 1 sibling found via R0, all fixed
+(addendum 3, K* tests in `test/regressions.test.js`, see
+KIMI-PASS2-FINDINGS.md). Closure stands at zero clean passes: new findings
+are only valid if in-rubric or regressions from fixes; two consecutive
+clean passes against the frozen rubric terminate the review.
 
 ## Data provenance
 

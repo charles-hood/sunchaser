@@ -80,21 +80,27 @@ function dayComfort(day, W = WEIGHTS) {
   return clamp(Math.round(s * 10) / 10, 0, 100);
 }
 
-// Open-Meteo daily arrays -> per-day objects.
+// A schema-violating upstream value (a string where a number belongs) falls
+// back instead of entering arithmetic: one bad field must never NaN a score
+// and, through the leader, empty the whole snapshot's ties.
+const num = (v, fb) => (Number.isFinite(v) ? v : fb);
+
+// Open-Meteo daily arrays -> per-day objects. hi/lo stay raw on purpose:
+// scoreCity's finiteness filter drops those days entirely.
 function extractDays(daily) {
   return daily.time.map((date, i) => ({
     date,
     hi: daily.temperature_2m_max[i],
     lo: daily.temperature_2m_min[i],
-    appHi: daily.apparent_temperature_max?.[i],
-    precipProb: daily.precipitation_probability_max?.[i] ?? 0,
-    precipSum: daily.precipitation_sum?.[i] ?? 0,
-    snow: daily.snowfall_sum?.[i] ?? 0,
-    wind: daily.wind_speed_10m_max?.[i] ?? 0,
-    gust: daily.wind_gusts_10m_max?.[i] ?? 0,
-    uv: daily.uv_index_max?.[i] ?? 0,
-    sunFrac: daily.daylight_duration?.[i]
-      ? (daily.sunshine_duration?.[i] ?? 0) / daily.daylight_duration[i]
+    appHi: num(daily.apparent_temperature_max?.[i], null),
+    precipProb: num(daily.precipitation_probability_max?.[i], 0),
+    precipSum: num(daily.precipitation_sum?.[i], 0),
+    snow: num(daily.snowfall_sum?.[i], 0),
+    wind: num(daily.wind_speed_10m_max?.[i], 0),
+    gust: num(daily.wind_gusts_10m_max?.[i], 0),
+    uv: num(daily.uv_index_max?.[i], 0),
+    sunFrac: num(daily.daylight_duration?.[i], 0) > 0
+      ? num(daily.sunshine_duration?.[i], 0) / daily.daylight_duration[i]
       : null,
     code: daily.weather_code?.[i],
   }));

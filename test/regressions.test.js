@@ -1,9 +1,10 @@
 "use strict";
-// Regression tests for confirmed pass-1 review findings.
+// Regression tests for confirmed review findings (F*/B* pass 1, K* Kimi pass 2).
 const { test } = require("node:test");
 const assert = require("node:assert");
 const { scoreCity, buildSnapshot } = require("../engine/score");
-const { cumulative, pointAtMile, projectOntoRoute, addDays } = require("../engine/route");
+const { cumulative, pointAtMile, projectOntoRoute, addDays, nightForLeg } = require("../engine/route");
+const { freshAge } = require("../engine/fetch");
 
 const goodDaily = (n = 7) => ({
   time: Array.from({ length: n }, (_, i) => `2026-07-${23 + i}`),
@@ -76,4 +77,62 @@ test("F12b: pointAtMile interpolates instead of snapping to a vertex", () => {
   const cum = cumulative(coords);
   const mid = pointAtMile(coords, cum, cum[1] / 2);
   assert.ok(Math.abs(mid.lon - 1) < 0.02, `lon=${mid.lon}`);
+});
+
+test("K1: string-typed upstream numerics are coerced, never NaN a score", () => {
+  const d = goodDaily();
+  d.precipitation_probability_max = Array(7).fill("35");
+  d.wind_speed_10m_max = Array(7).fill("forty");
+  d.sunshine_duration = Array(7).fill("oops");
+  const s = scoreCity({ daily: d, current: null });
+  assert.ok(Number.isFinite(s.now), `now=${s.now}`);
+  assert.ok(Number.isFinite(s.week), `week=${s.week}`);
+  assert.ok(Number.isFinite(s.combined), `combined=${s.combined}`);
+});
+
+test("K1b: one poisoned city cannot empty ties for the whole snapshot", () => {
+  const bad = goodDaily();
+  bad.snowfall_sum = Array(7).fill("heavy");
+  const raw = {
+    updated_at: "2026-07-23T00:00:00Z", season: "summer",
+    cities: {
+      "Good, XX": { tier: "active", fetched_at: "x", current: null, daily: goodDaily() },
+      "Poisoned, XX": { tier: "active", fetched_at: "x", current: null, daily: bad },
+    },
+  };
+  const cities = [
+    { name: "Good, XX", season_tags: [] },
+    { name: "Poisoned, XX", season_tags: [] },
+  ];
+  const snap = buildSnapshot(raw, cities);
+  assert.ok(snap.ties.length >= 1, `ties=${JSON.stringify(snap.ties)}`);
+  assert.ok(snap.cities.every((c) => Number.isFinite(c.scores.combined)));
+});
+
+test("K2: missing origin anchor yields null nights, never the server clock", () => {
+  const w = {
+    daily: {
+      time: ["2026-07-23", "2026-07-24", "2026-07-25"],
+      temperature_2m_max: [80, 82, 84],
+      temperature_2m_min: [60, 62, 64],
+      precipitation_probability_max: [10, 20, 30],
+    },
+  };
+  // stopoverWeather failed for the origin: no anchor, so no night, even
+  // though the stopover element itself is valid and today's date would match.
+  assert.equal(nightForLeg(w, null, 0), null);
+  // With a real anchor the same element matches by calendar date.
+  const night = nightForLeg(w, "2026-07-23", 1);
+  assert.equal(night.date, "2026-07-24");
+  assert.equal(night.hi, 82);
+});
+
+test("K3: freshness has a lower bound; a future timestamp is stale at every layer", () => {
+  const now = Date.parse("2026-07-27T12:00:00Z");
+  const ttl = 3 * 3600 * 1000;
+  assert.equal(freshAge("2026-07-27T11:00:00Z", ttl, now), true);  // 1h old: fresh
+  assert.equal(freshAge("2026-07-27T13:00:00Z", ttl, now), false); // 1h ahead: stale
+  assert.equal(freshAge("2026-07-27T07:00:00Z", ttl, now), false); // past TTL: stale
+  assert.equal(freshAge("garbage", ttl, now), false);
+  assert.equal(freshAge(undefined, ttl, now), false);
 });

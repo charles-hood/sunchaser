@@ -6,7 +6,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const cfg = require("./config");
-const { loadCities } = require("./fetch");
+const { loadCities, freshAge } = require("./fetch");
 
 const R_EARTH_MI = 3958.8;
 const MI_PER_DEG = 69.172;
@@ -211,15 +211,26 @@ async function stopoverWeather(points) {
   return arr.length === points.length ? arr : points.map(() => null);
 }
 
-const localDate = (daysFromNow = 0) => {
-  const d = new Date();
-  d.setDate(d.getDate() + daysFromNow);
-  return d.toLocaleDateString("en-CA"); // YYYY-MM-DD
-};
-
 // Calendar arithmetic on ISO dates, timezone-free (noon UTC dodges DST).
 const addDays = (iso, n) =>
   new Date(Date.parse(iso + "T12:00:00Z") + n * 86400000).toISOString().slice(0, 10);
+
+// Night weather for the stopover ending trip day i: match the arrival
+// CALENDAR DATE against the stopover's own local forecast dates. Beyond the
+// 7-day horizon, or with no origin anchor at all, the night stays honestly
+// null; the server clock never anchors trip days.
+function nightForLeg(w, departDate, i) {
+  if (!departDate || !w?.daily?.time) return null;
+  const di = w.daily.time.indexOf(addDays(departDate, i));
+  if (di < 0) return null;
+  const p = w.daily.precipitation_probability_max?.[di];
+  return {
+    date: w.daily.time[di],
+    hi: Math.round(w.daily.temperature_2m_max[di]),
+    lo: Math.round(w.daily.temperature_2m_min[di]),
+    precipProb: Number.isFinite(p) ? p : null,
+  };
+}
 
 async function planRoute(fromInput, toInput, { log = console.error } = {}) {
   const cacheFile = path.join(cfg.VAR_DIR, "route-cache.json");
@@ -227,7 +238,7 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
   try { cache = JSON.parse(fs.readFileSync(cacheFile, "utf8")); } catch {}
   const cacheKey = `${fromInput}|${toInput}`.toLowerCase();
   const hit = cache[cacheKey];
-  if (hit && Date.now() - Date.parse(hit.generated_at) < cfg.ROUTE_CACHE_TTL_MS) {
+  if (hit && freshAge(hit.generated_at, cfg.ROUTE_CACHE_TTL_MS)) {
     log("route: cache hit");
     return hit;
   }
@@ -269,9 +280,9 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
   // local calendar date: trip day N is "origin today + N", which is then
   // matched against each stopover's own local forecast dates. Anchoring to
   // the server's clock (or the stopover's) picks the wrong night across
-  // timezones.
+  // timezones; with no origin anchor, nights stay null rather than guessed.
   const wx = stopovers.length ? await stopoverWeather([from, ...stopovers]) : [];
-  const departDate = wx[0]?.daily?.time?.[0] || localDate(0);
+  const departDate = wx[0]?.daily?.time?.[0] ?? null;
   const waypoints = [
     { name: from.name, lat: from.lat, lon: from.lon, mile: 0 },
     ...stopovers,
@@ -285,23 +296,7 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
     const legMiles = b.mile - a.mile + detour;
     const legHours = (route.hours * (b.mile - a.mile)) / totalMiles + detour / 50;
     const isLast = i === waypoints.length - 2;
-    let night = null;
-    if (!isLast) {
-      const w = wx[i + 1]; // wx[0] is the origin
-      if (w?.daily?.time) {
-        // Match the arrival CALENDAR DATE against the stopover's local
-        // forecast dates; beyond the 7-day horizon stays honestly null.
-        const di = w.daily.time.indexOf(addDays(departDate, i));
-        if (di >= 0) {
-          night = {
-            date: w.daily.time[di],
-            hi: Math.round(w.daily.temperature_2m_max[di]),
-            lo: Math.round(w.daily.temperature_2m_min[di]),
-            precipProb: w.daily.precipitation_probability_max?.[di] ?? null,
-          };
-        }
-      }
-    }
+    const night = isLast ? null : nightForLeg(wx[i + 1], departDate, i); // wx[0] is the origin
     days.push({
       day: i + 1,
       from: a.name, to: b.name,
@@ -362,5 +357,5 @@ async function planRoute(fromInput, toInput, { log = console.error } = {}) {
 
 module.exports = {
   planRoute, geocode, haversine,
-  cumulative, pointAtMile, projectOntoRoute, addDays, // exported for tests
+  cumulative, pointAtMile, projectOntoRoute, addDays, nightForLeg, // exported for tests
 };

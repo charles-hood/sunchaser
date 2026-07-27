@@ -12,7 +12,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const cfg = require("../engine/config");
-const { refresh, loadCities, setPromotions } = require("../engine/fetch");
+const { refresh, loadCities, setPromotions, freshAge } = require("../engine/fetch");
 const { buildSnapshot } = require("../engine/score");
 const { planRoute } = require("../engine/route");
 
@@ -35,8 +35,7 @@ let refreshing = null;
 async function getSnapshot() {
   try {
     const snap = JSON.parse(fs.readFileSync(cfg.SNAPSHOT_FILE, "utf8"));
-    const age = Date.now() - Date.parse(snap._meta.generated_at);
-    if (age < cfg.ACTIVE_TTL_MS) return snap;
+    if (freshAge(snap._meta.generated_at, cfg.ACTIVE_TTL_MS)) return snap;
   } catch {}
   // Stale or missing: refresh, but never let concurrent requests stampede.
   refreshing = refreshing || (async () => {

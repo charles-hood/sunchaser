@@ -67,6 +67,14 @@ async function fetchBatch(cities, full, log) {
   }
 }
 
+// Lower-bounded freshness: a corrupt, missing, or FUTURE timestamp is stale,
+// never fresh. Every TTL layer (raw records, scored snapshot, route cache)
+// shares this one predicate.
+const freshAge = (iso, ttlMs, now = Date.now()) => {
+  const age = now - Date.parse(iso);
+  return Number.isFinite(age) && age >= 0 && age <= ttlMs;
+};
+
 // Decide each city's tier for this run. `promoted` names get active treatment.
 function tierCities(cities, now, promotions) {
   const season = cfg.seasonForMonth(now.getUTCMonth() + 1);
@@ -111,8 +119,7 @@ async function refresh({ force = false, log = console.error } = {}) {
       // data; tier upgrades therefore force a refetch.
       if (ttl === cfg.ACTIVE_TTL_MS && !prev.current) return true;
       // A corrupt or future timestamp must mean "refetch", never "fresh forever".
-      const age = now.getTime() - Date.parse(prev.fetched_at);
-      return !(Number.isFinite(age) && age >= 0 && age <= ttl);
+      return !freshAge(prev.fetched_at, ttl, now.getTime());
     };
     const activeDue = active.filter((c) => due(c, cfg.ACTIVE_TTL_MS));
     const dormantDue = dormant.filter((c) => due(c, cfg.DORMANT_TTL_MS));
@@ -183,4 +190,4 @@ function setPromotions(names, hours = cfg.PROMOTE_HOURS) {
   return kept;
 }
 
-module.exports = { refresh, loadCities, loadRaw, setPromotions, tierCities, RAW_FILE };
+module.exports = { refresh, loadCities, loadRaw, setPromotions, tierCities, freshAge, RAW_FILE };

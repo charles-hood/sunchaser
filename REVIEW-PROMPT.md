@@ -91,6 +91,22 @@ now fixed, and are regression surface for pass 2):**
 - R4c: a null or daily-less element inside an otherwise count-correct batch
   response skips that one city, never crashes the refresh.
 
+**Rubric addendum 3 (added after Kimi K3 pass 2; fixed, regression surface):**
+
+- R0: every addendum fix is checked for un-generalized siblings. When a fix
+  hardens one call site, the same pattern at every other call site is in
+  scope by default.
+- R6b: every upstream-derived numeric field is finiteness-checked before it
+  enters scoring, and coerced (not merely escaped) at every DOM sink. A
+  schema-violating upstream value can neither produce a NaN score nor reach
+  `innerHTML` verbatim.
+- R8c: when the origin's forecast anchor is unavailable, night matching is
+  skipped entirely. There is no fallback path on which the server clock
+  anchors trip days.
+- R4d: freshness checks at EVERY layer (raw records, scored snapshots, route
+  cache) treat a future timestamp as stale, not fresh; all layers share the
+  one lower-bounded predicate (`freshAge` in `engine/fetch.js`).
+
 **Report format.** For each finding: severity (**blocker** = wrong results,
 crash, security hole, or uncapped spend; **should-fix** = real defect with
 narrow trigger; **nit** = anything else), `file:line`, a one-sentence claim,
