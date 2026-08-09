@@ -42,6 +42,8 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
 }
 .card .cname { font-weight: 700; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
 .badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
+.cbadges { display: flex; gap: 6px; align-items: center; }
+.rentchip { font-size: 11px; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", monospace; cursor: help; }
 .bigtemp { font-size: 34px; font-weight: 800; margin: 6px 0 2px; }
 .cond { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
 .stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
@@ -155,7 +157,9 @@ a { color: var(--accent); }
   <footer>
     Weather data by <a href="https://open-meteo.com/">Open-Meteo</a>. Supercharger locations by
     <a href="https://supercharge.info/">supercharge.info</a>. Routing by
-    <a href="http://project-osrm.org/">OSRM</a>. City vetting by rotation-optimizer.
+    <a href="http://project-osrm.org/">OSRM</a>. Rent data by
+    <a href="https://www.zillow.com/research/data/">Zillow Research</a> (ZORI).
+    City vetting by rotation-optimizer.
     Verdict written by an AI model from the deterministic scores; ties are honest ties.
   </footer>
 </div>
@@ -185,6 +189,13 @@ const dayName = (iso) => new Date(iso + "T12:00").toLocaleDateString(undefined, 
 const scoreColor = (s) => `hsl(${Math.max(0, Math.min(120, (s - 30) * (120 / 60)))},65%,42%)`;
 
 let SNAP = null;
+let RENTS = null; // display-only cost context (Zillow ZORI); never part of scores
+
+function rentChip(name) {
+  const r = RENTS && RENTS.rents && RENTS.rents[name];
+  if (!r) return "";
+  return `<span class="rentchip" title="typical rent $${r.rent.toLocaleString()}/mo — Zillow ZORI, ${esc(r.as_of)}">${"$".repeat(r.tier)}</span>`;
+}
 
 function renderVerdictMd(md) {
   // Markdown-lite: our verdict contract only uses ## headings and paragraphs.
@@ -256,7 +267,9 @@ function renderHow(meta) {
     <p class="hownote">The ideal band and slopes are editorial taste: this site prefers
     mild-and-dry over hot-and-humid. A 75°F clear day with a 19% shower chance loses under
     5 points and can still beat a muggy 88° beach day. If your ideal is warmer, read the
-    leader cards with that bias in mind.</p>`;
+    leader cards with that bias in mind.${RENTS ? ` Cost chips ($ = cheapest third,
+    $$$ = priciest third of this list, by Zillow's Observed Rent Index, ${esc(RENTS._meta.latest_month)})
+    are context for your budget only: cost never enters the scores.` : ""}</p>`;
 }
 
 function renderCards(top) {
@@ -266,7 +279,7 @@ function renderCards(top) {
     const [label, icon] = wmo(code);
     const d0 = c.days[0];
     return `<div class="card">
-      <div class="cname"><span>${esc(c.name)}</span>${c.curated ? '<span class="badge">curated</span>' : ""}</div>
+      <div class="cname"><span>${esc(c.name)}</span><span class="cbadges">${c.curated ? '<span class="badge">curated</span>' : ""}${rentChip(c.name)}</span></div>
       <div class="bigtemp">${icon} ${cur ? Math.round(cur.temperature_2m) + "°" : Math.round(d0.hi) + "°"}</div>
       <div class="cond">${esc(label)}${cur ? `, feels ${Math.round(cur.apparent_temperature)}°` : " (daily hi)"} </div>
       <div class="stats">
@@ -332,6 +345,7 @@ const COLS = [
   ["Combined", (c) => c.scores.combined, "num"],
   ["Hi", (c) => Math.round(c.days[0].hi), "num"], ["Lo", (c) => Math.round(c.days[0].lo), "num"],
   ["Rain%", (c) => num(c.days[0].precipProb), "num"], ["Tier", (c) => c.tier], ["Curated", (c) => c.curated ? "★" : ""],
+  ["Rent $/mo", (c) => (RENTS && RENTS.rents && RENTS.rents[c.name]) ? RENTS.rents[c.name].rent : "", "num"],
 ];
 let sortKey = 4, sortDesc = true;
 function renderTable() {
@@ -383,8 +397,10 @@ async function planRoute() {
 }
 
 async function load() {
-  const [snapRes, verdictRes] = await Promise.all([fetch("/api/snapshot"), fetch("/api/verdict")]);
+  const [snapRes, verdictRes, rentsRes] = await Promise.all([
+    fetch("/api/snapshot"), fetch("/api/verdict"), fetch("/api/rents")]);
   SNAP = await snapRes.json();
+  RENTS = rentsRes.ok ? await rentsRes.json() : null;
   $("updated").textContent =
     `updated ${new Date(SNAP._meta.generated_at).toLocaleString()} · season: ${SNAP._meta.season}` +
     ` · ${SNAP._meta.counts.active} active / ${SNAP.cities.length - SNAP._meta.counts.active} dormant`;

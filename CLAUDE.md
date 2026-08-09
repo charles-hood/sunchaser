@@ -66,3 +66,6 @@ next pass as change-reachable code.
   after the auto-theft hard gate was dropped 2026-08-09).
 - `data/superchargers.json`: refresh monthly-ish with
   `node tools/fetch-superchargers.js`.
+- `data/rents.json`: refresh monthly-ish with `node tools/fetch-rents.js`
+  (Zillow city-level ZORI, pattern borrowed from lotcheck's market
+  pipeline). Display-only $/$$/$$$ chips: cost never enters the scores.

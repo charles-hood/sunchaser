@@ -1,0 +1,552 @@
+{
+  "_meta": {
+    "source": "Zillow Observed Rent Index (ZORI), city level, smoothed, all homes+multifamily",
+    "url": "https://files.zillowstatic.com/research/public_csvs/zori/City_zori_uc_sfrcondomfr_sm_month.csv",
+    "fetched_at": "2026-08-09T13:32:13.889Z",
+    "latest_month": "2026-06",
+    "covered": 107,
+    "cities": 109,
+    "unmatched": [
+      "Bisbee, AZ",
+      "Sheridan, WY"
+    ],
+    "tiers": "1/2/3 = cheapest/middle/priciest third of covered cities, recomputed each refresh"
+  },
+  "rents": {
+    "Springfield, MO": {
+      "rent": 1230,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Klamath Falls, OR": {
+      "rent": 1257,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Lake Charles, LA": {
+      "rent": 1270,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Tulsa, OK": {
+      "rent": 1272,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "McAllen, TX": {
+      "rent": 1283,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Hot Springs, AR": {
+      "rent": 1297,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Oklahoma City, OK": {
+      "rent": 1298,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Ogden, UT": {
+      "rent": 1310,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Lafayette, LA": {
+      "rent": 1324,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Sioux Falls, SD": {
+      "rent": 1327,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Sierra Vista, AZ": {
+      "rent": 1341,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Galveston, TX": {
+      "rent": 1356,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Branson, MO": {
+      "rent": 1358,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Waco, TX": {
+      "rent": 1369,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Mesquite, NV": {
+      "rent": 1379,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "San Antonio, TX": {
+      "rent": 1382,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Biloxi, MS": {
+      "rent": 1386,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Roanoke, VA": {
+      "rent": 1394,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Corpus Christi, TX": {
+      "rent": 1415,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Tucson, AZ": {
+      "rent": 1425,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Aiken, SC": {
+      "rent": 1438,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Rapid City, SD": {
+      "rent": 1443,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Billings, MT": {
+      "rent": 1458,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Duluth, MN": {
+      "rent": 1458,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Johnson City, TN": {
+      "rent": 1467,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Marquette, MI": {
+      "rent": 1476,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Columbia, SC": {
+      "rent": 1478,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Boerne, TX": {
+      "rent": 1485,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Cheyenne, WY": {
+      "rent": 1494,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Spokane, WA": {
+      "rent": 1498,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Chattanooga, TN": {
+      "rent": 1505,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "El Paso, TX": {
+      "rent": 1521,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Mesa, AZ": {
+      "rent": 1549,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Missoula, MT": {
+      "rent": 1550,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Greenville, SC": {
+      "rent": 1561,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "New Braunfels, TX": {
+      "rent": 1563,
+      "tier": 1,
+      "as_of": "2026-06"
+    },
+    "Brownsville, TX": {
+      "rent": 1569,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Twin Falls, ID": {
+      "rent": 1575,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Chico, CA": {
+      "rent": 1577,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Pittsburgh, PA": {
+      "rent": 1593,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Jacksonville, FL": {
+      "rent": 1600,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Austin, TX": {
+      "rent": 1615,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Kennewick, WA": {
+      "rent": 1621,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Grand Rapids, MI": {
+      "rent": 1627,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Salt Lake City, UT": {
+      "rent": 1629,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Bentonville, AR": {
+      "rent": 1640,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Redding, CA": {
+      "rent": 1642,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Georgetown, TX": {
+      "rent": 1643,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Pensacola, FL": {
+      "rent": 1657,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Gainesville, FL": {
+      "rent": 1657,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Asheville, NC": {
+      "rent": 1688,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Lakeland, FL": {
+      "rent": 1689,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Wilmington, NC": {
+      "rent": 1694,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Casa Grande, AZ": {
+      "rent": 1711,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Fayetteville, AR": {
+      "rent": 1720,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Medford, OR": {
+      "rent": 1721,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Las Vegas, NV": {
+      "rent": 1722,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Wenatchee, WA": {
+      "rent": 1729,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Hendersonville, NC": {
+      "rent": 1730,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Knoxville, TN": {
+      "rent": 1735,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Colorado Springs, CO": {
+      "rent": 1739,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Lake Havasu City, AZ": {
+      "rent": 1753,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Grand Junction, CO": {
+      "rent": 1768,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Fort Myers, FL": {
+      "rent": 1779,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Savannah, GA": {
+      "rent": 1807,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Coeur d'Alene, ID": {
+      "rent": 1807,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Boise, ID": {
+      "rent": 1808,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Henderson, NV": {
+      "rent": 1826,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Gulf Shores, AL": {
+      "rent": 1830,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Carson City, NV": {
+      "rent": 1840,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Prescott, AZ": {
+      "rent": 1841,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Kerrville, TX": {
+      "rent": 1853,
+      "tier": 2,
+      "as_of": "2026-06"
+    },
+    "Bakersfield, CA": {
+      "rent": 1865,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "St. George, UT": {
+      "rent": 1884,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Chandler, AZ": {
+      "rent": 1903,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Surprise, AZ": {
+      "rent": 1927,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Reno, NV": {
+      "rent": 1932,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Fort Collins, CO": {
+      "rent": 1938,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Ithaca, NY": {
+      "rent": 1947,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Ashland, OR": {
+      "rent": 1971,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Burlington, VT": {
+      "rent": 1990,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Sandpoint, ID": {
+      "rent": 1992,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Tampa, FL": {
+      "rent": 1999,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Buckeye, AZ": {
+      "rent": 2002,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Traverse City, MI": {
+      "rent": 2005,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Montrose, CO": {
+      "rent": 2027,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "St. Petersburg, FL": {
+      "rent": 2058,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Flagstaff, AZ": {
+      "rent": 2117,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "St. Augustine, FL": {
+      "rent": 2121,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Palm Springs, CA": {
+      "rent": 2201,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Vero Beach, FL": {
+      "rent": 2214,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Sarasota, FL": {
+      "rent": 2218,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Bozeman, MT": {
+      "rent": 2227,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Fairhope, AL": {
+      "rent": 2242,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Charleston, SC": {
+      "rent": 2245,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "The Villages, FL": {
+      "rent": 2256,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Providence, RI": {
+      "rent": 2293,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Saratoga Springs, NY": {
+      "rent": 2374,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Portland, ME": {
+      "rent": 2429,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Boulder, CO": {
+      "rent": 2439,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Naples, FL": {
+      "rent": 2654,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Paso Robles, CA": {
+      "rent": 2684,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Sedona, AZ": {
+      "rent": 2712,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Portsmouth, NH": {
+      "rent": 2920,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "San Luis Obispo, CA": {
+      "rent": 2966,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "San Diego, CA": {
+      "rent": 3038,
+      "tier": 3,
+      "as_of": "2026-06"
+    },
+    "Newport, RI": {
+      "rent": 3163,
+      "tier": 3,
+      "as_of": "2026-06"
+    }
+  }
+}

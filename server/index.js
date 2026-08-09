@@ -79,6 +79,14 @@ const server = http.createServer(async (req, res) => {
         return json(res, 404, { error: "no verdict generated yet; run: node cli.js verdict" });
       }
     }
+    if (url.pathname === "/api/rents") {
+      // Display-only cost context (Zillow ZORI); never part of the scores.
+      try {
+        return json(res, 200, JSON.parse(fs.readFileSync(path.join(cfg.ROOT, "data", "rents.json"), "utf8")));
+      } catch {
+        return json(res, 404, { error: "no rent data; run: node tools/fetch-rents.js" });
+      }
+    }
     if (url.pathname === "/api/route") {
       const from = url.searchParams.get("from");
       let to = url.searchParams.get("to");

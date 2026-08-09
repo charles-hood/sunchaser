@@ -33,6 +33,9 @@ them. Copy `.env.example` to `.env` and add dedicated keys.
 
 - `data/cities.json` - the gate-passing cities (regenerate with
   `node tools/extract-cities.js` when rotation-optimizer's pool changes)
+- `data/rents.json` - typical rents (Zillow city ZORI; refresh monthly-ish
+  with `node tools/fetch-rents.js`). Feeds display-only $/$$/$$$ cost chips,
+  pool-relative terciles; cost never enters the weather scores.
 - `engine/` - config, fetcher (tiering/cache/backoff), scorer (pure,
   tested), verdict (AI adjudication)
 - `var/` - runtime state, gitignored: raw weather, snapshot, verdict,

@@ -96,6 +96,8 @@ rockofpages.com isn't wildcarded.)
 - `GET /api/snapshot` → scored cities JSON (~180 KB raw; may take ~20 s on a
   cold cache while it fetches weather, then instant).
 - `GET /api/verdict` → cached AI verdict; 404 until the first CLI run.
+- `GET /api/rents` → static Zillow ZORI rent tiers from `data/rents.json`
+  (display-only cost chips; regenerated locally, ships with the code).
 - `GET /api/route?from=Atlanta,%20GA` → trip plan JSON (calls OSRM's public
   server + Open-Meteo geocoding; throttled to 6/min per IP in-app).
 - Frontend `/` should render: verdict panel, city cards, map with ~109
