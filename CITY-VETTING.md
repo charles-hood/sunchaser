@@ -40,7 +40,13 @@ silently dropped.
   operator's EV within a 120-minute drive. This is the gate that excludes
   otherwise-lovely remote towns (Yuma, Bend, Taos, Durango). It is a
   proxy for a broader truth: a month-long stay depends on the modern
-  service web, not just scenery.
+  service web, not just scenery. It's the same species of proxy as "is
+  there an Apple Store within reach": premium service networks site
+  themselves on exactly the sophistication a visitor quietly depends on.
+  The calibration matters, though: an Apple-Store gate would demand a
+  major metro and would have vetoed Duluth and Marquette, while EV
+  service reaches into smaller capable towns. The proxy was chosen to
+  find sophistication without requiring scale.
 - **Safety, two layers.** An explicit hard-veto list for extreme cases,
   plus a *relative* danger tier: a violent-weighted composite of
   violent/property/auto-theft rates per 100k, excluding roughly the worst
