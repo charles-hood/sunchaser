@@ -43,7 +43,13 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
 .card .cname { font-weight: 700; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
 .badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
 .cbadges { display: flex; gap: 6px; align-items: center; }
-.rentchip { font-size: 11px; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", monospace; cursor: help; }
+.rentchip { font-size: 11px; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", monospace; cursor: help; position: relative; }
+.rentchip:hover::after {
+  content: attr(data-tip); position: absolute; right: 0; top: calc(100% + 6px);
+  background: var(--card); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  white-space: nowrap; z-index: 20; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+}
 .bigtemp { font-size: 34px; font-weight: 800; margin: 6px 0 2px; }
 .cond { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
 .stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
@@ -194,7 +200,7 @@ let RENTS = null; // display-only cost context (Zillow ZORI); never part of scor
 function rentChip(name) {
   const r = RENTS && RENTS.rents && RENTS.rents[name];
   if (!r) return "";
-  return `<span class="rentchip" title="typical rent $${r.rent.toLocaleString()}/mo — Zillow ZORI, ${esc(r.as_of)}">${"$".repeat(r.tier)}</span>`;
+  return `<span class="rentchip" data-tip="typical rent $${r.rent.toLocaleString()}/mo · Zillow ZORI, ${esc(r.as_of)}">${"$".repeat(r.tier)}</span>`;
 }
 
 function renderVerdictMd(md) {
