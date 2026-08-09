@@ -137,7 +137,7 @@ a { color: var(--accent); }
     Weather data by <a href="https://open-meteo.com/">Open-Meteo</a>. Supercharger locations by
     <a href="https://supercharge.info/">supercharge.info</a>. Routing by
     <a href="http://project-osrm.org/">OSRM</a>. City vetting by rotation-optimizer.
-    Verdict written by Claude from the deterministic scores; ties are honest ties.
+    Verdict written by an AI model from the deterministic scores; ties are honest ties.
   </footer>
 </div>
 
@@ -311,7 +311,7 @@ async function load() {
   if (verdictRes.ok) {
     const v = await verdictRes.json();
     $("verdict").innerHTML = `<div class="card">${renderVerdictMd(v.markdown)}
-      <div class="vmeta">by ${esc(v.model)} · ${new Date(v.generated_at).toLocaleString()} · ties: ${esc(v.ties.join("; ") || "none")}</div>
+      <div class="vmeta">by ${esc(v.model)} · ${new Date(v.generated_at).toLocaleString()} · ties: ${esc(v.ties.length > 1 ? v.ties.join("; ") : "none")}</div>
     </div>`;
   } else {
     $("verdict").innerHTML = `<div class="card">No verdict yet. Run <span class="mono">node cli.js verdict</span>.</div>`;

@@ -1,20 +1,23 @@
 # Sunchaser: notes for Claude sessions
 
 Live at https://sunchaser.rockofpages.com/. Scores live Open-Meteo weather
-across 108 vetted nomad cities, ranks deterministically, Claude adjudicates a
-shortlist, plans Tesla road trips. History: PLAN.md (original design),
-README.md (current usage).
+across 108 vetted nomad cities, ranks deterministically, an AI model
+adjudicates a shortlist (DeepSeek V4 Flash on Fireworks by default,
+claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
+(original design), README.md (current usage).
 
 ## Hard constraints
 
 - **Zero npm dependencies, by design.** Plain Node 22+, no package.json. Do
   not add packages; the frontend is a single self-contained page.
-- **Zero per-visitor AI spend.** The web server never calls Anthropic; only
-  the CLI does, through `callClaude` (12-call/day cap enforced in
-  `var/counters.json`). Keep it that way.
+- **Zero per-visitor AI spend.** The web server never calls an AI API; only
+  the CLI does, through `callModel` (12-call/day cap enforced in
+  `var/counters.json`, all providers combined). Keep it that way.
 - **Determinism first.** The scorer ranks; the AI only adjudicates a
   shortlist and must present ties as ties. All scoring weights live in the
-  `WEIGHTS` const in `engine/score.js`.
+  `WEIGHTS` const in `engine/score.js`. The now/week/combined winners are
+  precomputed and injected into the prompt as ground truth; `getVerdict`
+  rejects (and retries once) a verdict whose week section contradicts them.
 
 ## Commands
 
@@ -25,9 +28,11 @@ README.md (current usage).
 
 ## Secrets
 
-`ANTHROPIC_API_KEY` via `.env` (gitignored; sourced from
-`~/anthropic-api-key.txt`, never echo values). Production:
-`/etc/sunchaser.env` on the droplet, sharing lotcheck-pro's key.
+`FIREWORKS_API_KEY` (default verdict model) and `ANTHROPIC_API_KEY`
+(`--deep` only) via `.env` (gitignored; sourced from
+`~/fireworks-ai-api-key.txt` and `~/anthropic-api-key.txt`, never echo
+values). Production: `/etc/sunchaser.env` on the droplet; the Anthropic key
+is shared with lotcheck-pro.
 
 ## Deployment
 
@@ -43,7 +48,10 @@ pass 2 complete: 3 findings plus 1 sibling found via R0, all fixed
 (addendum 3, K* tests in `test/regressions.test.js`, see
 KIMI-PASS2-FINDINGS.md). Closure stands at zero clean passes: new findings
 are only valid if in-rubric or regressions from fixes; two consecutive
-clean passes against the frozen rubric terminate the review.
+clean passes against the frozen rubric terminate the review. 2026-08-09:
+the verdict layer moved to Fireworks/DeepSeek with precomputed winners
+(engine/verdict.js, engine/config.js); that surface is in scope for the
+next pass as change-reachable code.
 
 ## Data provenance
 

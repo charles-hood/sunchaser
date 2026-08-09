@@ -7,8 +7,13 @@ conventions and note the deviation back to Charles.
 
 ## What it is
 
+> **Update 2026-08-09:** already deployed; this revision switches the default
+> verdict model to DeepSeek V4 Flash on Fireworks. Redeploy from `main` HEAD
+> and add `FIREWORKS_API_KEY` to `/etc/sunchaser.env` (see Secrets below).
+> Everything else is unchanged.
+
 A zero-dependency Node 22 app (no npm install; plain `node`). It scores live
-Open-Meteo weather across 108 vetted nomad cities, has a capped Anthropic API
+Open-Meteo weather across 108 vetted nomad cities, has a capped AI API
 call write a "best place to be right now" verdict, plans Tesla road trips
 (OSRM + supercharger data), and serves a single-page frontend. Source is on
 Charles's Mac at `/Users/charles/Projects/sunchaser` (git repo, deploy from
@@ -36,16 +41,22 @@ layout intact relative to its root: `engine/`, `server/`, `public/`,
 ## Secrets: /etc/sunchaser.env (mode 600)
 
 ```
+FIREWORKS_API_KEY=<from Charles; the default verdict model runs on Fireworks>
 ANTHROPIC_API_KEY=<Charles's existing key, from /etc/lotcheck-pro.env>
 PORT=<chosen port>
 ```
 
-Reuse Charles's existing Anthropic key (the same one lotcheck-pro uses on
-the droplet; copy it from `/etc/lotcheck-pro.env`, or ask Charles if it
-isn't there). No new key needed. The app enforces its own hard cap of 12
-Anthropic calls per day, tracked in `var/counters.json` and visible at
-`/api/health`. Expected spend is a few cents/day (claude-sonnet-5,
-~2k-token calls, prompt cached).
+The default verdict model is now DeepSeek V4 Flash on Fireworks
+(`accounts/fireworks/models/deepseek-v4-flash-0731`), so the droplet needs
+`FIREWORKS_API_KEY`; ask Charles for it (on his Mac it lives in
+`~/fireworks-ai-api-key.txt`; never echo it). Keep the Anthropic key too:
+the `--deep` verdict path still uses claude-opus-4-8. Reuse Charles's
+existing Anthropic key (the same one lotcheck-pro uses on the droplet; copy
+it from `/etc/lotcheck-pro.env`, or ask Charles if it isn't there). The app
+enforces its own hard cap of 12 AI calls per day across both providers,
+tracked in `var/counters.json` and visible at `/api/health`. Expected spend
+is now well under a cent/day (DeepSeek V4 Flash at $0.14/$0.28 per 1M
+tokens, ~3k-token prompts, ~4k-token completions).
 
 ## Scheduled refresh (systemd timer)
 
@@ -90,8 +101,9 @@ rockofpages.com isn't wildcarded.)
   dots, sortable table, route planner.
 
 Security posture, for your review rather than action: the only outbound
-calls are Open-Meteo, OSRM, geocoding-api.open-meteo.com, and
-api.anthropic.com. No inbound endpoint triggers Anthropic spend; the route
+calls are Open-Meteo, OSRM, geocoding-api.open-meteo.com,
+api.fireworks.ai, and api.anthropic.com. No inbound endpoint triggers AI
+spend; the route
 endpoint is the only one doing live upstream work and it is throttled and
 input-length-bounded. Static serving is separator-aware-contained to
 `public/`. The code passed a two-model review (Codex + GLM 5.2) against the

@@ -27,12 +27,18 @@ module.exports = {
   SHORTLIST_TOP: 10,       // top N by CombinedScore go to the AI...
   SHORTLIST_EPSILON: 5,    // ...plus anything within this of the leader
 
-  // Anthropic (verdict layer). Key comes from env only, never from code.
+  // AI verdict layer. Keys come from env/.env only, never from code.
+  // provider selects the API shape and key name: anthropic ->
+  // ANTHROPIC_API_KEY, fireworks -> FIREWORKS_API_KEY.
   ANTHROPIC_URL: "https://api.anthropic.com/v1/messages",
   ANTHROPIC_VERSION: "2023-06-01",
-  MODELS: { default: "claude-sonnet-5", deep: "claude-opus-4-8" }, // allowlist
-  VERDICT_MAX_TOKENS: 2000,
-  VERDICT_DAILY_CAP: 12,   // hard cap on paid calls per day
+  FIREWORKS_URL: "https://api.fireworks.ai/inference/v1/chat/completions",
+  MODELS: { // allowlist
+    default: { provider: "fireworks", id: "accounts/fireworks/models/deepseek-v4-flash-0731" },
+    deep: { provider: "anthropic", id: "claude-opus-4-8" },
+  },
+  VERDICT_MAX_TOKENS: 4096, // DeepSeek spends reasoning tokens inside this budget; ~450 reach the page
+  VERDICT_DAILY_CAP: 12,   // hard cap on paid calls per day, all providers
 
   // Route planner (milestone 5).
   SUPERCHARGERS_FILE: path.join(ROOT, "data", "superchargers.json"),
