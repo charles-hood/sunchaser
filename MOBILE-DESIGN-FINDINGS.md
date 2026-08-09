@@ -27,12 +27,14 @@ already owns the right vocabulary for it: the card and the chip.
   panel (the data is all client-side already). Alternative minimum: hide
   low-value columns responsively and add a scroll affordance (edge fade +
   "swipe for more"), but the list-row rework is the mobile-first answer.
-- **B2. Rent-chip tooltips are unreachable on touch.** The dollar amount
-  and source live in a hover-only ::after on a non-focusable span; touch
-  has no hover, so mobile users see "$$$" with no way to learn what it
-  means or the actual rent. Prescription: make chips tappable (tap
-  toggles the bubble, or opens the city detail from B1) and focusable
-  for keyboards while at it.
+- **B2. Rent-chip tooltips are effectively unreachable on touch.** The
+  dollar amount and source live in a hover-only ::after on a
+  non-focusable span. Field-tested by Charles (2026-08-09): iOS's
+  long-press hover emulation DOES fire the bubble, but he found it "quite
+  by accident": there is no affordance suggesting press-and-hold, and no
+  user performs it unprompted. Functionally hidden. Prescription
+  unchanged: make chips tappable (tap toggles the bubble, or opens the
+  city detail from B1) and focusable for keyboards while at it.
 
 ## Should-fix
 
