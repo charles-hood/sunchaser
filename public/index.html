@@ -15,12 +15,19 @@
   --line: #e4e1d8; --accent: #e08020; --good: #2e8b40; --bad: #c04030;
   --shadow: 0 1px 3px rgba(0,0,0,.08);
 }
+/* Dark palette applies when the OS prefers dark (unless the visitor forced
+   light) or when the visitor forced dark. Keep both blocks identical. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #14161a; --card: #1d2026; --ink: #e8e6e1; --muted: #9aa0a6;
     --line: #2c3038; --accent: #f0a040; --good: #4fba63; --bad: #e06050;
     --shadow: 0 1px 3px rgba(0,0,0,.4);
   }
+}
+:root[data-theme="dark"] {
+  --bg: #14161a; --card: #1d2026; --ink: #e8e6e1; --muted: #9aa0a6;
+  --line: #2c3038; --accent: #f0a040; --good: #4fba63; --bad: #e06050;
+  --shadow: 0 1px 3px rgba(0,0,0,.4);
 }
 * { box-sizing: border-box; }
 body {
@@ -115,9 +122,10 @@ a { color: var(--accent); }
      the visible whitespace is padding INSIDE .wrap, always honored. */
   @page { margin: 0; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  /* Force the light palette regardless of the viewer's dark mode: this block
-     sits after the dark-scheme block, so it wins at equal specificity. */
-  :root {
+  /* Force the light palette regardless of the viewer's dark mode or manual
+     theme choice: listed selectors match or beat every theme block above,
+     and this block comes last. */
+  :root, :root[data-theme="dark"], :root[data-theme="light"] {
     --bg: #fff; --card: #fff; --ink: #1a1c1e; --muted: #565c62;
     --line: #d8d5cc; --accent: #b05a10; --good: #21692f; --bad: #a03020;
     --shadow: none;
@@ -137,6 +145,13 @@ a { color: var(--accent); }
   th, td { padding: 4px 8px; }
 }
 </style>
+<script>
+// Apply a saved manual theme before first paint so there's no flash.
+(() => {
+  const t = localStorage.getItem("sunchaser-theme");
+  if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+})();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -145,7 +160,8 @@ a { color: var(--accent); }
     <span class="sub" id="updated">loading…</span>
   </header>
   <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.<span
-    class="screenlinks"> · <a href="#" id="howlink">How scores work</a> · <a href="#" id="printlink">Print / PDF</a></span></div>
+    class="screenlinks"> · <a href="#" id="howlink">How scores work</a> · <a href="#" id="printlink">Print / PDF</a>
+    · <a href="#" id="themelink" title="cycle auto / light / dark">Theme: auto</a></span></div>
 
   <dialog id="howdlg">
     <button class="howclose" id="howclose">close</button>
@@ -459,6 +475,19 @@ async function load() {
   $("howlink").onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
   $("howclose").onclick = () => $("howdlg").close();
   $("printlink").onclick = (e) => { e.preventDefault(); window.print(); };
+  const themeLabel = () => {
+    const t = localStorage.getItem("sunchaser-theme");
+    $("themelink").textContent = `Theme: ${t === "light" || t === "dark" ? t : "auto"}`;
+  };
+  themeLabel();
+  $("themelink").onclick = (e) => {
+    e.preventDefault();
+    const cur = localStorage.getItem("sunchaser-theme");
+    const next = cur === "light" ? "dark" : cur === "dark" ? null : "light"; // auto -> light -> dark -> auto
+    if (next) { localStorage.setItem("sunchaser-theme", next); document.documentElement.dataset.theme = next; }
+    else { localStorage.removeItem("sunchaser-theme"); delete document.documentElement.dataset.theme; }
+    themeLabel();
+  };
   // Name the saved PDF (fires for Cmd-P and File->Print too; lotcheck pattern).
   window.addEventListener("beforeprint", () => {
     document.title = `Sunchaser ${new Date().toISOString().slice(0, 10)}`;
