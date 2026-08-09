@@ -128,6 +128,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`sunchaser listening on http://127.0.0.1:${PORT}`);
+const HOST = process.env.HOST || "127.0.0.1";
+server.listen(PORT, HOST, () => {
+  console.log(`sunchaser listening on http://${HOST}:${PORT}`);
 });

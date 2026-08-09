@@ -1,7 +1,16 @@
 # Mobile design findings
 
-**Status: findings only, 2026-08-09. Nothing acted on. Discuss with Charles
-before building.** Evidence gathered on the live site at 390x844 (iPhone
+**Status: RESOLVED 2026-08-09.** All blockers and should-fixes shipped the
+same day after an iterative prototype session on Charles's actual iPhone:
+B1 (table becomes a ranked tap-to-expand list under 640px), B2 (chip taps:
+row chips expand their row, card/header chips toggle an on-screen bubble),
+S1 (map shorter + tap-to-unlock overlay), S2 (flush-left chip toolbar row
+in the header), S3 (thumb-sized targets). Nits left as written. Hard-won
+lesson for future touch work: iOS synthesizes :hover on tap, so hover-only
+UI fires in ways desktop emulation never shows: gate hover affordances
+behind @media (hover: hover) / (hover: none), and test on the real phone.
+
+Original findings below, kept for the record. Evidence gathered on the live site at 390x844 (iPhone
 14-ish), dark scheme, via headless inspection and screenshots. Frame: the
 site is responsive-by-accident (one column falls out of the grid), not
 mobile-first. Nothing is broken; several things are unconsidered.

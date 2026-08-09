@@ -66,7 +66,7 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
   cursor: pointer; position: relative;
 }
 .uchip:hover { border-color: var(--accent); color: var(--ink); }
-.rentchip:hover::after, .uchip:hover::after {
+.rentchip:hover::after, .uchip:hover::after, .rentchip.tipopen::after {
   content: attr(data-tip); position: absolute; right: 0; top: calc(100% + 6px);
   background: var(--card); color: var(--ink); border: 1px solid var(--line);
   border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: "Bricolage Grotesque", system-ui, sans-serif;
@@ -129,6 +129,52 @@ a { color: var(--accent); }
 @media (prefers-reduced-motion: no-preference) {
   .card, #map, table { animation: fade .4s ease-out; }
   @keyframes fade { from { opacity: 0; transform: translateY(4px); } }
+}
+
+/* ---- mobile-first treatment (PROTOTYPE), <=640px ---- */
+.mlist { display: none; }
+.maplock { position: absolute; inset: 0; z-index: 1200; display: flex; align-items: center;
+  justify-content: center; background: color-mix(in oklab, var(--bg) 35%, transparent);
+  border-radius: 12px; cursor: pointer; }
+.maplock span { background: var(--card); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 999px; padding: 10px 18px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+@media (max-width: 640px) {
+  /* table becomes a ranked list; the full table stays a desktop artifact */
+  .tablewrap { display: none; }
+  .mlist { display: block; }
+  .mrow { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+          margin-bottom: 8px; box-shadow: var(--shadow); }
+  .mrow-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+               min-height: 44px; cursor: pointer; }
+  .mrank { font-family: "IBM Plex Mono", monospace; color: var(--muted); width: 32px; font-size: 13px; }
+  .mname { font-weight: 700; flex: 1; font-size: 15px; }
+  .mcomb { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--good); font-size: 15px; }
+  .mdetail { display: none; padding: 4px 14px 14px; margin: 0 14px 0; border-top: 1px dashed var(--line); padding-left: 0; padding-right: 0; }
+  .mrow.open .mdetail { display: block; }
+  .mstats { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 16px; font-size: 13.5px;
+            margin-top: 10px; color: var(--muted); }
+  .mstats b { color: var(--ink); font-weight: 600; }
+  /* header: title, then a flush-left chip toolbar row, then meta: no
+     floating right-aligned island (Charles's red-box complaint) */
+  header { gap: 8px 14px; }
+  h1 { order: 1; }
+  .utils { order: 2; flex-basis: 100%; margin-left: 0; }
+  #updated { order: 3; flex-basis: 100%; }
+  /* tooltip bubbles must wrap and stay on-screen at phone widths */
+  .rentchip:hover::after, .rentchip.tipopen::after, .uchip:hover::after {
+    white-space: normal; max-width: 74vw; width: max-content; line-height: 1.45;
+  }
+}
+/* Touch devices synthesize :hover on tap (iOS), which made row chips pop
+   phantom bubbles. No real hover -> no hover bubbles; only an explicit
+   tap-open (.tipopen) shows one. */
+@media (hover: none) {
+  .rentchip:not(.tipopen):hover::after, .uchip:hover::after { content: none; }
+  /* comfortable thumbs */
+  .uchip { padding: 8px 14px; }
+  .rentchip { padding: 4px 10px; }
+  #map { height: 300px; }
 }
 
 /* ---- print / PDF (pattern from lotcheck's styles.css) ---- */
@@ -210,6 +256,7 @@ a { color: var(--accent); }
       <tbody id="tblbody"></tbody>
     </table>
   </div>
+  <div class="mlist" id="mlist"></div>
 
   <h2 id="driveh2">Drive there</h2>
   <div class="routeform">
@@ -432,6 +479,58 @@ function renderTable() {
   });
 }
 
+// Mobile ranked list (replaces the table under 640px): tap a row for detail.
+function renderMobileList() {
+  $("mlist").innerHTML = SNAP.cities.map((c, i) => {
+    const d0 = c.days[0];
+    const r = RENTS && RENTS.rents && RENTS.rents[c.name];
+    const week = c.days.slice(0, 7).map((d) => Math.round(d.score)).join(" ");
+    return `<div class="mrow" data-i="${i}">
+      <div class="mrow-head">
+        <span class="mrank">${i + 1}</span>
+        <span class="mname">${esc(c.name)}${c.curated ? ' <span class="badge">curated</span>' : ""}</span>
+        ${rentChip(c.name)}
+        <span class="mcomb">${c.scores.combined}</span>
+      </div>
+      <div class="mdetail"><div class="mstats">
+        <span>now <b>${c.scores.now}</b></span><span>week <b>${c.scores.week}</b></span>
+        <span>today <b>${Math.round(d0.hi)}/${Math.round(d0.lo)}°</b></span>
+        <span>rain <b>${num(d0.precipProb)}%</b></span>
+        <span>tier <b>${esc(c.tier)}</b></span>
+        <span>rent <b>${r ? "$" + r.rent.toLocaleString() + "/mo" : "no data"}</b></span>
+        <span style="grid-column:1/-1">7-day scores <b class="mono">${week}</b></span>
+      </div></div>
+    </div>`;
+  }).join("");
+  // Chip taps inside a row just expand the row: the detail shows the rent
+  // in dollars, and a mid-screen bubble can't anchor cleanly on a phone.
+  $("mlist").onclick = (e) => {
+    const row = e.target.closest(".mrow");
+    if (row) row.classList.toggle("open");
+  };
+}
+
+// Touch affordances: tap toggles a rent-chip bubble (cards/header only;
+// list-row chips expand their row instead); tap elsewhere closes any bubble.
+document.addEventListener("click", (e) => {
+  const chip = e.target.closest(".rentchip");
+  const inRow = chip && chip.closest(".mrow");
+  document.querySelectorAll(".rentchip.tipopen").forEach((c) => { if (c !== chip) c.classList.remove("tipopen"); });
+  if (chip && !inRow) chip.classList.toggle("tipopen");
+});
+
+// On small touch screens the map starts locked so page scrolling wins;
+// one tap hands the gestures to Leaflet.
+function lockMapForTouch(map) {
+  if (!("ontouchstart" in window) || !matchMedia("(max-width: 640px)").matches) return;
+  map.dragging.disable();
+  const shade = document.createElement("div");
+  shade.className = "maplock";
+  shade.innerHTML = "<span>Tap to explore the map</span>";
+  $("map").appendChild(shade);
+  shade.onclick = () => { map.dragging.enable(); shade.remove(); };
+}
+
 async function planRoute() {
   const from = $("from").value.trim();
   if (!from) { $("routeerr").textContent = "Enter a starting point."; return; }
@@ -486,7 +585,9 @@ async function load() {
   renderCards(top);
   renderWeek(top);
   renderMap(SNAP.cities);
+  lockMapForTouch(map);
   renderTable();
+  renderMobileList();
   renderHow(SNAP._meta);
   $("ncities").textContent = SNAP.cities.length;
   $("allhead").textContent = `All ${SNAP.cities.length} cities`;
