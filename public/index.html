@@ -210,6 +210,16 @@ function renderHow(meta) {
   const f = (x) => String(x); // weights are plain numbers; render verbatim
   const pct = (x) => String(Math.round(x * 1000) / 10); // 0.55 -> "55", no float dust
   $("howbody").innerHTML = `
+    <h4>What this list is</h4>
+    <p>A discovery instrument, not a travel guide. Every city here was pre-vetted
+    as somewhere you could show up sight-unseen and live comfortably for a month,
+    so when an unfamiliar name tops the board, you can trust it. Famous
+    destinations that fail those safety and logistics gates (Nashville, New
+    Orleans, Santa Fe) are deliberately absent: nobody needs a weather model to
+    discover them, and if you go, you go on purpose, knowing the trade-offs.
+    What Sunchaser finds is place-time pairs: somewhere you might not have
+    considered, having its best week right now.</p>
+    <h4>How the math works</h4>
     <p>Every city's day starts at <b>100</b> and loses points for discomfort.
     The same math runs for all ${meta.counts.scored} cities; the AI verdict only
     explains the winners, it never picks them. These numbers are live from the
