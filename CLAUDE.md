@@ -36,9 +36,14 @@ is shared with lotcheck-pro.
 
 ## Deployment
 
-Charles's webmaster AI owns all droplet deployments (consistency). Never
-deploy directly from here: update DEPLOY-PROMPT.md if the shape changes and
-hand off. Systemd units live in the reverse-proxy repo under `sunchaser/`.
+The deploy procedure lives in the reverse-proxy repo
+(`/Users/charles/projects/reverse-proxy`, CLAUDE.md "Update Sunchaser"
+section): pre-deploy test gate, rsync from `main` HEAD, chown/chmod,
+restart, verify /api/health. Per Charles (2026-08-09) sessions here may
+deploy by following that procedure exactly. Keep DEPLOY-PROMPT.md accurate
+as the standalone description of the app's deploy shape, and keep the
+reverse-proxy docs in sync when the shape changes (env vars, egress hosts,
+units). Systemd units live there under `sunchaser/`, not here.
 
 ## Reviews
 
