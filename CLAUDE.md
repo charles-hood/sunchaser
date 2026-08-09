@@ -59,6 +59,11 @@ the verdict layer moved to Fireworks/DeepSeek with precomputed winners
 (engine/verdict.js, engine/config.js); that surface is in scope for the
 next pass as change-reachable code.
 
+## Parked plans
+
+- ASK-SUNCHASER-PLAN.md: draft plan for a grounded visitor Q&A bot
+  (tutor-proxy pattern). Not approved; do not build unless Charles says go.
+
 ## Data provenance
 
 - `data/cities.json`: regenerate with `node tools/extract-cities.js` when
