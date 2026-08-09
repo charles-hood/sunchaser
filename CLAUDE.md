@@ -1,5 +1,10 @@
 # Sunchaser: notes for Claude sessions
 
+> **Forked or cloned this repo?** These are the original operator's
+> (Charles's) environment-specific notes: his deploy target, his key file
+> locations, his review process. None of it binds your copy. Start from
+> README.md, especially "Forking / hacking on it".
+
 Live at https://sunchaser.rockofpages.com/. Scores live Open-Meteo weather
 across the vetted nomad cities (109 since 2026-08-09), ranks
 deterministically, an AI model
