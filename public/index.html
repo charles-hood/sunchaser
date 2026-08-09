@@ -51,7 +51,14 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
 .badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
 .cbadges { display: flex; gap: 6px; align-items: center; }
 .rentchip { font-size: 11px; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", monospace; cursor: help; position: relative; }
-.rentchip:hover::after {
+.utils { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.uchip {
+  font-size: 12px; padding: 2px 10px; border-radius: 8px; border: 1px solid var(--line);
+  color: var(--muted); background: none; font-family: "IBM Plex Mono", monospace;
+  cursor: pointer; position: relative;
+}
+.uchip:hover { border-color: var(--accent); color: var(--ink); }
+.rentchip:hover::after, .uchip:hover::after {
   content: attr(data-tip); position: absolute; right: 0; top: calc(100% + 6px);
   background: var(--card); color: var(--ink); border: 1px solid var(--line);
   border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: "Bricolage Grotesque", system-ui, sans-serif;
@@ -134,7 +141,7 @@ a { color: var(--accent); }
   .wrap { max-width: none; padding: 0.3in; }
   /* Interactive-only sections: map, route planner, links, animations. */
   #map, .legend, #driveh2, .routeform, #routeerr, #days,
-  .screenlinks, dialog#howdlg { display: none !important; }
+  .utils, .screenonly, dialog#howdlg { display: none !important; }
   .card, #map, table { animation: none; }
   .card, .wcity, tr { break-inside: avoid; }
   /* The verdict card is a tall text block: let it flow across pages instead
@@ -158,10 +165,12 @@ a { color: var(--accent); }
   <header>
     <h1><span class="sun">☀</span> Sunchaser</h1>
     <span class="sub" id="updated">loading…</span>
+    <span class="utils">
+      <button id="themebtn" class="uchip" data-tip="theme follows your system · click to cycle">◐ auto</button>
+      <button id="printbtn" class="uchip" data-tip="print this page or save it as a PDF">Print</button>
+    </span>
   </header>
-  <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.<span
-    class="screenlinks"> · <a href="#" id="howlink">How scores work</a> · <a href="#" id="printlink">Print / PDF</a>
-    · <a href="#" id="themelink" title="cycle auto / light / dark">Theme: auto</a></span></div>
+  <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.</div>
 
   <dialog id="howdlg">
     <button class="howclose" id="howclose">close</button>
@@ -458,10 +467,11 @@ async function load() {
   if (verdictRes.ok) {
     const v = await verdictRes.json();
     $("verdict").innerHTML = `<div class="card">${renderVerdictMd(v.markdown)}
-      <div class="vmeta">by ${esc(v.model)} · ${new Date(v.generated_at).toLocaleString()} · ties: ${esc(v.ties.length > 1 ? v.ties.join("; ") : "none")}</div>
+      <div class="vmeta">by ${esc(v.model)} · ${new Date(v.generated_at).toLocaleString()} · ties: ${esc(v.ties.length > 1 ? v.ties.join("; ") : "none")} · <a href="#" id="howlink" class="screenonly">How scores work</a></div>
     </div>`;
   } else {
-    $("verdict").innerHTML = `<div class="card">No verdict yet. Run <span class="mono">node cli.js verdict</span>.</div>`;
+    $("verdict").innerHTML = `<div class="card">No verdict yet. Run <span class="mono">node cli.js verdict</span>.
+      <div class="vmeta"><a href="#" id="howlink" class="screenonly">How scores work</a></div></div>`;
   }
 
   const top = SNAP.cities.slice(0, 4);
@@ -472,16 +482,19 @@ async function load() {
   renderHow(SNAP._meta);
   $("ncities").textContent = SNAP.cities.length;
   $("allhead").textContent = `All ${SNAP.cities.length} cities`;
-  $("howlink").onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
+  const howlink = $("howlink");
+  if (howlink) howlink.onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
   $("howclose").onclick = () => $("howdlg").close();
-  $("printlink").onclick = (e) => { e.preventDefault(); window.print(); };
+  $("printbtn").onclick = () => window.print();
   const themeLabel = () => {
     const t = localStorage.getItem("sunchaser-theme");
-    $("themelink").textContent = `Theme: ${t === "light" || t === "dark" ? t : "auto"}`;
+    const b = $("themebtn");
+    if (t === "light") { b.textContent = "☀ light"; b.dataset.tip = "theme locked to light · click for dark"; }
+    else if (t === "dark") { b.textContent = "☾ dark"; b.dataset.tip = "theme locked to dark · click for auto"; }
+    else { b.textContent = "◐ auto"; b.dataset.tip = "theme follows your system · click to cycle"; }
   };
   themeLabel();
-  $("themelink").onclick = (e) => {
-    e.preventDefault();
+  $("themebtn").onclick = () => {
     const cur = localStorage.getItem("sunchaser-theme");
     const next = cur === "light" ? "dark" : cur === "dark" ? null : "light"; // auto -> light -> dark -> auto
     if (next) { localStorage.setItem("sunchaser-theme", next); document.documentElement.dataset.theme = next; }
