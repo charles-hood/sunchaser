@@ -211,6 +211,16 @@ async function callModel(system, userMsg, { model, maxTokens = cfg.VERDICT_MAX_T
   return { model: msg.model, text, usage: msg.usage };
 }
 
+// Normalize model output into the section contract's canonical shape:
+// drop any narration before the first heading (pro.js pattern) and force a
+// blank line after each heading, since some models put the body on the very
+// next line and downstream consumers assume heading-only blocks.
+function cleanMarkdown(text) {
+  const firstHeading = text.indexOf("## ");
+  if (firstHeading > 0) text = text.slice(firstHeading);
+  return text.replace(/^(## .+)\n(?!\n)/gm, "$1\n\n");
+}
+
 // The week winner is deterministic; a verdict whose "coming week" section
 // fails to name it is the exact failure mode this check exists for (a
 // sonnet-5 verdict once crowned the wrong city, then corrected itself
@@ -239,18 +249,13 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
     }
   } catch {}
 
-  const clean = (text) => {
-    const firstHeading = text.indexOf("## ");
-    return firstHeading > 0 ? text.slice(firstHeading) : text; // strip narration (pro.js pattern)
-  };
-
   log(`verdict: calling ${spec.id}`);
   let msg = await callModel(SYSTEM, userMsg, { model: spec, log });
-  let markdown = clean(msg.text);
+  let markdown = cleanMarkdown(msg.text);
   if (!weekSectionOk(markdown, snapshot)) {
     log("verdict: week section contradicts the deterministic week leader; retrying once");
     msg = await callModel(SYSTEM, userMsg, { model: spec, log });
-    markdown = clean(msg.text);
+    markdown = cleanMarkdown(msg.text);
     if (!weekSectionOk(markdown, snapshot)) {
       log("warning: retry still contradicts the week leader; serving it anyway");
     }
@@ -271,4 +276,4 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
   return verdict;
 }
 
-module.exports = { getVerdict, callModel, buildUserMessage, scoreLeaders, weekSectionOk, SYSTEM };
+module.exports = { getVerdict, callModel, buildUserMessage, scoreLeaders, weekSectionOk, cleanMarkdown, SYSTEM };

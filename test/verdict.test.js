@@ -1,7 +1,7 @@
 "use strict";
 const { test } = require("node:test");
 const assert = require("node:assert");
-const { buildUserMessage, scoreLeaders, weekSectionOk } = require("../engine/verdict");
+const { buildUserMessage, scoreLeaders, weekSectionOk, cleanMarkdown } = require("../engine/verdict");
 
 // Minimal snapshot with distinct now/week leaders, mirroring the 2026-08-09
 // production run where sonnet-5 crowned the wrong week winner.
@@ -52,4 +52,15 @@ test("weekSectionOk rejects a verdict crowning the wrong week city", () => {
 
 test("weekSectionOk rejects a verdict missing the week section", () => {
   assert.ok(!weekSectionOk("## Best right now\nDuluth, MN.", snap));
+});
+
+test("cleanMarkdown forces a blank line after headings (DeepSeek shape)", () => {
+  const md = "## Best right now\nDuluth leads.\n\n## Why\nNumbers.";
+  assert.strictEqual(cleanMarkdown(md),
+    "## Best right now\n\nDuluth leads.\n\n## Why\n\nNumbers.");
+});
+
+test("cleanMarkdown leaves already-canonical markdown alone and strips narration", () => {
+  const md = "Sure! Here is the verdict:\n\n## Best right now\n\nDuluth leads.";
+  assert.strictEqual(cleanMarkdown(md), "## Best right now\n\nDuluth leads.");
 });

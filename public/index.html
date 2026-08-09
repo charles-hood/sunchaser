@@ -169,11 +169,18 @@ let SNAP = null;
 
 function renderVerdictMd(md) {
   // Markdown-lite: our verdict contract only uses ## headings and paragraphs.
+  // Some models put the body on the line right after the heading instead of
+  // leaving a blank line, so a heading block may carry paragraph text.
+  const para = (t) => t ? `<p>${esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>")}</p>` : "";
   const html = md.split(/\n{2,}/).map((blk) => {
     blk = blk.trim();
-    if (blk.startsWith("## ")) return `<h3>${esc(blk.slice(3))}</h3>`;
-    if (!blk) return "";
-    return `<p>${esc(blk).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>")}</p>`;
+    if (blk.startsWith("## ")) {
+      const nl = blk.indexOf("\n");
+      const head = nl < 0 ? blk.slice(3) : blk.slice(3, nl);
+      const tail = nl < 0 ? "" : blk.slice(nl + 1).trim();
+      return `<h3>${esc(head.trim())}</h3>` + para(tail);
+    }
+    return para(blk);
   }).join("");
   return html;
 }
