@@ -14,7 +14,7 @@ module.exports = {
   OPEN_METEO_URL: "https://api.open-meteo.com/v1/forecast",
   BATCH_SIZE: 22,          // coords per request; keeps URLs short of limits
   BATCH_SLEEP_MS: 1500,    // politeness gap between batches
-  ACTIVE_TTL_MS: 3 * 3600 * 1000,   // full refresh cadence, active tier
+  ACTIVE_TTL_MS: 3600 * 1000,       // full refresh cadence, active tier (hourly since 2026-08-09)
   DORMANT_TTL_MS: 24 * 3600 * 1000, // light refresh cadence, dormant tier
   BACKOFF_MS: [30_000, 120_000, 600_000], // on HTTP 429 / 5xx
 
@@ -38,7 +38,8 @@ module.exports = {
     deep: { provider: "anthropic", id: "claude-opus-4-8" },
   },
   VERDICT_MAX_TOKENS: 4096, // DeepSeek spends reasoning tokens inside this budget; ~450 reach the page
-  VERDICT_DAILY_CAP: 12,   // hard cap on paid calls per day, all providers
+  VERDICT_DAILY_CAP: 40,   // hard cap on paid calls per day, all providers
+                           // (24 hourly timer runs + retries + manual; ~$0.06/day worst case on DeepSeek)
 
   // Route planner (milestone 5).
   SUPERCHARGERS_FILE: path.join(ROOT, "data", "superchargers.json"),

@@ -11,7 +11,7 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
 - **Zero npm dependencies, by design.** Plain Node 22+, no package.json. Do
   not add packages; the frontend is a single self-contained page.
 - **Zero per-visitor AI spend.** The web server never calls an AI API; only
-  the CLI does, through `callModel` (12-call/day cap enforced in
+  the CLI does, through `callModel` (40-call/day cap enforced in
   `var/counters.json`, all providers combined). Keep it that way.
 - **Determinism first.** The scorer ranks; the AI only adjudicates a
   shortlist and must present ties as ties. All scoring weights live in the
