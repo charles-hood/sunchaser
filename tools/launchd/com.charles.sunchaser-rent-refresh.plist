@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Monthly reminder to refresh sunchaser's Zillow rent data. Zillow's ZORI drop lands
+  around the ~16th, so this fires on the 18th at 10:00; launchd runs a missed
+  occurrence at the next wake, so a sleeping Mac still gets nudged. Runs the reminder
+  script, which only checks + notifies (never refreshes or deploys).
+
+  Install:
+    cp tools/launchd/com.charles.sunchaser-rent-refresh.plist ~/Library/LaunchAgents/
+    launchctl unload ~/Library/LaunchAgents/com.charles.sunchaser-rent-refresh.plist 2>/dev/null
+    launchctl load   ~/Library/LaunchAgents/com.charles.sunchaser-rent-refresh.plist
+  Test now:  launchctl start com.charles.sunchaser-rent-refresh
+  Remove:    launchctl unload ~/Library/LaunchAgents/com.charles.sunchaser-rent-refresh.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.charles.sunchaser-rent-refresh</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/charles/Projects/sunchaser/tools/rent-refresh-reminder.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Day</key>
+    <integer>18</integer>
+    <key>Hour</key>
+    <integer>10</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/Users/charles/Library/Logs/sunchaser-rent-refresh.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/charles/Library/Logs/sunchaser-rent-refresh.err.log</string>
+</dict>
+</plist>
