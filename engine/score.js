@@ -174,6 +174,9 @@ function buildSnapshot(raw, cities) {
       scoring_version: SCORING_VERSION,
       tie_epsilon: cfg.TIE_EPSILON,
       counts: { scored: scored.length, skipped, active: scored.filter((c) => c.tier === "active").length },
+      // The frontend's "how scores work" panel renders from these live
+      // values so the explainer can never drift from the actual weights.
+      weights: WEIGHTS,
     },
     ties,
     promotions,

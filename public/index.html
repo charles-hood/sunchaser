@@ -83,6 +83,18 @@ button:disabled { opacity: .5; cursor: wait; }
 .daycard .mutedline { color: var(--muted); font-size: 12px; }
 .err { color: var(--bad); font-size: 13.5px; margin-top: 8px; }
 footer { margin-top: 44px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+dialog#howdlg {
+  max-width: 620px; width: calc(100vw - 40px); max-height: 82vh; overflow-y: auto;
+  background: var(--card); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 14px; padding: 22px 26px; box-shadow: 0 8px 40px rgba(0,0,0,.35);
+}
+dialog#howdlg::backdrop { background: rgba(0,0,0,.55); }
+#howdlg h3 { margin: 0 0 4px; font-size: 18px; }
+#howdlg h4 { margin: 16px 0 6px; font-size: 14px; color: var(--accent); }
+#howdlg p, #howdlg li { font-size: 13.5px; line-height: 1.55; margin: 6px 0; }
+#howdlg ul { margin: 6px 0; padding-left: 20px; }
+#howdlg .howclose { float: right; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 2px 10px; font-size: 13px; }
+#howdlg .hownote { color: var(--muted); font-size: 12.5px; margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 10px; }
 a { color: var(--accent); }
 @media (prefers-reduced-motion: no-preference) {
   .card, #map, table { animation: fade .4s ease-out; }
@@ -96,7 +108,14 @@ a { color: var(--accent); }
     <h1><span class="sun">☀</span> Sunchaser</h1>
     <span class="sub" id="updated">loading…</span>
   </header>
-  <div class="sub">Where the good weather is right now, across 108 vetted nomad cities.</div>
+  <div class="sub">Where the good weather is right now, across 108 vetted nomad cities.
+    · <a href="#" id="howlink">How scores work</a></div>
+
+  <dialog id="howdlg">
+    <button class="howclose" id="howclose">close</button>
+    <h3>How scores work</h3>
+    <div id="howbody"><p>Scoring details load with the next data refresh.</p></div>
+  </dialog>
 
   <h2>The verdict</h2>
   <div id="verdict"><div class="card">Loading verdict…</div></div>
@@ -183,6 +202,51 @@ function renderVerdictMd(md) {
     return para(blk);
   }).join("");
   return html;
+}
+
+function renderHow(meta) {
+  const W = meta && meta.weights;
+  if (!W) return; // pre-weights snapshot: keep the fallback text
+  const f = (x) => String(x); // weights are plain numbers; render verbatim
+  const pct = (x) => String(Math.round(x * 1000) / 10); // 0.55 -> "55", no float dust
+  $("howbody").innerHTML = `
+    <p>Every city's day starts at <b>100</b> and loses points for discomfort.
+    The same math runs for all 108 cities; the AI verdict only explains the
+    winners, it never picks them. These numbers are live from the scoring
+    engine, not a copy.</p>
+    <h4>One day's score</h4>
+    <ul>
+      <li><b>Daily high:</b> full marks from ${f(W.HI_IDEAL_LOW)}-${f(W.HI_IDEAL_HIGH)}°F.
+        Below: -${f(W.HI_COLD_SLOPE)}/°F; above: -${f(W.HI_HOT_SLOPE)}/°F (heat hurts more
+        than cold, by design). Extremes past ${f(W.HI_EXTREME_COLD)}° / ${f(W.HI_EXTREME_HOT)}°
+        lose another ${f(W.HI_EXTREME_SLOPE)}/°F.</li>
+      <li><b>Overnight low</b> under ${f(W.LO_FLOOR)}°F: -${f(W.LO_SLOPE)}/°F.</li>
+      <li><b>Mugginess:</b> feels-like more than ${f(W.MUGGY_GAP)}° above the actual high:
+        -${f(W.MUGGY_SLOPE)}/°F of excess.</li>
+      <li><b>Rain:</b> -${f(W.PRECIP_PROB_SLOPE)} per % of shower chance (so 20% costs
+        ${f(20 * W.PRECIP_PROB_SLOPE)} points), plus -${f(W.PRECIP_SUM_SLOPE)} per inch
+        actually expected (capped at ${f(W.PRECIP_SUM_CAP)}). A high chance of a brief
+        sprinkle is cheap; real accumulation is expensive.</li>
+      <li><b>Snow:</b> -${f(W.SNOW_SLOPE)}/inch (capped at ${f(W.SNOW_CAP)}).</li>
+      <li><b>Wind</b> over ${f(W.WIND_FLOOR)} mph: -${f(W.WIND_SLOPE)}/mph; gusts over
+        ${f(W.GUST_FLOOR)}: -${f(W.GUST_SLOPE)}/mph.</li>
+      <li><b>Sunshine:</b> scored against ${pct(W.SUN_TARGET)}% of daylight; sunnier
+        earns a bonus, gloomier a penalty (roughly -15 to +10).</li>
+      <li><b>UV</b> over ${f(W.UV_FLOOR)}: -${f(W.UV_SLOPE)}/point.</li>
+    </ul>
+    <h4>Rolling days up</h4>
+    <ul>
+      <li><b>now</b> = ${pct(W.NOW_TODAY)}% today + ${pct(W.NOW_TOMORROW)}% tomorrow,
+        nudged up to ±${f(W.NOW_NUDGE_MAX)} by current feels-like conditions.</li>
+      <li><b>week</b> = all 7 days averaged, near days weighted hardest
+        (${f(W.WEEK_DECAY[0])} down to ${f(W.WEEK_DECAY[W.WEEK_DECAY.length - 1])}).</li>
+      <li><b>combined</b> = ${pct(W.COMBINED_NOW)}% now + ${pct(W.COMBINED_WEEK)}% week.
+        Cities within ${f(meta.tie_epsilon)} points of the leader are declared ties, honestly.</li>
+    </ul>
+    <p class="hownote">The ideal band and slopes are editorial taste: this site prefers
+    mild-and-dry over hot-and-humid. A 75°F clear day with a 19% shower chance loses under
+    5 points and can still beat a muggy 88° beach day. If your ideal is warmer, read the
+    leader cards with that bias in mind.</p>`;
 }
 
 function renderCards(top) {
@@ -329,6 +393,9 @@ async function load() {
   renderWeek(top);
   renderMap(SNAP.cities);
   renderTable();
+  renderHow(SNAP._meta);
+  $("howlink").onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
+  $("howclose").onclick = () => $("howdlg").close();
 
   const sorted = [...SNAP.cities].sort((a, b) => a.name.localeCompare(b.name));
   $("to").innerHTML = sorted.map((c) =>

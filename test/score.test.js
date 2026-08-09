@@ -84,4 +84,8 @@ test("buildSnapshot ranks, ties, and promotes correctly", () => {
   assert.ok(!snap.ties.includes("C, XX"));
   assert.ok(snap.promotions.includes("B, XX"), "dormant near-leader should promote");
   assert.ok(snap.shortlist.length >= 3);
+  // The frontend's "how scores work" panel renders from _meta.weights;
+  // dropping it silently breaks the explainer into its fallback text.
+  assert.equal(snap._meta.weights.PRECIP_PROB_SLOPE, 0.25);
+  assert.equal(snap._meta.weights.HI_IDEAL_LOW, 68);
 });
