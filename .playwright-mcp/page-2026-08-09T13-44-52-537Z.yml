@@ -1,0 +1,1810 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "☀ Sunchaser" [level=1] [ref=e4]
+    - generic [ref=e5]: "updated 8/9/2026, 9:11:47 AM · season: summer · 47 active / 62 dormant"
+  - generic [ref=e6]:
+    - text: Where the good weather is right now, across 109 vetted nomad cities. ·
+    - link "How scores work" [ref=e7] [cursor=pointer]:
+      - /url: "#"
+  - heading "The verdict" [level=2] [ref=e8]
+  - generic [ref=e29]:
+    - heading "Best right now" [level=3] [ref=e30]
+    - paragraph [ref=e31]: Duluth, MN, Marquette, MI, and San Diego, CA are statistically tied for the best conditions today and tomorrow. Duluth posts a perfect 100 on 08-10 (hi 83, lo 61, 3% rain, 72% sun) after a 94.7 on 08-09. Marquette is nearly as strong with a 95.4 on 08-10 (hi 70, lo 58, 4% rain, 57% sun) and a 93.4 today. San Diego’s 08-09 is the best of the trio (95.2, hi 83, lo 69, 3% rain, 91% sun), though its 08-10 dips to 89.8 with only 36% sun. All three keep rain chances at or below 4% for the next two days.
+    - heading "Best for the coming week" [level=3] [ref=e32]
+    - paragraph [ref=e33]: Marquette, MI and San Luis Obispo, CA are tied for the best full-week outlook, both scoring 97.4. Marquette hits 100 on four of seven days (08-12 through 08-15) with highs in the 60s–70s, rain never above 23%, and sun frequently above 90%. San Luis Obispo posts 100 on six straight days (08-10 through 08-15) with highs in the 76–86 range, rain at or below 8%, and sun mostly 88–98%. This is a genuine tie; neither city separates itself over the week.
+    - heading "Runners-up" [level=3] [ref=e34]
+    - paragraph [ref=e35]: San Diego, CA (week 97.3) is the closest challenger, just 0.1 behind the week leaders. Its forecast is nearly flawless—rain never above 4%, sun mostly 79–97%—but a cloudy 08-10 (36% sun) and a slightly lower now score keep it out of the top spot. Duluth, MN (week 96.7) is also close, with a strong stretch of 100s on 08-10, 08-13, and 08-14, but its 08-15 drops to 83.4 (17% rain, 21% sun), which pulls its weekly average down.
+    - heading "Why" [level=3] [ref=e36]
+    - paragraph [ref=e37]: "The leaders are defined by consistently low rain and high sun, not extreme heat. Marquette’s week features highs of 63–76°F, rain chances of 3–23%, and sun from 57% to 98%—a cool, dry pattern. San Luis Obispo’s highs run 76–86°F with rain at 0–8% and sun mostly above 88%, offering warm, dry days. Duluth’s now-lead comes from a perfect 100 on 08-10 (hi 83, lo 61, 3% rain, 72% sun) and a 99.4 on 08-12 (hi 83, lo 60, 33% rain, 97% sun), though its 08-15 (17% rain, 21% sun) is the weak link. San Diego’s appeal is its reliability: rain never exceeds 4% all week, and highs stay in the 74–83°F range. The tie-breaker among the now leaders is negligible—all three have two-day rain chances under 5% and comfortable highs."
+    - heading "Watch-outs" [level=3] [ref=e38]
+    - paragraph [ref=e39]: "- Duluth, MN: 08-15 brings a 17% chance of rain (0.17 in) and only 21% sun—a cloudy, damp end to the week. Also, 08-10’s high of 83°F is a brief warm spike.- Marquette, MI: 08-11 has a 14% rain chance with 0.30 in possible, and 08-12 carries a 23% chance—both days still score 94.8 and 100, but packable rain gear is wise.- San Diego, CA: 08-10 is the only cloudy day (36% sun) with a high of 76°F; otherwise the week is dry and sunny.- San Luis Obispo, CA: 08-14 has an 8% rain chance (the week’s highest) but remains a 100-score day; no significant weather issues."
+    - generic [ref=e40]: "by accounts/fireworks/models/deepseek-v4-flash-0731 · 8/9/2026, 9:12:02 AM · ties: Duluth, MN; Marquette, MI; San Diego, CA"
+  - heading "Leaders, current conditions" [level=2] [ref=e11]
+  - generic [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - generic [ref=e44]: Duluth, MN
+        - generic [ref=e45]: $ typical rent $1,458/mo · Zillow ZORI, 2026-06
+      - generic [ref=e47]: ☀️ 65°
+      - generic [ref=e48]: Clear, feels 64°
+      - generic [ref=e49]:
+        - generic [ref=e50]: H/L 74°/62°
+        - generic [ref=e51]: Rain 19%
+        - generic [ref=e52]: Wind 7 mph
+        - generic [ref=e53]: Hum 73%
+      - generic [ref=e54]:
+        - generic [ref=e55]: now 97.6
+        - generic [ref=e56]: week 96.7
+        - generic [ref=e57]: combined 97.1
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: Marquette, MI
+        - generic [ref=e61]: $
+      - generic [ref=e63]: ☀️ 70°
+      - generic [ref=e64]: Clear, feels 69°
+      - generic [ref=e65]:
+        - generic [ref=e66]: H/L 73°/62°
+        - generic [ref=e67]: Rain 19%
+        - generic [ref=e68]: Wind 5 mph
+        - generic [ref=e69]: Hum 57%
+      - generic [ref=e70]:
+        - generic [ref=e71]: now 96
+        - generic [ref=e72]: week 97.4
+        - generic [ref=e73]: combined 96.8
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]: San Diego, CA
+        - generic [ref=e77]: $$$
+      - generic [ref=e79]: ☀️ 69°
+      - generic [ref=e80]: Clear, feels 74°
+      - generic [ref=e81]:
+        - generic [ref=e82]: H/L 83°/69°
+        - generic [ref=e83]: Rain 3%
+        - generic [ref=e84]: Wind 3 mph
+        - generic [ref=e85]: Hum 96%
+      - generic [ref=e86]:
+        - generic [ref=e87]: now 95.8
+        - generic [ref=e88]: week 97.3
+        - generic [ref=e89]: combined 96.6
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: San Luis Obispo, CA
+        - generic [ref=e93]: $$$
+      - generic [ref=e95]: 🌫️ 57°
+      - generic [ref=e96]: Fog, feels 57°
+      - generic [ref=e97]:
+        - generic [ref=e98]: H/L 88°/57°
+        - generic [ref=e99]: Rain 0%
+        - generic [ref=e100]: Wind 6 mph
+        - generic [ref=e101]: Hum 100%
+      - generic [ref=e102]:
+        - generic [ref=e103]: now 89.9
+        - generic [ref=e104]: week 97.4
+        - generic [ref=e105]: combined 94
+  - heading "The week ahead" [level=2] [ref=e12]
+  - generic [ref=e106]:
+    - generic [ref=e107]:
+      - generic [ref=e108]: Duluth, MN
+      - generic [ref=e109]:
+        - generic [ref=e110]: Sun
+        - generic [ref=e111]: ☁️
+        - generic "74°/62°" [ref=e112]
+        - generic [ref=e114]: 19%
+      - generic [ref=e115]:
+        - generic [ref=e116]: Mon
+        - generic [ref=e117]: ☁️
+        - generic "83°/61°" [ref=e118]
+        - generic [ref=e120]: 3%
+      - generic [ref=e121]:
+        - generic [ref=e122]: Tue
+        - generic [ref=e123]: 🌦️
+        - generic "82°/60°" [ref=e124]
+        - generic [ref=e126]: 33%
+      - generic [ref=e127]:
+        - generic [ref=e128]: Wed
+        - generic [ref=e129]: ☁️
+        - generic "83°/60°" [ref=e130]
+        - generic [ref=e132]: 33%
+      - generic [ref=e133]:
+        - generic [ref=e134]: Thu
+        - generic [ref=e135]: ☁️
+        - generic "72°/60°" [ref=e136]
+        - generic [ref=e138]: 4%
+      - generic [ref=e139]:
+        - generic [ref=e140]: Fri
+        - generic [ref=e141]: ☁️
+        - generic "74°/55°" [ref=e142]
+        - generic [ref=e144]: 4%
+      - generic [ref=e145]:
+        - generic [ref=e146]: Sat
+        - generic [ref=e147]: 🌦️
+        - generic "70°/58°" [ref=e148]
+        - generic [ref=e150]: 17%
+    - generic [ref=e151]:
+      - generic [ref=e152]: Marquette, MI
+      - generic [ref=e153]:
+        - generic [ref=e154]: Sun
+        - generic [ref=e155]: 🌦️
+        - generic "73°/62°" [ref=e156]
+        - generic [ref=e158]: 19%
+      - generic [ref=e159]:
+        - generic [ref=e160]: Mon
+        - generic [ref=e161]: 🌦️
+        - generic "70°/58°" [ref=e162]
+        - generic [ref=e164]: 4%
+      - generic [ref=e165]:
+        - generic [ref=e166]: Tue
+        - generic [ref=e167]: 🌦️
+        - generic "76°/59°" [ref=e168]
+        - generic [ref=e170]: 14%
+      - generic [ref=e171]:
+        - generic [ref=e172]: Wed
+        - generic [ref=e173]: ☁️
+        - generic "69°/58°" [ref=e174]
+        - generic [ref=e176]: 23%
+      - generic [ref=e177]:
+        - generic [ref=e178]: Thu
+        - generic [ref=e179]: ☁️
+        - generic "63°/53°" [ref=e180]
+        - generic [ref=e182]: 5%
+      - generic [ref=e183]:
+        - generic [ref=e184]: Fri
+        - generic [ref=e185]: ☁️
+        - generic "67°/55°" [ref=e186]
+        - generic [ref=e188]: 3%
+      - generic [ref=e189]:
+        - generic [ref=e190]: Sat
+        - generic [ref=e191]: ☁️
+        - generic "72°/55°" [ref=e192]
+        - generic [ref=e194]: 11%
+    - generic [ref=e195]:
+      - generic [ref=e196]: San Diego, CA
+      - generic [ref=e197]:
+        - generic [ref=e198]: Sun
+        - generic [ref=e199]: 🌫️
+        - generic "83°/69°" [ref=e200]
+        - generic [ref=e202]: 3%
+      - generic [ref=e203]:
+        - generic [ref=e204]: Mon
+        - generic [ref=e205]: 🌫️
+        - generic "76°/67°" [ref=e206]
+        - generic [ref=e208]: 2%
+      - generic [ref=e209]:
+        - generic [ref=e210]: Tue
+        - generic [ref=e211]: 🌦️
+        - generic "80°/73°" [ref=e212]
+        - generic [ref=e214]: 4%
+      - generic [ref=e215]:
+        - generic [ref=e216]: Wed
+        - generic [ref=e217]: ⛅
+        - generic "79°/72°" [ref=e218]
+        - generic [ref=e220]: 1%
+      - generic [ref=e221]:
+        - generic [ref=e222]: Thu
+        - generic [ref=e223]: ☁️
+        - generic "75°/70°" [ref=e224]
+        - generic [ref=e226]: 1%
+      - generic [ref=e227]:
+        - generic [ref=e228]: Fri
+        - generic [ref=e229]: ☁️
+        - generic "74°/69°" [ref=e230]
+        - generic [ref=e232]: 1%
+      - generic [ref=e233]:
+        - generic [ref=e234]: Sat
+        - generic [ref=e235]: ☁️
+        - generic "78°/70°" [ref=e236]
+        - generic [ref=e238]: 2%
+    - generic [ref=e239]:
+      - generic [ref=e240]: San Luis Obispo, CA
+      - generic [ref=e241]:
+        - generic [ref=e242]: Sun
+        - generic [ref=e243]: 🌫️
+        - generic "88°/57°" [ref=e244]
+        - generic [ref=e246]: 0%
+      - generic [ref=e247]:
+        - generic [ref=e248]: Mon
+        - generic [ref=e249]: 🌫️
+        - generic "81°/57°" [ref=e250]
+        - generic [ref=e252]: 1%
+      - generic [ref=e253]:
+        - generic [ref=e254]: Tue
+        - generic [ref=e255]: ☁️
+        - generic "86°/64°" [ref=e256]
+        - generic [ref=e258]: 0%
+      - generic [ref=e259]:
+        - generic [ref=e260]: Wed
+        - generic [ref=e261]: ☁️
+        - generic "81°/57°" [ref=e262]
+        - generic [ref=e264]: 2%
+      - generic [ref=e265]:
+        - generic [ref=e266]: Thu
+        - generic [ref=e267]: ☁️
+        - generic "76°/56°" [ref=e268]
+        - generic [ref=e270]: 3%
+      - generic [ref=e271]:
+        - generic [ref=e272]: Fri
+        - generic [ref=e273]: ☀️
+        - generic "76°/55°" [ref=e274]
+        - generic [ref=e276]: 8%
+      - generic [ref=e277]:
+        - generic [ref=e278]: Sat
+        - generic [ref=e279]: ☁️
+        - generic "80°/55°" [ref=e280]
+        - generic [ref=e282]: 2%
+  - heading "All 109 cities" [level=2] [ref=e283]
+  - generic [ref=e14]:
+    - generic:
+      - generic:
+        - img:
+          - generic:
+            - generic [ref=e284] [cursor=pointer]
+            - generic [ref=e285] [cursor=pointer]
+            - generic [ref=e286] [cursor=pointer]
+            - generic [ref=e287] [cursor=pointer]
+            - generic [ref=e288] [cursor=pointer]
+            - generic [ref=e289] [cursor=pointer]
+            - generic [ref=e290] [cursor=pointer]
+            - generic [ref=e291] [cursor=pointer]
+            - generic [ref=e292] [cursor=pointer]
+            - generic [ref=e293] [cursor=pointer]
+            - generic [ref=e294] [cursor=pointer]
+            - generic [ref=e295] [cursor=pointer]
+            - generic [ref=e296] [cursor=pointer]
+            - generic [ref=e297] [cursor=pointer]
+            - generic [ref=e298] [cursor=pointer]
+            - generic [ref=e299] [cursor=pointer]
+            - generic [ref=e300] [cursor=pointer]
+            - generic [ref=e301] [cursor=pointer]
+            - generic [ref=e302] [cursor=pointer]
+            - generic [ref=e303] [cursor=pointer]
+            - generic [ref=e304] [cursor=pointer]
+            - generic [ref=e305] [cursor=pointer]
+            - generic [ref=e306] [cursor=pointer]
+            - generic [ref=e307] [cursor=pointer]
+            - generic [ref=e308] [cursor=pointer]
+            - generic [ref=e309] [cursor=pointer]
+            - generic [ref=e310] [cursor=pointer]
+            - generic [ref=e311] [cursor=pointer]
+            - generic [ref=e312] [cursor=pointer]
+            - generic [ref=e313] [cursor=pointer]
+            - generic [ref=e314] [cursor=pointer]
+            - generic [ref=e315] [cursor=pointer]
+            - generic [ref=e316] [cursor=pointer]
+            - generic [ref=e317] [cursor=pointer]
+            - generic [ref=e318] [cursor=pointer]
+            - generic [ref=e319] [cursor=pointer]
+            - generic [ref=e320] [cursor=pointer]
+            - generic [ref=e321] [cursor=pointer]
+            - generic [ref=e322] [cursor=pointer]
+            - generic [ref=e323] [cursor=pointer]
+            - generic [ref=e324] [cursor=pointer]
+            - generic [ref=e325] [cursor=pointer]
+            - generic [ref=e326] [cursor=pointer]
+            - generic [ref=e327] [cursor=pointer]
+            - generic [ref=e328] [cursor=pointer]
+            - generic [ref=e329] [cursor=pointer]
+            - generic [ref=e330] [cursor=pointer]
+            - generic [ref=e331] [cursor=pointer]
+            - generic [ref=e332] [cursor=pointer]
+            - generic [ref=e333] [cursor=pointer]
+            - generic [ref=e334] [cursor=pointer]
+            - generic [ref=e335] [cursor=pointer]
+            - generic [ref=e336] [cursor=pointer]
+            - generic [ref=e337] [cursor=pointer]
+            - generic [ref=e338] [cursor=pointer]
+            - generic [ref=e339] [cursor=pointer]
+            - generic [ref=e340] [cursor=pointer]
+            - generic [ref=e341] [cursor=pointer]
+            - generic [ref=e342] [cursor=pointer]
+            - generic [ref=e343] [cursor=pointer]
+            - generic [ref=e344] [cursor=pointer]
+            - generic [ref=e345] [cursor=pointer]
+            - generic [ref=e346] [cursor=pointer]
+            - generic [ref=e347] [cursor=pointer]
+            - generic [ref=e348] [cursor=pointer]
+            - generic [ref=e349] [cursor=pointer]
+            - generic [ref=e350] [cursor=pointer]
+            - generic [ref=e351] [cursor=pointer]
+            - generic [ref=e352] [cursor=pointer]
+            - generic [ref=e353] [cursor=pointer]
+            - generic [ref=e354] [cursor=pointer]
+            - generic [ref=e355] [cursor=pointer]
+            - generic [ref=e356] [cursor=pointer]
+            - generic [ref=e357] [cursor=pointer]
+            - generic [ref=e358] [cursor=pointer]
+            - generic [ref=e359] [cursor=pointer]
+            - generic [ref=e360] [cursor=pointer]
+            - generic [ref=e361] [cursor=pointer]
+            - generic [ref=e362] [cursor=pointer]
+            - generic [ref=e363] [cursor=pointer]
+            - generic [ref=e364] [cursor=pointer]
+            - generic [ref=e365] [cursor=pointer]
+            - generic [ref=e366] [cursor=pointer]
+            - generic [ref=e367] [cursor=pointer]
+            - generic [ref=e368] [cursor=pointer]
+            - generic [ref=e369] [cursor=pointer]
+            - generic [ref=e370] [cursor=pointer]
+            - generic [ref=e371] [cursor=pointer]
+            - generic [ref=e372] [cursor=pointer]
+            - generic [ref=e373] [cursor=pointer]
+            - generic [ref=e374] [cursor=pointer]
+            - generic [ref=e375] [cursor=pointer]
+            - generic [ref=e376] [cursor=pointer]
+            - generic [ref=e377] [cursor=pointer]
+            - generic [ref=e378] [cursor=pointer]
+            - generic [ref=e379] [cursor=pointer]
+            - generic [ref=e380] [cursor=pointer]
+            - generic [ref=e381] [cursor=pointer]
+            - generic [ref=e382] [cursor=pointer]
+            - generic [ref=e383] [cursor=pointer]
+            - generic [ref=e384] [cursor=pointer]
+            - generic [ref=e385] [cursor=pointer]
+            - generic [ref=e386] [cursor=pointer]
+            - generic [ref=e387] [cursor=pointer]
+            - generic [ref=e388] [cursor=pointer]
+            - generic [ref=e389] [cursor=pointer]
+            - generic [ref=e390] [cursor=pointer]
+            - generic [ref=e391] [cursor=pointer]
+            - generic [ref=e392] [cursor=pointer]
+    - generic:
+      - generic [ref=e393]:
+        - button "Zoom in" [ref=e394] [cursor=pointer]: +
+        - button "Zoom out" [ref=e395] [cursor=pointer]: −
+      - generic [ref=e396]:
+        - link "Leaflet" [ref=e397] [cursor=pointer]:
+          - /url: https://leafletjs.com
+        - text: "| ©"
+        - link "OpenStreetMap" [ref=e402] [cursor=pointer]:
+          - /url: https://www.openstreetmap.org/copyright
+  - generic [ref=e15]: "CombinedScore: bad meh great · ring = curated 30 · click a dot for details"
+  - table [ref=e404]:
+    - rowgroup [ref=e405]:
+      - row [ref=e406]:
+        - columnheader "#" [ref=e407] [cursor=pointer]
+        - columnheader "City" [ref=e408] [cursor=pointer]
+        - columnheader "Now" [ref=e409] [cursor=pointer]
+        - columnheader "Week" [ref=e410] [cursor=pointer]
+        - columnheader "Combined ▾" [ref=e411] [cursor=pointer]
+        - columnheader "Hi" [ref=e412] [cursor=pointer]
+        - columnheader "Lo" [ref=e413] [cursor=pointer]
+        - columnheader "Rain%" [ref=e414] [cursor=pointer]
+        - columnheader "Tier" [ref=e415] [cursor=pointer]
+        - columnheader "Curated" [ref=e416] [cursor=pointer]
+        - columnheader "Rent $/mo" [ref=e417] [cursor=pointer]
+    - rowgroup [ref=e418]:
+      - row [ref=e419]:
+        - cell "1" [ref=e420]
+        - cell "Duluth, MN" [ref=e421]
+        - cell "97.6" [ref=e422]
+        - cell "96.7" [ref=e423]
+        - cell "97.1" [ref=e424]
+        - cell "74" [ref=e425]
+        - cell "62" [ref=e426]
+        - cell "19" [ref=e427]
+        - cell "active" [ref=e428]
+        - cell [ref=e429]
+        - cell "1458" [ref=e430]
+      - row [ref=e431]:
+        - cell "2" [ref=e432]
+        - cell "Marquette, MI" [ref=e433]
+        - cell "96" [ref=e434]
+        - cell "97.4" [ref=e435]
+        - cell "96.8" [ref=e436]
+        - cell "73" [ref=e437]
+        - cell "62" [ref=e438]
+        - cell "19" [ref=e439]
+        - cell "active" [ref=e440]
+        - cell [ref=e441]
+        - cell "1476" [ref=e442]
+      - row [ref=e443]:
+        - cell "3" [ref=e444]
+        - cell "San Diego, CA" [ref=e445]
+        - cell "95.8" [ref=e446]
+        - cell "97.3" [ref=e447]
+        - cell "96.6" [ref=e448]
+        - cell "83" [ref=e449]
+        - cell "69" [ref=e450]
+        - cell "3" [ref=e451]
+        - cell "active" [ref=e452]
+        - cell [ref=e453]
+        - cell "3038" [ref=e454]
+      - row [ref=e455]:
+        - cell "4" [ref=e456]
+        - cell "San Luis Obispo, CA" [ref=e457]
+        - cell "89.9" [ref=e458]
+        - cell "97.4" [ref=e459]
+        - cell "94" [ref=e460]
+        - cell "88" [ref=e461]
+        - cell "57" [ref=e462]
+        - cell "0" [ref=e463]
+        - cell "active" [ref=e464]
+        - cell [ref=e465]
+        - cell "2966" [ref=e466]
+      - row [ref=e467]:
+        - cell "5" [ref=e468]
+        - cell "Traverse City, MI" [ref=e469]
+        - cell "88.2" [ref=e470]
+        - cell "96.1" [ref=e471]
+        - cell "92.5" [ref=e472]
+        - cell "80" [ref=e473]
+        - cell "60" [ref=e474]
+        - cell "37" [ref=e475]
+        - cell "active" [ref=e476]
+        - cell "★" [ref=e477]
+        - cell "2005" [ref=e478]
+      - row [ref=e479]:
+        - cell "6" [ref=e480]
+        - cell "Coeur d'Alene, ID" [ref=e481]
+        - cell "93.3" [ref=e482]
+        - cell "91.5" [ref=e483]
+        - cell "92.3" [ref=e484]
+        - cell "87" [ref=e485]
+        - cell "55" [ref=e486]
+        - cell "0" [ref=e487]
+        - cell "active" [ref=e488]
+        - cell "★" [ref=e489]
+        - cell "1807" [ref=e490]
+      - row [ref=e491]:
+        - cell "7" [ref=e492]
+        - cell "Portsmouth, NH" [ref=e493]
+        - cell "90.6" [ref=e494]
+        - cell "93.6" [ref=e495]
+        - cell "92.2" [ref=e496]
+        - cell "90" [ref=e497]
+        - cell "69" [ref=e498]
+        - cell "2" [ref=e499]
+        - cell "active" [ref=e500]
+        - cell "★" [ref=e501]
+        - cell "2920" [ref=e502]
+      - row [ref=e503]:
+        - cell "8" [ref=e504]
+        - cell "Saratoga Springs, NY" [ref=e505]
+        - cell "89.4" [ref=e506]
+        - cell "93.9" [ref=e507]
+        - cell "91.9" [ref=e508]
+        - cell "82" [ref=e509]
+        - cell "67" [ref=e510]
+        - cell "19" [ref=e511]
+        - cell "active" [ref=e512]
+        - cell [ref=e513]
+        - cell "2374" [ref=e514]
+      - row [ref=e515]:
+        - cell "9" [ref=e516]
+        - cell "Sandpoint, ID" [ref=e517]
+        - cell "91.4" [ref=e518]
+        - cell "92" [ref=e519]
+        - cell "91.8" [ref=e520]
+        - cell "86" [ref=e521]
+        - cell "51" [ref=e522]
+        - cell "0" [ref=e523]
+        - cell "active" [ref=e524]
+        - cell [ref=e525]
+        - cell "1992" [ref=e526]
+      - row [ref=e527]:
+        - cell "10" [ref=e528]
+        - cell "Bozeman, MT" [ref=e529]
+        - cell "93.3" [ref=e530]
+        - cell "90" [ref=e531]
+        - cell "91.5" [ref=e532]
+        - cell "82" [ref=e533]
+        - cell "56" [ref=e534]
+        - cell "0" [ref=e535]
+        - cell "active" [ref=e536]
+        - cell "★" [ref=e537]
+        - cell "2227" [ref=e538]
+      - row [ref=e539]:
+        - cell "11" [ref=e540]
+        - cell "Newport, RI" [ref=e541]
+        - cell "88.9" [ref=e542]
+        - cell "92.7" [ref=e543]
+        - cell "91" [ref=e544]
+        - cell "87" [ref=e545]
+        - cell "71" [ref=e546]
+        - cell "5" [ref=e547]
+        - cell "active" [ref=e548]
+        - cell [ref=e549]
+        - cell "3163" [ref=e550]
+      - row [ref=e551]:
+        - cell "12" [ref=e552]
+        - cell "Missoula, MT" [ref=e553]
+        - cell "92" [ref=e554]
+        - cell "89.7" [ref=e555]
+        - cell "90.8" [ref=e556]
+        - cell "88" [ref=e557]
+        - cell "56" [ref=e558]
+        - cell "0" [ref=e559]
+        - cell "active" [ref=e560]
+        - cell [ref=e561]
+        - cell "1550" [ref=e562]
+      - row [ref=e563]:
+        - cell "13" [ref=e564]
+        - cell "Burlington, VT" [ref=e565]
+        - cell "90" [ref=e566]
+        - cell "90.8" [ref=e567]
+        - cell "90.5" [ref=e568]
+        - cell "82" [ref=e569]
+        - cell "67" [ref=e570]
+        - cell "22" [ref=e571]
+        - cell "active" [ref=e572]
+        - cell [ref=e573]
+        - cell "1990" [ref=e574]
+      - row [ref=e575]:
+        - cell "14" [ref=e576]
+        - cell "Ithaca, NY" [ref=e577]
+        - cell "85.8" [ref=e578]
+        - cell "92.4" [ref=e579]
+        - cell "89.5" [ref=e580]
+        - cell "83" [ref=e581]
+        - cell "70" [ref=e582]
+        - cell "43" [ref=e583]
+        - cell "active" [ref=e584]
+        - cell [ref=e585]
+        - cell "1947" [ref=e586]
+      - row [ref=e587]:
+        - cell "15" [ref=e588]
+        - cell "Ashland, OR" [ref=e589]
+        - cell "88" [ref=e590]
+        - cell "90.4" [ref=e591]
+        - cell "89.3" [ref=e592]
+        - cell "92" [ref=e593]
+        - cell "63" [ref=e594]
+        - cell "0" [ref=e595]
+        - cell "active" [ref=e596]
+        - cell "★" [ref=e597]
+        - cell "1971" [ref=e598]
+      - row [ref=e599]:
+        - cell "16" [ref=e600]
+        - cell "Klamath Falls, OR" [ref=e601]
+        - cell "89.5" [ref=e602]
+        - cell "88.5" [ref=e603]
+        - cell "88.9" [ref=e604]
+        - cell "91" [ref=e605]
+        - cell "60" [ref=e606]
+        - cell "0" [ref=e607]
+        - cell "active" [ref=e608]
+        - cell [ref=e609]
+        - cell "1257" [ref=e610]
+      - row [ref=e611]:
+        - cell "17" [ref=e612]
+        - cell "Spokane, WA" [ref=e613]
+        - cell "87.5" [ref=e614]
+        - cell "89.4" [ref=e615]
+        - cell "88.5" [ref=e616]
+        - cell "89" [ref=e617]
+        - cell "54" [ref=e618]
+        - cell "0" [ref=e619]
+        - cell "active" [ref=e620]
+        - cell [ref=e621]
+        - cell "1498" [ref=e622]
+      - row [ref=e623]:
+        - cell "18" [ref=e624]
+        - cell "Paso Robles, CA" [ref=e625]
+        - cell "81.9" [ref=e626]
+        - cell "90.9" [ref=e627]
+        - cell "86.9" [ref=e628]
+        - cell "96" [ref=e629]
+        - cell "57" [ref=e630]
+        - cell "0" [ref=e631]
+        - cell "active" [ref=e632]
+        - cell [ref=e633]
+        - cell "2684" [ref=e634]
+      - row [ref=e635]:
+        - cell "19" [ref=e636]
+        - cell "Providence, RI" [ref=e637]
+        - cell "83.2" [ref=e638]
+        - cell "89" [ref=e639]
+        - cell "86.4" [ref=e640]
+        - cell "91" [ref=e641]
+        - cell "72" [ref=e642]
+        - cell "3" [ref=e643]
+        - cell "active" [ref=e644]
+        - cell [ref=e645]
+        - cell "2293" [ref=e646]
+      - row [ref=e647]:
+        - cell "20" [ref=e648]
+        - cell "Bisbee, AZ" [ref=e649]
+        - cell "88.9" [ref=e650]
+        - cell "84" [ref=e651]
+        - cell "86.2" [ref=e652]
+        - cell "88" [ref=e653]
+        - cell "65" [ref=e654]
+        - cell "4" [ref=e655]
+        - cell "active" [ref=e656]
+        - cell "★" [ref=e657]
+        - cell [ref=e658]
+      - row [ref=e659]:
+        - cell "21" [ref=e660]
+        - cell "Portland, ME" [ref=e661]
+        - cell "83" [ref=e662]
+        - cell "88.5" [ref=e663]
+        - cell "86" [ref=e664]
+        - cell "90" [ref=e665]
+        - cell "67" [ref=e666]
+        - cell "7" [ref=e667]
+        - cell "active" [ref=e668]
+        - cell [ref=e669]
+        - cell "2429" [ref=e670]
+      - row [ref=e671]:
+        - cell "22" [ref=e672]
+        - cell "Sioux Falls, SD" [ref=e673]
+        - cell "85.5" [ref=e674]
+        - cell "83.3" [ref=e675]
+        - cell "84.3" [ref=e676]
+        - cell "85" [ref=e677]
+        - cell "68" [ref=e678]
+        - cell "18" [ref=e679]
+        - cell "active" [ref=e680]
+        - cell [ref=e681]
+        - cell "1327" [ref=e682]
+      - row [ref=e683]:
+        - cell "23" [ref=e684]
+        - cell "Grand Rapids, MI" [ref=e685]
+        - cell "77.1" [ref=e686]
+        - cell "86.7" [ref=e687]
+        - cell "82.4" [ref=e688]
+        - cell "88" [ref=e689]
+        - cell "58" [ref=e690]
+        - cell "33" [ref=e691]
+        - cell "active" [ref=e692]
+        - cell [ref=e693]
+        - cell "1627" [ref=e694]
+      - row [ref=e695]:
+        - cell "24" [ref=e696]
+        - cell "Medford, OR" [ref=e697]
+        - cell "79.4" [ref=e698]
+        - cell "81.9" [ref=e699]
+        - cell "80.7" [ref=e700]
+        - cell "96" [ref=e701]
+        - cell "62" [ref=e702]
+        - cell "0" [ref=e703]
+        - cell "active" [ref=e704]
+        - cell [ref=e705]
+        - cell "1721" [ref=e706]
+      - row [ref=e707]:
+        - cell "25" [ref=e708]
+        - cell "Pittsburgh, PA" [ref=e709]
+        - cell "76.2" [ref=e710]
+        - cell "83.8" [ref=e711]
+        - cell "80.4" [ref=e712]
+        - cell "86" [ref=e713]
+        - cell "67" [ref=e714]
+        - cell "47" [ref=e715]
+        - cell "active" [ref=e716]
+        - cell [ref=e717]
+        - cell "1593" [ref=e718]
+      - row [ref=e719]:
+        - cell "26" [ref=e720]
+        - cell "Wenatchee, WA" [ref=e721]
+        - cell "80.7" [ref=e722]
+        - cell "78.7" [ref=e723]
+        - cell "79.6" [ref=e724]
+        - cell "96" [ref=e725]
+        - cell "68" [ref=e726]
+        - cell "0" [ref=e727]
+        - cell "active" [ref=e728]
+        - cell [ref=e729]
+        - cell "1729" [ref=e730]
+      - row [ref=e731]:
+        - cell "27" [ref=e732]
+        - cell "Sheridan, WY" [ref=e733]
+        - cell "78.8" [ref=e734]
+        - cell "80.1" [ref=e735]
+        - cell "79.5" [ref=e736]
+        - cell "91" [ref=e737]
+        - cell "57" [ref=e738]
+        - cell "6" [ref=e739]
+        - cell "active" [ref=e740]
+        - cell "★" [ref=e741]
+        - cell [ref=e742]
+      - row [ref=e743]:
+        - cell "28" [ref=e744]
+        - cell "Billings, MT" [ref=e745]
+        - cell "76.7" [ref=e746]
+        - cell "79.6" [ref=e747]
+        - cell "78.3" [ref=e748]
+        - cell "95" [ref=e749]
+        - cell "61" [ref=e750]
+        - cell "4" [ref=e751]
+        - cell "active" [ref=e752]
+        - cell [ref=e753]
+        - cell "1458" [ref=e754]
+      - row [ref=e755]:
+        - cell "29" [ref=e756]
+        - cell "Carson City, NV" [ref=e757]
+        - cell "73.9" [ref=e758]
+        - cell "81.9" [ref=e759]
+        - cell "78.3" [ref=e760]
+        - cell "97" [ref=e761]
+        - cell "68" [ref=e762]
+        - cell "1" [ref=e763]
+        - cell "active" [ref=e764]
+        - cell "★" [ref=e765]
+        - cell "1840" [ref=e766]
+      - row [ref=e767]:
+        - cell "30" [ref=e768]
+        - cell "Twin Falls, ID" [ref=e769]
+        - cell "79.1" [ref=e770]
+        - cell "76.4" [ref=e771]
+        - cell "77.6" [ref=e772]
+        - cell "94" [ref=e773]
+        - cell "62" [ref=e774]
+        - cell "0" [ref=e775]
+        - cell "active" [ref=e776]
+        - cell [ref=e777]
+        - cell "1575" [ref=e778]
+      - row [ref=e779]:
+        - cell "31" [ref=e780]
+        - cell "Kerrville, TX" [ref=e781]
+        - cell "81.6" [ref=e782]
+        - cell "74.2" [ref=e783]
+        - cell "77.5" [ref=e784]
+        - cell "92" [ref=e785]
+        - cell "74" [ref=e786]
+        - cell "2" [ref=e787]
+        - cell "dormant" [ref=e788]
+        - cell "★" [ref=e789]
+        - cell "1853" [ref=e790]
+      - row [ref=e791]:
+        - cell "32" [ref=e792]
+        - cell "Prescott, AZ" [ref=e793]
+        - cell "71" [ref=e794]
+        - cell "80.5" [ref=e795]
+        - cell "76.3" [ref=e796]
+        - cell "93" [ref=e797]
+        - cell "68" [ref=e798]
+        - cell "17" [ref=e799]
+        - cell "active" [ref=e800]
+        - cell "★" [ref=e801]
+        - cell "1841" [ref=e802]
+      - row [ref=e803]:
+        - cell "33" [ref=e804]
+        - cell "Kennewick, WA" [ref=e805]
+        - cell "78.7" [ref=e806]
+        - cell "73.4" [ref=e807]
+        - cell "75.8" [ref=e808]
+        - cell "96" [ref=e809]
+        - cell "64" [ref=e810]
+        - cell "0" [ref=e811]
+        - cell "active" [ref=e812]
+        - cell [ref=e813]
+        - cell "1621" [ref=e814]
+      - row [ref=e815]:
+        - cell "34" [ref=e816]
+        - cell "Boise, ID" [ref=e817]
+        - cell "75.1" [ref=e818]
+        - cell "76.1" [ref=e819]
+        - cell "75.7" [ref=e820]
+        - cell "96" [ref=e821]
+        - cell "61" [ref=e822]
+        - cell "0" [ref=e823]
+        - cell "active" [ref=e824]
+        - cell "★" [ref=e825]
+        - cell "1808" [ref=e826]
+      - row [ref=e827]:
+        - cell "35" [ref=e828]
+        - cell "Asheville, NC" [ref=e829]
+        - cell "73.1" [ref=e830]
+        - cell "75.5" [ref=e831]
+        - cell "74.4" [ref=e832]
+        - cell "86" [ref=e833]
+        - cell "65" [ref=e834]
+        - cell "37" [ref=e835]
+        - cell "active" [ref=e836]
+        - cell "★" [ref=e837]
+        - cell "1688" [ref=e838]
+      - row [ref=e839]:
+        - cell "36" [ref=e840]
+        - cell "Flagstaff, AZ" [ref=e841]
+        - cell "71.4" [ref=e842]
+        - cell "77" [ref=e843]
+        - cell "74.4" [ref=e844]
+        - cell "90" [ref=e845]
+        - cell "62" [ref=e846]
+        - cell "19" [ref=e847]
+        - cell "active" [ref=e848]
+        - cell [ref=e849]
+        - cell "2117" [ref=e850]
+      - row [ref=e851]:
+        - cell "37" [ref=e852]
+        - cell "Reno, NV" [ref=e853]
+        - cell "69.7" [ref=e854]
+        - cell "78.3" [ref=e855]
+        - cell "74.4" [ref=e856]
+        - cell "99" [ref=e857]
+        - cell "69" [ref=e858]
+        - cell "0" [ref=e859]
+        - cell "active" [ref=e860]
+        - cell [ref=e861]
+        - cell "1932" [ref=e862]
+      - row [ref=e863]:
+        - cell "38" [ref=e864]
+        - cell "Rapid City, SD" [ref=e865]
+        - cell "75.6" [ref=e866]
+        - cell "73.1" [ref=e867]
+        - cell "74.2" [ref=e868]
+        - cell "91" [ref=e869]
+        - cell "64" [ref=e870]
+        - cell "4" [ref=e871]
+        - cell "active" [ref=e872]
+        - cell [ref=e873]
+        - cell "1443" [ref=e874]
+      - row [ref=e875]:
+        - cell "39" [ref=e876]
+        - cell "Johnson City, TN" [ref=e877]
+        - cell "72" [ref=e878]
+        - cell "74.2" [ref=e879]
+        - cell "73.2" [ref=e880]
+        - cell "82" [ref=e881]
+        - cell "67" [ref=e882]
+        - cell "38" [ref=e883]
+        - cell "dormant" [ref=e884]
+        - cell [ref=e885]
+        - cell "1467" [ref=e886]
+      - row [ref=e887]:
+        - cell "40" [ref=e888]
+        - cell "Corpus Christi, TX" [ref=e889]
+        - cell "66.2" [ref=e890]
+        - cell "78.7" [ref=e891]
+        - cell "73.1" [ref=e892]
+        - cell "92" [ref=e893]
+        - cell "80" [ref=e894]
+        - cell "8" [ref=e895]
+        - cell "dormant" [ref=e896]
+        - cell [ref=e897]
+        - cell "1415" [ref=e898]
+      - row [ref=e899]:
+        - cell "41" [ref=e900]
+        - cell "Roanoke, VA" [ref=e901]
+        - cell "70.7" [ref=e902]
+        - cell "72.8" [ref=e903]
+        - cell "71.9" [ref=e904]
+        - cell "96" [ref=e905]
+        - cell "70" [ref=e906]
+        - cell "11" [ref=e907]
+        - cell "active" [ref=e908]
+        - cell [ref=e909]
+        - cell "1394" [ref=e910]
+      - row [ref=e911]:
+        - cell "42" [ref=e912]
+        - cell "Boerne, TX" [ref=e913]
+        - cell "74.1" [ref=e914]
+        - cell "67.6" [ref=e915]
+        - cell "70.5" [ref=e916]
+        - cell "92" [ref=e917]
+        - cell "75" [ref=e918]
+        - cell "5" [ref=e919]
+        - cell "dormant" [ref=e920]
+        - cell [ref=e921]
+        - cell "1485" [ref=e922]
+      - row [ref=e923]:
+        - cell "43" [ref=e924]
+        - cell "Montrose, CO" [ref=e925]
+        - cell "67.6" [ref=e926]
+        - cell "72.6" [ref=e927]
+        - cell "70.3" [ref=e928]
+        - cell "98" [ref=e929]
+        - cell "65" [ref=e930]
+        - cell "5" [ref=e931]
+        - cell "active" [ref=e932]
+        - cell [ref=e933]
+        - cell "2027" [ref=e934]
+      - row [ref=e935]:
+        - cell "44" [ref=e936]
+        - cell "Sierra Vista, AZ" [ref=e937]
+        - cell "69.4" [ref=e938]
+        - cell "70.5" [ref=e939]
+        - cell "70" [ref=e940]
+        - cell "94" [ref=e941]
+        - cell "67" [ref=e942]
+        - cell "9" [ref=e943]
+        - cell "active" [ref=e944]
+        - cell [ref=e945]
+        - cell "1341" [ref=e946]
+      - row [ref=e947]:
+        - cell "45" [ref=e948]
+        - cell "Knoxville, TN" [ref=e949]
+        - cell "70.7" [ref=e950]
+        - cell "67.5" [ref=e951]
+        - cell "69" [ref=e952]
+        - cell "87" [ref=e953]
+        - cell "69" [ref=e954]
+        - cell "30" [ref=e955]
+        - cell "dormant" [ref=e956]
+        - cell "★" [ref=e957]
+        - cell "1735" [ref=e958]
+      - row [ref=e959]:
+        - cell "46" [ref=e960]
+        - cell "Ogden, UT" [ref=e961]
+        - cell "61.1" [ref=e962]
+        - cell "72.9" [ref=e963]
+        - cell "67.6" [ref=e964]
+        - cell "99" [ref=e965]
+        - cell "75" [ref=e966]
+        - cell "4" [ref=e967]
+        - cell "active" [ref=e968]
+        - cell [ref=e969]
+        - cell "1310" [ref=e970]
+      - row [ref=e971]:
+        - cell "47" [ref=e972]
+        - cell "Cheyenne, WY" [ref=e973]
+        - cell "61.6" [ref=e974]
+        - cell "71.5" [ref=e975]
+        - cell "67.1" [ref=e976]
+        - cell "93" [ref=e977]
+        - cell "64" [ref=e978]
+        - cell "12" [ref=e979]
+        - cell "active" [ref=e980]
+        - cell [ref=e981]
+        - cell "1494" [ref=e982]
+      - row [ref=e983]:
+        - cell "48" [ref=e984]
+        - cell "Biloxi, MS" [ref=e985]
+        - cell "64.3" [ref=e986]
+        - cell "68.5" [ref=e987]
+        - cell "66.6" [ref=e988]
+        - cell "91" [ref=e989]
+        - cell "76" [ref=e990]
+        - cell "19" [ref=e991]
+        - cell "dormant" [ref=e992]
+        - cell [ref=e993]
+        - cell "1386" [ref=e994]
+      - row [ref=e995]:
+        - cell "49" [ref=e996]
+        - cell "Galveston, TX" [ref=e997]
+        - cell "56.7" [ref=e998]
+        - cell "74.5" [ref=e999]
+        - cell "66.5" [ref=e1000]
+        - cell "91" [ref=e1001]
+        - cell "81" [ref=e1002]
+        - cell "11" [ref=e1003]
+        - cell "dormant" [ref=e1004]
+        - cell [ref=e1005]
+        - cell "1356" [ref=e1006]
+      - row [ref=e1007]:
+        - cell "50" [ref=e1008]
+        - cell "Gulf Shores, AL" [ref=e1009]
+        - cell "62.4" [ref=e1010]
+        - cell "69.3" [ref=e1011]
+        - cell "66.2" [ref=e1012]
+        - cell "89" [ref=e1013]
+        - cell "75" [ref=e1014]
+        - cell "17" [ref=e1015]
+        - cell "dormant" [ref=e1016]
+        - cell [ref=e1017]
+        - cell "1830" [ref=e1018]
+      - row [ref=e1019]:
+        - cell "51" [ref=e1020]
+        - cell "Colorado Springs, CO" [ref=e1021]
+        - cell "59.3" [ref=e1022]
+        - cell "69.5" [ref=e1023]
+        - cell "64.9" [ref=e1024]
+        - cell "99" [ref=e1025]
+        - cell "63" [ref=e1026]
+        - cell "7" [ref=e1027]
+        - cell "active" [ref=e1028]
+        - cell [ref=e1029]
+        - cell "1739" [ref=e1030]
+      - row [ref=e1031]:
+        - cell "52" [ref=e1032]
+        - cell "Fairhope, AL" [ref=e1033]
+        - cell "59" [ref=e1034]
+        - cell "69.6" [ref=e1035]
+        - cell "64.8" [ref=e1036]
+        - cell "93" [ref=e1037]
+        - cell "75" [ref=e1038]
+        - cell "20" [ref=e1039]
+        - cell "dormant" [ref=e1040]
+        - cell [ref=e1041]
+        - cell "2242" [ref=e1042]
+      - row [ref=e1043]:
+        - cell "53" [ref=e1044]
+        - cell "Boulder, CO" [ref=e1045]
+        - cell "63.7" [ref=e1046]
+        - cell "65.1" [ref=e1047]
+        - cell "64.5" [ref=e1048]
+        - cell "99" [ref=e1049]
+        - cell "75" [ref=e1050]
+        - cell "14" [ref=e1051]
+        - cell "active" [ref=e1052]
+        - cell [ref=e1053]
+        - cell "2439" [ref=e1054]
+      - row [ref=e1055]:
+        - cell "54" [ref=e1056]
+        - cell "St. Petersburg, FL" [ref=e1057]
+        - cell "61" [ref=e1058]
+        - cell "67.1" [ref=e1059]
+        - cell "64.4" [ref=e1060]
+        - cell "88" [ref=e1061]
+        - cell "76" [ref=e1062]
+        - cell "16" [ref=e1063]
+        - cell "dormant" [ref=e1064]
+        - cell [ref=e1065]
+        - cell "2058" [ref=e1066]
+      - row [ref=e1067]:
+        - cell "55" [ref=e1068]
+        - cell "Salt Lake City, UT" [ref=e1069]
+        - cell "58.1" [ref=e1070]
+        - cell "69.1" [ref=e1071]
+        - cell "64.2" [ref=e1072]
+        - cell "101" [ref=e1073]
+        - cell "80" [ref=e1074]
+        - cell "7" [ref=e1075]
+        - cell "active" [ref=e1076]
+        - cell [ref=e1077]
+        - cell "1629" [ref=e1078]
+      - row [ref=e1079]:
+        - cell "56" [ref=e1080]
+        - cell "Pensacola, FL" [ref=e1081]
+        - cell "63.1" [ref=e1082]
+        - cell "64.8" [ref=e1083]
+        - cell "64.1" [ref=e1084]
+        - cell "89" [ref=e1085]
+        - cell "73" [ref=e1086]
+        - cell "16" [ref=e1087]
+        - cell "dormant" [ref=e1088]
+        - cell "★" [ref=e1089]
+        - cell "1657" [ref=e1090]
+      - row [ref=e1091]:
+        - cell "57" [ref=e1092]
+        - cell "Vero Beach, FL" [ref=e1093]
+        - cell "65.5" [ref=e1094]
+        - cell "62.1" [ref=e1095]
+        - cell "63.6" [ref=e1096]
+        - cell "87" [ref=e1097]
+        - cell "78" [ref=e1098]
+        - cell "24" [ref=e1099]
+        - cell "dormant" [ref=e1100]
+        - cell [ref=e1101]
+        - cell "2214" [ref=e1102]
+      - row [ref=e1103]:
+        - cell "58" [ref=e1104]
+        - cell "Chattanooga, TN" [ref=e1105]
+        - cell "66.7" [ref=e1106]
+        - cell "60.6" [ref=e1107]
+        - cell "63.3" [ref=e1108]
+        - cell "93" [ref=e1109]
+        - cell "70" [ref=e1110]
+        - cell "23" [ref=e1111]
+        - cell "dormant" [ref=e1112]
+        - cell [ref=e1113]
+        - cell "1505" [ref=e1114]
+      - row [ref=e1115]:
+        - cell "59" [ref=e1116]
+        - cell "El Paso, TX" [ref=e1117]
+        - cell "61" [ref=e1118]
+        - cell "64.4" [ref=e1119]
+        - cell "62.9" [ref=e1120]
+        - cell "99" [ref=e1121]
+        - cell "75" [ref=e1122]
+        - cell "1" [ref=e1123]
+        - cell "dormant" [ref=e1124]
+        - cell "★" [ref=e1125]
+        - cell "1521" [ref=e1126]
+      - row [ref=e1127]:
+        - cell "60" [ref=e1128]
+        - cell "Georgetown, TX" [ref=e1129]
+        - cell "71.4" [ref=e1130]
+        - cell "54.9" [ref=e1131]
+        - cell "62.3" [ref=e1132]
+        - cell "96" [ref=e1133]
+        - cell "77" [ref=e1134]
+        - cell "4" [ref=e1135]
+        - cell "dormant" [ref=e1136]
+        - cell "★" [ref=e1137]
+        - cell "1643" [ref=e1138]
+      - row [ref=e1139]:
+        - cell "61" [ref=e1140]
+        - cell "The Villages, FL" [ref=e1141]
+        - cell "61.9" [ref=e1142]
+        - cell "62.4" [ref=e1143]
+        - cell "62.2" [ref=e1144]
+        - cell "90" [ref=e1145]
+        - cell "74" [ref=e1146]
+        - cell "24" [ref=e1147]
+        - cell "dormant" [ref=e1148]
+        - cell [ref=e1149]
+        - cell "2256" [ref=e1150]
+      - row [ref=e1151]:
+        - cell "62" [ref=e1152]
+        - cell "Hot Springs, AR" [ref=e1153]
+        - cell "68.3" [ref=e1154]
+        - cell "56.1" [ref=e1155]
+        - cell "61.6" [ref=e1156]
+        - cell "94" [ref=e1157]
+        - cell "69" [ref=e1158]
+        - cell "1" [ref=e1159]
+        - cell "dormant" [ref=e1160]
+        - cell [ref=e1161]
+        - cell "1297" [ref=e1162]
+      - row [ref=e1163]:
+        - cell "63" [ref=e1164]
+        - cell "Aiken, SC" [ref=e1165]
+        - cell "64.8" [ref=e1166]
+        - cell "58.4" [ref=e1167]
+        - cell "61.3" [ref=e1168]
+        - cell "92" [ref=e1169]
+        - cell "73" [ref=e1170]
+        - cell "11" [ref=e1171]
+        - cell "dormant" [ref=e1172]
+        - cell [ref=e1173]
+        - cell "1438" [ref=e1174]
+      - row [ref=e1175]:
+        - cell "64" [ref=e1176]
+        - cell "Brownsville, TX" [ref=e1177]
+        - cell "53.8" [ref=e1178]
+        - cell "66.9" [ref=e1179]
+        - cell "61" [ref=e1180]
+        - cell "94" [ref=e1181]
+        - cell "79" [ref=e1182]
+        - cell "20" [ref=e1183]
+        - cell "dormant" [ref=e1184]
+        - cell "★" [ref=e1185]
+        - cell "1569" [ref=e1186]
+      - row [ref=e1187]:
+        - cell "65" [ref=e1188]
+        - cell "Greenville, SC" [ref=e1189]
+        - cell "62.6" [ref=e1190]
+        - cell "59.5" [ref=e1191]
+        - cell "60.9" [ref=e1192]
+        - cell "91" [ref=e1193]
+        - cell "70" [ref=e1194]
+        - cell "25" [ref=e1195]
+        - cell "dormant" [ref=e1196]
+        - cell [ref=e1197]
+        - cell "1561" [ref=e1198]
+      - row [ref=e1199]:
+        - cell "66" [ref=e1200]
+        - cell "Tampa, FL" [ref=e1201]
+        - cell "58" [ref=e1202]
+        - cell "62.8" [ref=e1203]
+        - cell "60.6" [ref=e1204]
+        - cell "92" [ref=e1205]
+        - cell "75" [ref=e1206]
+        - cell "22" [ref=e1207]
+        - cell "dormant" [ref=e1208]
+        - cell "★" [ref=e1209]
+        - cell "1999" [ref=e1210]
+      - row [ref=e1211]:
+        - cell "67" [ref=e1212]
+        - cell "Sedona, AZ" [ref=e1213]
+        - cell "47.7" [ref=e1214]
+        - cell "70.2" [ref=e1215]
+        - cell "60.1" [ref=e1216]
+        - cell "102" [ref=e1217]
+        - cell "75" [ref=e1218]
+        - cell "10" [ref=e1219]
+        - cell "dormant" [ref=e1220]
+        - cell [ref=e1221]
+        - cell "2712" [ref=e1222]
+      - row [ref=e1223]:
+        - cell "68" [ref=e1224]
+        - cell "Fayetteville, AR" [ref=e1225]
+        - cell "64.2" [ref=e1226]
+        - cell "56.1" [ref=e1227]
+        - cell "59.7" [ref=e1228]
+        - cell "98" [ref=e1229]
+        - cell "72" [ref=e1230]
+        - cell "1" [ref=e1231]
+        - cell "dormant" [ref=e1232]
+        - cell [ref=e1233]
+        - cell "1720" [ref=e1234]
+      - row [ref=e1235]:
+        - cell "69" [ref=e1236]
+        - cell "Grand Junction, CO" [ref=e1237]
+        - cell "52.7" [ref=e1238]
+        - cell "64.3" [ref=e1239]
+        - cell "59.1" [ref=e1240]
+        - cell "101" [ref=e1241]
+        - cell "69" [ref=e1242]
+        - cell "5" [ref=e1243]
+        - cell "active" [ref=e1244]
+        - cell [ref=e1245]
+        - cell "1768" [ref=e1246]
+      - row [ref=e1247]:
+        - cell "70" [ref=e1248]
+        - cell "Charleston, SC" [ref=e1249]
+        - cell "60.6" [ref=e1250]
+        - cell "57.7" [ref=e1251]
+        - cell "59" [ref=e1252]
+        - cell "86" [ref=e1253]
+        - cell "76" [ref=e1254]
+        - cell "15" [ref=e1255]
+        - cell "dormant" [ref=e1256]
+        - cell [ref=e1257]
+        - cell "2245" [ref=e1258]
+      - row [ref=e1259]:
+        - cell "71" [ref=e1260]
+        - cell "Fort Collins, CO" [ref=e1261]
+        - cell "56.2" [ref=e1262]
+        - cell "61" [ref=e1263]
+        - cell "58.8" [ref=e1264]
+        - cell "98" [ref=e1265]
+        - cell "65" [ref=e1266]
+        - cell "14" [ref=e1267]
+        - cell "active" [ref=e1268]
+        - cell [ref=e1269]
+        - cell "1938" [ref=e1270]
+      - row [ref=e1271]:
+        - cell "72" [ref=e1272]
+        - cell "Savannah, GA" [ref=e1273]
+        - cell "65.2" [ref=e1274]
+        - cell "52.2" [ref=e1275]
+        - cell "58.1" [ref=e1276]
+        - cell "85" [ref=e1277]
+        - cell "73" [ref=e1278]
+        - cell "19" [ref=e1279]
+        - cell "dormant" [ref=e1280]
+        - cell [ref=e1281]
+        - cell "1807" [ref=e1282]
+      - row [ref=e1283]:
+        - cell "73" [ref=e1284]
+        - cell "New Braunfels, TX" [ref=e1285]
+        - cell "62.9" [ref=e1286]
+        - cell "53.9" [ref=e1287]
+        - cell "58" [ref=e1288]
+        - cell "97" [ref=e1289]
+        - cell "78" [ref=e1290]
+        - cell "5" [ref=e1291]
+        - cell "dormant" [ref=e1292]
+        - cell "★" [ref=e1293]
+        - cell "1563" [ref=e1294]
+      - row [ref=e1295]:
+        - cell "74" [ref=e1296]
+        - cell "Lake Charles, LA" [ref=e1297]
+        - cell "52.3" [ref=e1298]
+        - cell "61.9" [ref=e1299]
+        - cell "57.6" [ref=e1300]
+        - cell "91" [ref=e1301]
+        - cell "74" [ref=e1302]
+        - cell "26" [ref=e1303]
+        - cell "dormant" [ref=e1304]
+        - cell [ref=e1305]
+        - cell "1270" [ref=e1306]
+      - row [ref=e1307]:
+        - cell "75" [ref=e1308]
+        - cell "Wilmington, NC" [ref=e1309]
+        - cell "62.3" [ref=e1310]
+        - cell "53.7" [ref=e1311]
+        - cell "57.5" [ref=e1312]
+        - cell "91" [ref=e1313]
+        - cell "74" [ref=e1314]
+        - cell "6" [ref=e1315]
+        - cell "dormant" [ref=e1316]
+        - cell [ref=e1317]
+        - cell "1694" [ref=e1318]
+      - row [ref=e1319]:
+        - cell "76" [ref=e1320]
+        - cell "Bentonville, AR" [ref=e1321]
+        - cell "67.1" [ref=e1322]
+        - cell "49.2" [ref=e1323]
+        - cell "57.3" [ref=e1324]
+        - cell "97" [ref=e1325]
+        - cell "73" [ref=e1326]
+        - cell "1" [ref=e1327]
+        - cell "dormant" [ref=e1328]
+        - cell [ref=e1329]
+        - cell "1640" [ref=e1330]
+      - row [ref=e1331]:
+        - cell "77" [ref=e1332]
+        - cell "Springfield, MO" [ref=e1333]
+        - cell "68.2" [ref=e1334]
+        - cell "48.4" [ref=e1335]
+        - cell "57.3" [ref=e1336]
+        - cell "96" [ref=e1337]
+        - cell "72" [ref=e1338]
+        - cell "2" [ref=e1339]
+        - cell "dormant" [ref=e1340]
+        - cell [ref=e1341]
+        - cell "1230" [ref=e1342]
+      - row [ref=e1343]:
+        - cell "78" [ref=e1344]
+        - cell "Columbia, SC" [ref=e1345]
+        - cell "61.7" [ref=e1346]
+        - cell "52.6" [ref=e1347]
+        - cell "56.7" [ref=e1348]
+        - cell "94" [ref=e1349]
+        - cell "74" [ref=e1350]
+        - cell "13" [ref=e1351]
+        - cell "dormant" [ref=e1352]
+        - cell [ref=e1353]
+        - cell "1478" [ref=e1354]
+      - row [ref=e1355]:
+        - cell "79" [ref=e1356]
+        - cell "Hendersonville, NC" [ref=e1357]
+        - cell "51.7" [ref=e1358]
+        - cell "60.5" [ref=e1359]
+        - cell "56.5" [ref=e1360]
+        - cell "83" [ref=e1361]
+        - cell "65" [ref=e1362]
+        - cell "35" [ref=e1363]
+        - cell "dormant" [ref=e1364]
+        - cell [ref=e1365]
+        - cell "1730" [ref=e1366]
+      - row [ref=e1367]:
+        - cell "80" [ref=e1368]
+        - cell "McAllen, TX" [ref=e1369]
+        - cell "54.2" [ref=e1370]
+        - cell "58.3" [ref=e1371]
+        - cell "56.5" [ref=e1372]
+        - cell "97" [ref=e1373]
+        - cell "80" [ref=e1374]
+        - cell "19" [ref=e1375]
+        - cell "dormant" [ref=e1376]
+        - cell "★" [ref=e1377]
+        - cell "1283" [ref=e1378]
+      - row [ref=e1379]:
+        - cell "81" [ref=e1380]
+        - cell "Sarasota, FL" [ref=e1381]
+        - cell "49.7" [ref=e1382]
+        - cell "59.6" [ref=e1383]
+        - cell "55.2" [ref=e1384]
+        - cell "93" [ref=e1385]
+        - cell "76" [ref=e1386]
+        - cell "29" [ref=e1387]
+        - cell "dormant" [ref=e1388]
+        - cell [ref=e1389]
+        - cell "2218" [ref=e1390]
+      - row [ref=e1391]:
+        - cell "82" [ref=e1392]
+        - cell "Lakeland, FL" [ref=e1393]
+        - cell "51" [ref=e1394]
+        - cell "58.4" [ref=e1395]
+        - cell "55.1" [ref=e1396]
+        - cell "89" [ref=e1397]
+        - cell "76" [ref=e1398]
+        - cell "22" [ref=e1399]
+        - cell "dormant" [ref=e1400]
+        - cell "★" [ref=e1401]
+        - cell "1689" [ref=e1402]
+      - row [ref=e1403]:
+        - cell "83" [ref=e1404]
+        - cell "St. Augustine, FL" [ref=e1405]
+        - cell "64.8" [ref=e1406]
+        - cell "46.9" [ref=e1407]
+        - cell "55" [ref=e1408]
+        - cell "86" [ref=e1409]
+        - cell "75" [ref=e1410]
+        - cell "15" [ref=e1411]
+        - cell "dormant" [ref=e1412]
+        - cell "★" [ref=e1413]
+        - cell "2121" [ref=e1414]
+      - row [ref=e1415]:
+        - cell "84" [ref=e1416]
+        - cell "Austin, TX" [ref=e1417]
+        - cell "59.9" [ref=e1418]
+        - cell "50.3" [ref=e1419]
+        - cell "54.7" [ref=e1420]
+        - cell "99" [ref=e1421]
+        - cell "79" [ref=e1422]
+        - cell "4" [ref=e1423]
+        - cell "dormant" [ref=e1424]
+        - cell "★" [ref=e1425]
+        - cell "1615" [ref=e1426]
+      - row [ref=e1427]:
+        - cell "85" [ref=e1428]
+        - cell "Gainesville, FL" [ref=e1429]
+        - cell "54.1" [ref=e1430]
+        - cell "55.3" [ref=e1431]
+        - cell "54.7" [ref=e1432]
+        - cell "91" [ref=e1433]
+        - cell "73" [ref=e1434]
+        - cell "26" [ref=e1435]
+        - cell "dormant" [ref=e1436]
+        - cell [ref=e1437]
+        - cell "1657" [ref=e1438]
+      - row [ref=e1439]:
+        - cell "86" [ref=e1440]
+        - cell "Waco, TX" [ref=e1441]
+        - cell "61.4" [ref=e1442]
+        - cell "46.7" [ref=e1443]
+        - cell "53.3" [ref=e1444]
+        - cell "98" [ref=e1445]
+        - cell "76" [ref=e1446]
+        - cell "6" [ref=e1447]
+        - cell "dormant" [ref=e1448]
+        - cell [ref=e1449]
+        - cell "1369" [ref=e1450]
+      - row [ref=e1451]:
+        - cell "87" [ref=e1452]
+        - cell "Branson, MO" [ref=e1453]
+        - cell "60.5" [ref=e1454]
+        - cell "43" [ref=e1455]
+        - cell "50.9" [ref=e1456]
+        - cell "96" [ref=e1457]
+        - cell "73" [ref=e1458]
+        - cell "1" [ref=e1459]
+        - cell "dormant" [ref=e1460]
+        - cell [ref=e1461]
+        - cell "1358" [ref=e1462]
+      - row [ref=e1463]:
+        - cell "88" [ref=e1464]
+        - cell "Jacksonville, FL" [ref=e1465]
+        - cell "55.4" [ref=e1466]
+        - cell "46.4" [ref=e1467]
+        - cell "50.5" [ref=e1468]
+        - cell "94" [ref=e1469]
+        - cell "77" [ref=e1470]
+        - cell "28" [ref=e1471]
+        - cell "dormant" [ref=e1472]
+        - cell [ref=e1473]
+        - cell "1600" [ref=e1474]
+      - row [ref=e1475]:
+        - cell "89" [ref=e1476]
+        - cell "San Antonio, TX" [ref=e1477]
+        - cell "47" [ref=e1478]
+        - cell "50.3" [ref=e1479]
+        - cell "48.8" [ref=e1480]
+        - cell "98" [ref=e1481]
+        - cell "79" [ref=e1482]
+        - cell "5" [ref=e1483]
+        - cell "dormant" [ref=e1484]
+        - cell [ref=e1485]
+        - cell "1382" [ref=e1486]
+      - row [ref=e1487]:
+        - cell "90" [ref=e1488]
+        - cell "Lafayette, LA" [ref=e1489]
+        - cell "37.1" [ref=e1490]
+        - cell "58" [ref=e1491]
+        - cell "48.6" [ref=e1492]
+        - cell "93" [ref=e1493]
+        - cell "73" [ref=e1494]
+        - cell "23" [ref=e1495]
+        - cell "dormant" [ref=e1496]
+        - cell [ref=e1497]
+        - cell "1324" [ref=e1498]
+      - row [ref=e1499]:
+        - cell "91" [ref=e1500]
+        - cell "Chico, CA" [ref=e1501]
+        - cell "40.5" [ref=e1502]
+        - cell "51.8" [ref=e1503]
+        - cell "46.7" [ref=e1504]
+        - cell "107" [ref=e1505]
+        - cell "71" [ref=e1506]
+        - cell "0" [ref=e1507]
+        - cell "dormant" [ref=e1508]
+        - cell [ref=e1509]
+        - cell "1577" [ref=e1510]
+      - row [ref=e1511]:
+        - cell "92" [ref=e1512]
+        - cell "Fort Myers, FL" [ref=e1513]
+        - cell "41.9" [ref=e1514]
+        - cell "49.8" [ref=e1515]
+        - cell "46.2" [ref=e1516]
+        - cell "92" [ref=e1517]
+        - cell "74" [ref=e1518]
+        - cell "48" [ref=e1519]
+        - cell "dormant" [ref=e1520]
+        - cell [ref=e1521]
+        - cell "1779" [ref=e1522]
+      - row [ref=e1523]:
+        - cell "93" [ref=e1524]
+        - cell "Oklahoma City, OK" [ref=e1525]
+        - cell "54.3" [ref=e1526]
+        - cell "35.4" [ref=e1527]
+        - cell "43.9" [ref=e1528]
+        - cell "102" [ref=e1529]
+        - cell "77" [ref=e1530]
+        - cell "0" [ref=e1531]
+        - cell "dormant" [ref=e1532]
+        - cell [ref=e1533]
+        - cell "1298" [ref=e1534]
+      - row [ref=e1535]:
+        - cell "94" [ref=e1536]
+        - cell "Tulsa, OK" [ref=e1537]
+        - cell "52.1" [ref=e1538]
+        - cell "34.8" [ref=e1539]
+        - cell "42.6" [ref=e1540]
+        - cell "102" [ref=e1541]
+        - cell "75" [ref=e1542]
+        - cell "0" [ref=e1543]
+        - cell "dormant" [ref=e1544]
+        - cell [ref=e1545]
+        - cell "1272" [ref=e1546]
+      - row [ref=e1547]:
+        - cell "95" [ref=e1548]
+        - cell "Naples, FL" [ref=e1549]
+        - cell "32.3" [ref=e1550]
+        - cell "49.7" [ref=e1551]
+        - cell "41.9" [ref=e1552]
+        - cell "92" [ref=e1553]
+        - cell "75" [ref=e1554]
+        - cell "54" [ref=e1555]
+        - cell "dormant" [ref=e1556]
+        - cell "★" [ref=e1557]
+        - cell "2654" [ref=e1558]
+      - row [ref=e1559]:
+        - cell "96" [ref=e1560]
+        - cell "Tucson, AZ" [ref=e1561]
+        - cell "26.7" [ref=e1562]
+        - cell "52.7" [ref=e1563]
+        - cell "41" [ref=e1564]
+        - cell "107" [ref=e1565]
+        - cell "81" [ref=e1566]
+        - cell "25" [ref=e1567]
+        - cell "dormant" [ref=e1568]
+        - cell "★" [ref=e1569]
+        - cell "1425" [ref=e1570]
+      - row [ref=e1571]:
+        - cell "97" [ref=e1572]
+        - cell "St. George, UT" [ref=e1573]
+        - cell "27.9" [ref=e1574]
+        - cell "50.5" [ref=e1575]
+        - cell "40.3" [ref=e1576]
+        - cell "109" [ref=e1577]
+        - cell "85" [ref=e1578]
+        - cell "4" [ref=e1579]
+        - cell "dormant" [ref=e1580]
+        - cell "★" [ref=e1581]
+        - cell "1884" [ref=e1582]
+      - row [ref=e1583]:
+        - cell "98" [ref=e1584]
+        - cell "Redding, CA" [ref=e1585]
+        - cell "27.2" [ref=e1586]
+        - cell "47.1" [ref=e1587]
+        - cell "38.2" [ref=e1588]
+        - cell "110" [ref=e1589]
+        - cell "78" [ref=e1590]
+        - cell "0" [ref=e1591]
+        - cell "dormant" [ref=e1592]
+        - cell [ref=e1593]
+        - cell "1642" [ref=e1594]
+      - row [ref=e1595]:
+        - cell "99" [ref=e1596]
+        - cell "Mesa, AZ" [ref=e1597]
+        - cell "16.2" [ref=e1598]
+        - cell "40.2" [ref=e1599]
+        - cell "29.4" [ref=e1600]
+        - cell "112" [ref=e1601]
+        - cell "82" [ref=e1602]
+        - cell "8" [ref=e1603]
+        - cell "dormant" [ref=e1604]
+        - cell "★" [ref=e1605]
+        - cell "1549" [ref=e1606]
+      - row [ref=e1607]:
+        - cell "100" [ref=e1608]
+        - cell "Bakersfield, CA" [ref=e1609]
+        - cell "19.8" [ref=e1610]
+        - cell "35.6" [ref=e1611]
+        - cell "28.5" [ref=e1612]
+        - cell "111" [ref=e1613]
+        - cell "76" [ref=e1614]
+        - cell "1" [ref=e1615]
+        - cell "dormant" [ref=e1616]
+        - cell [ref=e1617]
+        - cell "1865" [ref=e1618]
+      - row [ref=e1619]:
+        - cell "101" [ref=e1620]
+        - cell "Buckeye, AZ" [ref=e1621]
+        - cell "16.2" [ref=e1622]
+        - cell "35.5" [ref=e1623]
+        - cell "26.8" [ref=e1624]
+        - cell "111" [ref=e1625]
+        - cell "85" [ref=e1626]
+        - cell "3" [ref=e1627]
+        - cell "dormant" [ref=e1628]
+        - cell [ref=e1629]
+        - cell "2002" [ref=e1630]
+      - row [ref=e1631]:
+        - cell "102" [ref=e1632]
+        - cell "Casa Grande, AZ" [ref=e1633]
+        - cell "9.3" [ref=e1634]
+        - cell "38.8" [ref=e1635]
+        - cell "25.5" [ref=e1636]
+        - cell "111" [ref=e1637]
+        - cell "86" [ref=e1638]
+        - cell "16" [ref=e1639]
+        - cell "dormant" [ref=e1640]
+        - cell [ref=e1641]
+        - cell "1711" [ref=e1642]
+      - row [ref=e1643]:
+        - cell "103" [ref=e1644]
+        - cell "Mesquite, NV" [ref=e1645]
+        - cell "9.1" [ref=e1646]
+        - cell "35.4" [ref=e1647]
+        - cell "23.6" [ref=e1648]
+        - cell "113" [ref=e1649]
+        - cell "88" [ref=e1650]
+        - cell "13" [ref=e1651]
+        - cell "dormant" [ref=e1652]
+        - cell [ref=e1653]
+        - cell "1379" [ref=e1654]
+      - row [ref=e1655]:
+        - cell "104" [ref=e1656]
+        - cell "Surprise, AZ" [ref=e1657]
+        - cell "5.8" [ref=e1658]
+        - cell "37.8" [ref=e1659]
+        - cell "23.4" [ref=e1660]
+        - cell "112" [ref=e1661]
+        - cell "84" [ref=e1662]
+        - cell "12" [ref=e1663]
+        - cell "dormant" [ref=e1664]
+        - cell [ref=e1665]
+        - cell "1927" [ref=e1666]
+      - row [ref=e1667]:
+        - cell "105" [ref=e1668]
+        - cell "Henderson, NV" [ref=e1669]
+        - cell "11.3" [ref=e1670]
+        - cell "32.9" [ref=e1671]
+        - cell "23.2" [ref=e1672]
+        - cell "112" [ref=e1673]
+        - cell "89" [ref=e1674]
+        - cell "12" [ref=e1675]
+        - cell "dormant" [ref=e1676]
+        - cell "★" [ref=e1677]
+        - cell "1826" [ref=e1678]
+      - row [ref=e1679]:
+        - cell "106" [ref=e1680]
+        - cell "Lake Havasu City, AZ" [ref=e1681]
+        - cell "9.7" [ref=e1682]
+        - cell "33.2" [ref=e1683]
+        - cell "22.6" [ref=e1684]
+        - cell "113" [ref=e1685]
+        - cell "95" [ref=e1686]
+        - cell "6" [ref=e1687]
+        - cell "dormant" [ref=e1688]
+        - cell [ref=e1689]
+        - cell "1753" [ref=e1690]
+      - row [ref=e1691]:
+        - cell "107" [ref=e1692]
+        - cell "Las Vegas, NV" [ref=e1693]
+        - cell "7.4" [ref=e1694]
+        - cell "34.4" [ref=e1695]
+        - cell "22.3" [ref=e1696]
+        - cell "113" [ref=e1697]
+        - cell "90" [ref=e1698]
+        - cell "15" [ref=e1699]
+        - cell "dormant" [ref=e1700]
+        - cell "★" [ref=e1701]
+        - cell "1722" [ref=e1702]
+      - row [ref=e1703]:
+        - cell "108" [ref=e1704]
+        - cell "Chandler, AZ" [ref=e1705]
+        - cell "6.6" [ref=e1706]
+        - cell "34.9" [ref=e1707]
+        - cell "22.2" [ref=e1708]
+        - cell "112" [ref=e1709]
+        - cell "81" [ref=e1710]
+        - cell "11" [ref=e1711]
+        - cell "dormant" [ref=e1712]
+        - cell "★" [ref=e1713]
+        - cell "1903" [ref=e1714]
+      - row [ref=e1715]:
+        - cell "109" [ref=e1716]
+        - cell "Palm Springs, CA" [ref=e1717]
+        - cell "7" [ref=e1718]
+        - cell "33.8" [ref=e1719]
+        - cell "21.8" [ref=e1720]
+        - cell "114" [ref=e1721]
+        - cell "87" [ref=e1722]
+        - cell "8" [ref=e1723]
+        - cell "dormant" [ref=e1724]
+        - cell [ref=e1725]
+        - cell "2201" [ref=e1726]
+  - heading "Drive there" [level=2] [ref=e19]
+  - generic [ref=e20]:
+    - 'textbox "From: e.g. \"Atlanta, GA\"" [ref=e21]'
+    - combobox [ref=e22]:
+      - option "Aiken, SC"
+      - option "Asheville, NC"
+      - option "Ashland, OR"
+      - option "Austin, TX"
+      - option "Bakersfield, CA"
+      - option "Bentonville, AR"
+      - option "Billings, MT"
+      - option "Biloxi, MS"
+      - option "Bisbee, AZ"
+      - option "Boerne, TX"
+      - option "Boise, ID"
+      - option "Boulder, CO"
+      - option "Bozeman, MT"
+      - option "Branson, MO"
+      - option "Brownsville, TX"
+      - option "Buckeye, AZ"
+      - option "Burlington, VT"
+      - option "Carson City, NV"
+      - option "Casa Grande, AZ"
+      - option "Chandler, AZ"
+      - option "Charleston, SC"
+      - option "Chattanooga, TN"
+      - option "Cheyenne, WY"
+      - option "Chico, CA"
+      - option "Coeur d'Alene, ID"
+      - option "Colorado Springs, CO"
+      - option "Columbia, SC"
+      - option "Corpus Christi, TX"
+      - option "Duluth, MN" [selected]
+      - option "El Paso, TX"
+      - option "Fairhope, AL"
+      - option "Fayetteville, AR"
+      - option "Flagstaff, AZ"
+      - option "Fort Collins, CO"
+      - option "Fort Myers, FL"
+      - option "Gainesville, FL"
+      - option "Galveston, TX"
+      - option "Georgetown, TX"
+      - option "Grand Junction, CO"
+      - option "Grand Rapids, MI"
+      - option "Greenville, SC"
+      - option "Gulf Shores, AL"
+      - option "Henderson, NV"
+      - option "Hendersonville, NC"
+      - option "Hot Springs, AR"
+      - option "Ithaca, NY"
+      - option "Jacksonville, FL"
+      - option "Johnson City, TN"
+      - option "Kennewick, WA"
+      - option "Kerrville, TX"
+      - option "Klamath Falls, OR"
+      - option "Knoxville, TN"
+      - option "Lafayette, LA"
+      - option "Lake Charles, LA"
+      - option "Lake Havasu City, AZ"
+      - option "Lakeland, FL"
+      - option "Las Vegas, NV"
+      - option "Marquette, MI"
+      - option "McAllen, TX"
+      - option "Medford, OR"
+      - option "Mesa, AZ"
+      - option "Mesquite, NV"
+      - option "Missoula, MT"
+      - option "Montrose, CO"
+      - option "Naples, FL"
+      - option "New Braunfels, TX"
+      - option "Newport, RI"
+      - option "Ogden, UT"
+      - option "Oklahoma City, OK"
+      - option "Palm Springs, CA"
+      - option "Paso Robles, CA"
+      - option "Pensacola, FL"
+      - option "Pittsburgh, PA"
+      - option "Portland, ME"
+      - option "Portsmouth, NH"
+      - option "Prescott, AZ"
+      - option "Providence, RI"
+      - option "Rapid City, SD"
+      - option "Redding, CA"
+      - option "Reno, NV"
+      - option "Roanoke, VA"
+      - option "Salt Lake City, UT"
+      - option "San Antonio, TX"
+      - option "San Diego, CA"
+      - option "San Luis Obispo, CA"
+      - option "Sandpoint, ID"
+      - option "Sarasota, FL"
+      - option "Saratoga Springs, NY"
+      - option "Savannah, GA"
+      - option "Sedona, AZ"
+      - option "Sheridan, WY"
+      - option "Sierra Vista, AZ"
+      - option "Sioux Falls, SD"
+      - option "Spokane, WA"
+      - option "Springfield, MO"
+      - option "St. Augustine, FL"
+      - option "St. George, UT"
+      - option "St. Petersburg, FL"
+      - option "Surprise, AZ"
+      - option "Tampa, FL"
+      - option "The Villages, FL"
+      - option "Traverse City, MI"
+      - option "Tucson, AZ"
+      - option "Tulsa, OK"
+      - option "Twin Falls, ID"
+      - option "Vero Beach, FL"
+      - option "Waco, TX"
+      - option "Wenatchee, WA"
+      - option "Wilmington, NC"
+    - button "Plan route" [ref=e23] [cursor=pointer]
+  - contentinfo [ref=e24]:
+    - text: Weather data by
+    - link "Open-Meteo" [ref=e25] [cursor=pointer]:
+      - /url: https://open-meteo.com/
+    - text: . Supercharger locations by
+    - link "supercharge.info" [ref=e26] [cursor=pointer]:
+      - /url: https://supercharge.info/
+    - text: . Routing by
+    - link "OSRM" [ref=e27] [cursor=pointer]:
+      - /url: http://project-osrm.org/
+    - text: . Rent data by
+    - link "Zillow Research" [ref=e28] [cursor=pointer]:
+      - /url: https://www.zillow.com/research/data/
+    - text: (ZORI). City vetting by rotation-optimizer. Verdict written by an AI model from the deterministic scores; ties are honest ties.

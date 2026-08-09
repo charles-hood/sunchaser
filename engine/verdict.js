@@ -53,7 +53,10 @@ Rules:
    the scorer. It is ground truth: "Best right now" must name the now leader
    (or the tied cities) and "Best for the coming week" must name the week
    leader. Do not recompute or second-guess these; your job is to explain
-   them from the forecast data, not to re-derive the winners.`;
+   them from the forecast data, not to re-derive the winners.
+7. Never use em dashes. Use a comma, colon, parentheses, or a separate
+   sentence instead. (En dashes inside numeric ranges like 72-86°F are
+   fine.)`;
 
 function loadEnvKey(name) {
   if (process.env[name]) return process.env[name];

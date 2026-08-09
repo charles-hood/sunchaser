@@ -1,0 +1,38 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "☀ Sunchaser" [level=1] [ref=e4]
+    - generic [ref=e5]: loading…
+  - generic [ref=e6]:
+    - text: Where the good weather is right now, across the vetted nomad cities. ·
+    - link "How scores work" [ref=e7] [cursor=pointer]:
+      - /url: "#"
+  - heading "The verdict" [level=2] [ref=e8]
+  - generic [ref=e9]: Loading verdict…
+  - heading "Leaders, current conditions" [level=2] [ref=e11]
+  - heading "The week ahead" [level=2] [ref=e12]
+  - heading "All cities" [level=2] [ref=e13]
+  - generic [ref=e15]: "CombinedScore: bad meh great · ring = curated 30 · click a dot for details"
+  - generic:
+    - table:
+      - rowgroup:
+        - row
+      - rowgroup
+  - heading "Drive there" [level=2] [ref=e19]
+  - generic [ref=e20]:
+    - 'textbox "From: e.g. \"Atlanta, GA\"" [ref=e21]'
+    - combobox [ref=e22]
+    - button "Plan route" [ref=e23] [cursor=pointer]
+  - contentinfo [ref=e24]:
+    - text: Weather data by
+    - link "Open-Meteo" [ref=e25] [cursor=pointer]:
+      - /url: https://open-meteo.com/
+    - text: . Supercharger locations by
+    - link "supercharge.info" [ref=e26] [cursor=pointer]:
+      - /url: https://supercharge.info/
+    - text: . Routing by
+    - link "OSRM" [ref=e27] [cursor=pointer]:
+      - /url: http://project-osrm.org/
+    - text: . Rent data by
+    - link "Zillow Research" [ref=e28] [cursor=pointer]:
+      - /url: https://www.zillow.com/research/data/
+    - text: (ZORI). City vetting by rotation-optimizer. Verdict written by an AI model from the deterministic scores; ties are honest ties.
