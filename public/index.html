@@ -108,6 +108,31 @@ a { color: var(--accent); }
   .card, #map, table { animation: fade .4s ease-out; }
   @keyframes fade { from { opacity: 0; transform: translateY(4px); } }
 }
+
+/* ---- print / PDF (pattern from lotcheck's styles.css) ---- */
+@media print {
+  /* Zero the PAGE margin so the dialog's Margins dropdown can't override it;
+     the visible whitespace is padding INSIDE .wrap, always honored. */
+  @page { margin: 0; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  /* Force the light palette regardless of the viewer's dark mode: this block
+     sits after the dark-scheme block, so it wins at equal specificity. */
+  :root {
+    --bg: #fff; --card: #fff; --ink: #1a1c1e; --muted: #565c62;
+    --line: #d8d5cc; --accent: #b05a10; --good: #21692f; --bad: #a03020;
+    --shadow: none;
+  }
+  body { background: #fff !important; font-size: 11.5px; }
+  .wrap { max-width: none; padding: 0.3in; }
+  /* Interactive-only sections: map, route planner, links, animations. */
+  #map, .legend, #driveh2, .routeform, #routeerr, #days,
+  .screenlinks, dialog#howdlg { display: none !important; }
+  .card, #map, table { animation: none; }
+  .card, .wcity, tr { break-inside: avoid; }
+  h2 { break-after: avoid; }
+  table { font-size: 10px; box-shadow: none; }
+  th, td { padding: 4px 8px; }
+}
 </style>
 </head>
 <body>
@@ -116,8 +141,8 @@ a { color: var(--accent); }
     <h1><span class="sun">☀</span> Sunchaser</h1>
     <span class="sub" id="updated">loading…</span>
   </header>
-  <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.
-    · <a href="#" id="howlink">How scores work</a></div>
+  <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.<span
+    class="screenlinks"> · <a href="#" id="howlink">How scores work</a> · <a href="#" id="printlink">Print / PDF</a></span></div>
 
   <dialog id="howdlg">
     <button class="howclose" id="howclose">close</button>
@@ -150,7 +175,7 @@ a { color: var(--accent); }
     </table>
   </div>
 
-  <h2>Drive there</h2>
+  <h2 id="driveh2">Drive there</h2>
   <div class="routeform">
     <input id="from" placeholder='From: e.g. "Atlanta, GA"' size="22">
     <select id="to"></select>
@@ -430,6 +455,12 @@ async function load() {
   $("allhead").textContent = `All ${SNAP.cities.length} cities`;
   $("howlink").onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
   $("howclose").onclick = () => $("howdlg").close();
+  $("printlink").onclick = (e) => { e.preventDefault(); window.print(); };
+  // Name the saved PDF (fires for Cmd-P and File->Print too; lotcheck pattern).
+  window.addEventListener("beforeprint", () => {
+    document.title = `Sunchaser ${new Date().toISOString().slice(0, 10)}`;
+  });
+  window.addEventListener("afterprint", () => { document.title = "Sunchaser"; });
 
   const sorted = [...SNAP.cities].sort((a, b) => a.name.localeCompare(b.name));
   $("to").innerHTML = sorted.map((c) =>
