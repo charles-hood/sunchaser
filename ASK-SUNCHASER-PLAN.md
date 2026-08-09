@@ -4,6 +4,11 @@
 Charles's request; parked for future consideration. Do not build until
 Charles green-lights it and the open questions at the bottom are answered.
 
+**Decision 2026-08-09 (Charles): wait for a demand signal.** The site was
+announced on Facebook the same day; if friends' comments start asking
+questions the site can't answer itself ("does it know about Boise?"), that
+is the trigger to revisit this plan. No signal, no bot.
+
 ## What it is
 
 A small chat box on the site ("Ask Sunchaser") that answers visitor
