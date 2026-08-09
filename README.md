@@ -1,9 +1,9 @@
 # Sunchaser
 
 "Go to where the good weather is." Sunchaser scores live weather across the
-108 vetted nomad cities from rotation-optimizer, ranks them deterministically,
-and has an AI model adjudicate and explain the best place to be right now and
-for the coming week. See PLAN.md for the full design.
+vetted nomad cities from rotation-optimizer (currently 109), ranks them
+deterministically, and has an AI model adjudicate and explain the best place
+to be right now and for the coming week. See PLAN.md for the full design.
 
 **Live at https://sunchaser.rockofpages.com/** (deployed 2026-07-23; a
 systemd timer on the droplet refreshes weather and the verdict hourly).
@@ -12,7 +12,7 @@ systemd timer on the droplet refreshes weather and the verdict hourly).
 
 ```
 node cli.js rank             # fetch (honoring cache TTLs), score, print table
-node cli.js rank --all       # full 108-city table
+node cli.js rank --all       # full every-city table
 node cli.js verdict          # rank + AI verdict (needs FIREWORKS_API_KEY)
 node cli.js verdict --deep   # deep model (claude-opus-4-8, needs ANTHROPIC_API_KEY)
 node cli.js route --from "Atlanta, GA" [--to "City, ST"] [--ai]
@@ -31,7 +31,7 @@ them. Copy `.env.example` to `.env` and add dedicated keys.
 
 ## Layout
 
-- `data/cities.json` - the 108 gate-passing cities (regenerate with
+- `data/cities.json` - the gate-passing cities (regenerate with
   `node tools/extract-cities.js` when rotation-optimizer's pool changes)
 - `engine/` - config, fetcher (tiering/cache/backoff), scorer (pure,
   tested), verdict (AI adjudication)

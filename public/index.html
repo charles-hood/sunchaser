@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sunchaser</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
-<meta name="description" content="Where the good weather is right now, across 108 vetted nomad cities.">
+<meta name="description" content="Where the good weather is right now, across the vetted nomad cities.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -108,7 +108,7 @@ a { color: var(--accent); }
     <h1><span class="sun">☀</span> Sunchaser</h1>
     <span class="sub" id="updated">loading…</span>
   </header>
-  <div class="sub">Where the good weather is right now, across 108 vetted nomad cities.
+  <div class="sub">Where the good weather is right now, across <span id="ncities">the</span> vetted nomad cities.
     · <a href="#" id="howlink">How scores work</a></div>
 
   <dialog id="howdlg">
@@ -126,7 +126,7 @@ a { color: var(--accent); }
   <h2>The week ahead</h2>
   <div class="week" id="week"></div>
 
-  <h2>All 108 cities</h2>
+  <h2 id="allhead">All cities</h2>
   <div id="map"></div>
   <div class="legend">CombinedScore:
     <span class="dot" style="background:hsl(8,70%,50%)"></span>bad
@@ -211,9 +211,9 @@ function renderHow(meta) {
   const pct = (x) => String(Math.round(x * 1000) / 10); // 0.55 -> "55", no float dust
   $("howbody").innerHTML = `
     <p>Every city's day starts at <b>100</b> and loses points for discomfort.
-    The same math runs for all 108 cities; the AI verdict only explains the
-    winners, it never picks them. These numbers are live from the scoring
-    engine, not a copy.</p>
+    The same math runs for all ${meta.counts.scored} cities; the AI verdict only
+    explains the winners, it never picks them. These numbers are live from the
+    scoring engine, not a copy.</p>
     <h4>One day's score</h4>
     <ul>
       <li><b>Daily high:</b> full marks from ${f(W.HI_IDEAL_LOW)}-${f(W.HI_IDEAL_HIGH)}°F.
@@ -394,6 +394,8 @@ async function load() {
   renderMap(SNAP.cities);
   renderTable();
   renderHow(SNAP._meta);
+  $("ncities").textContent = SNAP.cities.length;
+  $("allhead").textContent = `All ${SNAP.cities.length} cities`;
   $("howlink").onclick = (e) => { e.preventDefault(); $("howdlg").showModal(); };
   $("howclose").onclick = () => $("howdlg").close();
 

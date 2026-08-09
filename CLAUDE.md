@@ -1,7 +1,8 @@
 # Sunchaser: notes for Claude sessions
 
 Live at https://sunchaser.rockofpages.com/. Scores live Open-Meteo weather
-across 108 vetted nomad cities, ranks deterministically, an AI model
+across the vetted nomad cities (109 since 2026-08-09), ranks
+deterministically, an AI model
 adjudicates a shortlist (DeepSeek V4 Flash on Fireworks by default,
 claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
 (original design), README.md (current usage).
@@ -61,6 +62,7 @@ next pass as change-reachable code.
 ## Data provenance
 
 - `data/cities.json`: regenerate with `node tools/extract-cities.js` when
-  rotation-optimizer's `data/pool.json` changes (108 gate-passers).
+  rotation-optimizer's `data/pool.json` changes (the gate-passers; 109
+  after the auto-theft hard gate was dropped 2026-08-09).
 - `data/superchargers.json`: refresh monthly-ish with
   `node tools/fetch-superchargers.js`.

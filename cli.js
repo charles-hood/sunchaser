@@ -49,7 +49,8 @@ function printRanking(snapshot, limit) {
   if (cmd === "fetch") {
     await refresh({ force: flag("--force") });
   } else if (cmd === "rank") {
-    printRanking(await makeSnapshot(), flag("--all") ? 108 : 20);
+    const snapshot = await makeSnapshot();
+    printRanking(snapshot, flag("--all") ? snapshot.cities.length : 20);
   } else if (cmd === "verdict") {
     const snapshot = await makeSnapshot();
     printRanking(snapshot, 10);

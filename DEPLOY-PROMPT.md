@@ -13,7 +13,7 @@ conventions and note the deviation back to Charles.
 > Everything else is unchanged.
 
 A zero-dependency Node 22 app (no npm install; plain `node`). It scores live
-Open-Meteo weather across 108 vetted nomad cities, has a capped AI API
+Open-Meteo weather across the vetted nomad cities (currently 109), has a capped AI API
 call write a "best place to be right now" verdict, plans Tesla road trips
 (OSRM + supercharger data), and serves a single-page frontend. Source is on
 Charles's Mac at `/Users/charles/Projects/sunchaser` (git repo, deploy from
@@ -98,7 +98,7 @@ rockofpages.com isn't wildcarded.)
 - `GET /api/verdict` → cached AI verdict; 404 until the first CLI run.
 - `GET /api/route?from=Atlanta,%20GA` → trip plan JSON (calls OSRM's public
   server + Open-Meteo geocoding; throttled to 6/min per IP in-app).
-- Frontend `/` should render: verdict panel, city cards, map with ~108
+- Frontend `/` should render: verdict panel, city cards, map with ~109
   dots, sortable table, route planner.
 
 Security posture, for your review rather than action: the only outbound

@@ -1,16 +1,16 @@
 {
   "_meta": {
     "source": "/Users/charles/Projects/seasonal-rotation/rotation-optimizer/data/pool.json",
-    "source_sha256": "602670c5c0b68514",
-    "source_mtime": "2026-06-23T03:19:45.530Z",
-    "extracted_at": "2026-07-24T00:35:17.009Z",
+    "source_sha256": "1275cd5aae89719d",
+    "source_mtime": "2026-08-09T12:59:53.863Z",
+    "extracted_at": "2026-08-09T13:00:24.051Z",
     "counts": {
-      "total": 108,
+      "total": 109,
       "curated": 30,
       "by_season": {
         "summer": 46,
-        "winter": 61,
-        "shoulder": 107
+        "winter": 62,
+        "shoulder": 108
       }
     }
   },
@@ -82,6 +82,23 @@
       "scene": 81.8,
       "services": 86.5,
       "curated": true
+    },
+    {
+      "name": "Bakersfield, CA",
+      "state": "CA",
+      "lat": 35.37,
+      "lon": -119.02,
+      "pop": 410000,
+      "metro_pop": 410000,
+      "season_tags": [
+        "winter",
+        "shoulder"
+      ],
+      "warm_winter": false,
+      "no_income_tax": false,
+      "scene": 68,
+      "services": 76.2,
+      "curated": false
     },
     {
       "name": "Bentonville, AR",
