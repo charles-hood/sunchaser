@@ -129,6 +129,9 @@ a { color: var(--accent); }
   .screenlinks, dialog#howdlg { display: none !important; }
   .card, #map, table { animation: none; }
   .card, .wcity, tr { break-inside: avoid; }
+  /* The verdict card is a tall text block: let it flow across pages instead
+     of jumping whole to page 2 and leaving page 1 blank. */
+  #verdict .card { break-inside: auto; }
   h2 { break-after: avoid; }
   table { font-size: 10px; box-shadow: none; }
   th, td { padding: 4px 8px; }
