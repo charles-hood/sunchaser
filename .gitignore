@@ -10,3 +10,4 @@ var/
 
 # Just in case a dependency ever sneaks in (project is zero-dep by design)
 node_modules/
+.playwright-mcp/
