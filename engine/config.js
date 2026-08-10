@@ -37,7 +37,8 @@ module.exports = {
     default: { provider: "fireworks", id: "accounts/fireworks/models/deepseek-v4-flash-0731" },
     deep: { provider: "anthropic", id: "claude-opus-4-8" },
   },
-  VERDICT_MAX_TOKENS: 4096, // DeepSeek spends reasoning tokens inside this budget; ~450 reach the page
+  VERDICT_MAX_TOKENS: 8192, // DeepSeek spends reasoning tokens inside this budget; a
+                            // 4-way tie blew through 4096 on 2026-08-10 (cut mid-"Why")
   VERDICT_DAILY_CAP: 40,   // hard cap on paid calls per day, all providers
                            // (24 hourly timer runs + retries + manual; ~$0.06/day worst case on DeepSeek)
 

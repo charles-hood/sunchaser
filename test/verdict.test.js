@@ -1,7 +1,7 @@
 "use strict";
 const { test } = require("node:test");
 const assert = require("node:assert");
-const { buildUserMessage, scoreLeaders, weekSectionOk, cleanMarkdown } = require("../engine/verdict");
+const { buildUserMessage, scoreLeaders, weekSectionOk, sectionsOk, cleanMarkdown } = require("../engine/verdict");
 
 // Minimal snapshot with distinct now/week leaders, mirroring the 2026-08-09
 // production run where sonnet-5 crowned the wrong week winner.
@@ -52,6 +52,33 @@ test("weekSectionOk rejects a verdict crowning the wrong week city", () => {
 
 test("weekSectionOk rejects a verdict missing the week section", () => {
   assert.ok(!weekSectionOk("## Best right now\nDuluth, MN.", snap));
+});
+
+// 2026-08-10 production truncation: a 4-way tie pushed DeepSeek past
+// max_tokens, the verdict ended mid-sentence in "Why" and never reached
+// "Watch-outs", and it was cached and served because only the week check ran.
+const fullContract = [
+  "## Best right now\n\nDuluth, MN leads.",
+  "## Best for the coming week\n\nDuluth again.",
+  "## Runners-up\n\nNone close.",
+  "## Why\n\nNumbers.",
+  "## Watch-outs\n\nRain on 08-15.",
+].join("\n\n");
+
+test("sectionsOk accepts the full five-section contract", () => {
+  assert.ok(sectionsOk(fullContract));
+});
+
+test("sectionsOk rejects a truncated verdict missing Watch-outs", () => {
+  const truncated = fullContract.slice(0, fullContract.indexOf("## Watch-outs"));
+  assert.ok(!sectionsOk(truncated));
+});
+
+test("sectionsOk rejects sections out of order", () => {
+  const reordered = fullContract
+    .replace("## Why\n\nNumbers.", "MOVED")
+    .replace("## Watch-outs\n\nRain on 08-15.", "## Watch-outs\n\nRain.\n\n## Why\n\nNumbers.");
+  assert.ok(!sectionsOk(reordered));
 });
 
 test("cleanMarkdown forces a blank line after headings (DeepSeek shape)", () => {

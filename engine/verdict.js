@@ -180,10 +180,16 @@ async function callModel(system, userMsg, { model, maxTokens = cfg.VERDICT_MAX_T
     const msg = await res.json();
     const choice = msg.choices && msg.choices[0];
     if (!choice || !choice.message) throw new Error("fireworks: empty response");
-    if (choice.finish_reason === "length") log("warning: output hit max_tokens");
-    // Defense against reasoning traces leaking into content.
-    const text = (choice.message.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim();
-    return { model: msg.model, text, usage: msg.usage };
+    const truncated = choice.finish_reason === "length";
+    if (truncated) log("warning: output hit max_tokens");
+    // Defense against reasoning traces leaking into content. The second
+    // replace catches a <think> block left unterminated by truncation, where
+    // the whole "content" is reasoning and must not reach the page.
+    const text = (choice.message.content || "")
+      .replace(/<think>[\s\S]*?<\/think>/g, "")
+      .replace(/<think>[\s\S]*$/, "")
+      .trim();
+    return { model: msg.model, text, usage: msg.usage, truncated };
   }
 
   const key = loadEnvKey("ANTHROPIC_API_KEY");
@@ -209,9 +215,10 @@ async function callModel(system, userMsg, { model, maxTokens = cfg.VERDICT_MAX_T
   }
   const msg = await res.json();
   if (msg.stop_reason === "refusal") throw new Error("model refused the request");
-  if (msg.stop_reason === "max_tokens") log("warning: output hit max_tokens");
+  const truncated = msg.stop_reason === "max_tokens";
+  if (truncated) log("warning: output hit max_tokens");
   const text = msg.content.filter((b) => b.type === "text").map((b) => b.text).join("\n");
-  return { model: msg.model, text, usage: msg.usage };
+  return { model: msg.model, text, usage: msg.usage, truncated };
 }
 
 // Normalize model output into the section contract's canonical shape:
@@ -222,6 +229,27 @@ function cleanMarkdown(text) {
   const firstHeading = text.indexOf("## ");
   if (firstHeading > 0) text = text.slice(firstHeading);
   return text.replace(/^(## .+)\n(?!\n)/gm, "$1\n\n");
+}
+
+// All five contract sections, present and in order. A truncated response
+// typically loses "Watch-outs" (a 2026-08-10 DeepSeek verdict hit max_tokens
+// and shipped four sections ending mid-sentence); a sloppy one reorders or
+// merges them.
+const SECTION_HEADINGS = [
+  "## Best right now",
+  "## Best for the coming week",
+  "## Runners-up",
+  "## Why",
+  "## Watch-outs",
+];
+function sectionsOk(markdown) {
+  let pos = 0;
+  for (const h of SECTION_HEADINGS) {
+    const i = markdown.indexOf(h, pos);
+    if (i === -1) return false;
+    pos = i + h.length;
+  }
+  return true;
 }
 
 // The week winner is deterministic; a verdict whose "coming week" section
@@ -252,15 +280,28 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
     }
   } catch {}
 
+  // Everything that makes a verdict unservable as-is: truncation (would end
+  // mid-sentence), a broken section contract, or contradicting the
+  // deterministic week leader. Any of them earns the single retry.
+  const problems = (m, md) => {
+    const p = [];
+    if (m.truncated) p.push("output truncated at max_tokens");
+    if (!sectionsOk(md)) p.push("section contract broken");
+    if (!weekSectionOk(md, snapshot)) p.push("week section contradicts the deterministic week leader");
+    return p;
+  };
+
   log(`verdict: calling ${spec.id}`);
   let msg = await callModel(SYSTEM, userMsg, { model: spec, log });
   let markdown = cleanMarkdown(msg.text);
-  if (!weekSectionOk(markdown, snapshot)) {
-    log("verdict: week section contradicts the deterministic week leader; retrying once");
+  let bad = problems(msg, markdown);
+  if (bad.length) {
+    log(`verdict: ${bad.join("; ")}; retrying once`);
     msg = await callModel(SYSTEM, userMsg, { model: spec, log });
     markdown = cleanMarkdown(msg.text);
-    if (!weekSectionOk(markdown, snapshot)) {
-      log("warning: retry still contradicts the week leader; serving it anyway");
+    bad = problems(msg, markdown);
+    if (bad.length) {
+      log(`warning: retry still bad (${bad.join("; ")}); serving it anyway`);
     }
   }
 
@@ -279,4 +320,4 @@ async function getVerdict(snapshot, { model = "default", force = false, log = co
   return verdict;
 }
 
-module.exports = { getVerdict, callModel, buildUserMessage, scoreLeaders, weekSectionOk, cleanMarkdown, SYSTEM };
+module.exports = { getVerdict, callModel, buildUserMessage, scoreLeaders, weekSectionOk, sectionsOk, cleanMarkdown, SYSTEM };
