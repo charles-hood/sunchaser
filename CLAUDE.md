@@ -63,7 +63,13 @@ are only valid if in-rubric or regressions from fixes; two consecutive
 clean passes against the frozen rubric terminate the review. 2026-08-09:
 the verdict layer moved to Fireworks/DeepSeek with precomputed winners
 (engine/verdict.js, engine/config.js); that surface is in scope for the
-next pass as change-reachable code.
+next pass as change-reachable code. 2026-08-10: same surface changed again
+(production truncation fix): truncated/contract-breaking verdicts now
+rejected with one retry (sectionsOk, truncated flag in callModel,
+unterminated-<think> strip), VERDICT_MAX_TOKENS 4096 -> 8192. Still in
+scope for the next pass as change-reachable code; note the retry path can
+now fire on three conditions, so the daily-cap interaction (2 calls per
+bad verdict) is reachable from more states.
 
 ## Parked plans
 
