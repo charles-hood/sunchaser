@@ -69,12 +69,12 @@ rejected with one retry (sectionsOk, truncated flag in callModel,
 unterminated-<think> strip), VERDICT_MAX_TOKENS 4096 -> 8192. Still in
 scope for the next pass as change-reachable code; note the retry path can
 now fire on three conditions, so the daily-cap interaction (2 calls per
-bad verdict) is reachable from more states. Known phrasing nit for the
-pass: the model conflates the combined-score ties list with per-key ties
-(the 2026-08-10 10:54 verdict called Duluth "tied" for the week at 2.5
-pts behind, past the 2-pt epsilon); weekSectionOk can't see phrasing, and
-any fix is prompt-side (distinguish "the tie group" from per-score ties
-in SYSTEM).
+bad verdict) is reachable from more states. Later on 2026-08-10 the
+SYSTEM prompt was reworked (tie claims scoped per-key to the
+Deterministic leaders line, fixing the combined-vs-week conflation nit;
+selectivity over stat dumps; ~250-word budget; Why = ranking mechanics
+only). The prompt text is change-reachable for the next pass alongside
+the validation code.
 
 ## Parked plans
 
