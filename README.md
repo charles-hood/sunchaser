@@ -17,11 +17,15 @@ node cli.js verdict          # rank + AI verdict (needs FIREWORKS_API_KEY)
 node cli.js verdict --deep   # deep model (claude-opus-4-8, needs ANTHROPIC_API_KEY)
 node cli.js route --from "Atlanta, GA" [--to "City, ST"] [--ai]
 node cli.js fetch --force    # force a refresh, ignoring TTLs
+node cli.js og [--force]     # rebuild the social-share card (var/og.png) from the snapshot
 node server/index.js         # web UI at http://127.0.0.1:3005
 node --test 'test/**/*.test.js'
 ```
 
-Zero dependencies; Node 22+. Weather data by Open-Meteo (free tier, batched,
+Zero npm dependencies; Node 22+. One optional system tool: `rsvg-convert`
+(Debian/Ubuntu `librsvg2-bin`, Homebrew `librsvg`) rasterizes the daily
+social-share card; without it the static `public/og.png` is served and
+nothing else changes. Weather data by Open-Meteo (free tier, batched,
 two-tier cadence: active hourly, dormant daily; ~1,200 location-calls/day in
 summer). AI verdict via the Fireworks API (DeepSeek V4 Flash default,
 ~$0.001/verdict; the Anthropic API serves `--deep`), cached on disk and
@@ -37,9 +41,13 @@ them. Copy `.env.example` to `.env` and add dedicated keys.
   with `node tools/fetch-rents.js`). Feeds display-only $/$$/$$$ cost chips,
   pool-relative terciles; cost never enters the weather scores.
 - `engine/` - config, fetcher (tiering/cache/backoff), scorer (pure,
-  tested), verdict (AI adjudication)
+  tested), verdict (AI adjudication), og (daily social card as SVG, plus a
+  tiny TTF reader so text widths are known before rsvg-convert draws it)
+- `tools/og/fonts/` - vendored Bricolage Grotesque and IBM Plex Mono TTFs
+  (OFL) for the card; reached through a private fontconfig file in `var/`,
+  never installed system-wide
 - `var/` - runtime state, gitignored: raw weather, snapshot, verdict,
-  counters, route cache
+  counters, route cache, social card (`og.png` + `og.json`)
 - `server/` + `public/` - the web app (local: `node server/index.js`)
 
 ## Forking / hacking on it

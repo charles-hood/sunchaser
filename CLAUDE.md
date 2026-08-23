@@ -15,7 +15,11 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
 ## Hard constraints
 
 - **Zero npm dependencies, by design.** Plain Node 22+, no package.json. Do
-  not add packages; the frontend is a single self-contained page.
+  not add packages; the frontend is a single self-contained page. Per
+  Charles (2026-08-23) this is guidance, not a prison: a common, light-touch
+  system package on the VPS is acceptable when it buys real simplicity. The
+  one so far is `librsvg2-bin` (`rsvg-convert`) for the daily OG card
+  (`engine/og.js`), optional with a static fallback.
 - **Zero per-visitor AI spend.** The web server never calls an AI API; only
   the CLI does, through `callModel` (40-call/day cap enforced in
   `var/counters.json`, all providers combined). Keep it that way.
@@ -28,7 +32,7 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
 
 ## Commands
 
-- `node cli.js rank | verdict | route --from "City, ST"` (see README)
+- `node cli.js rank | verdict | og | route --from "City, ST"` (see README)
 - `node server/index.js` then http://127.0.0.1:3005
 - Tests: `node --test 'test/**/*.test.js'` (a bare `node --test test/`
   misreports a failure; always use the quoted glob)
@@ -80,7 +84,16 @@ sky-cover bands over sunFrac, rain glyph at the NWS 30%/60% bands, snow/
 thunder/ice always) plus `precipBand` (slight 15%+, chance 30%+, likely
 60%+) which only tints the rain percentage; display-only, scores
 untouched. Change-reachable: the `sky` and `precipBand` fields on snapshot
-days and the SKY/POP tables in public/index.html.
+days and the SKY/POP tables in public/index.html. Same day, later: daily
+social card (engine/og.js builds SVG from the snapshot, engine/ttf.js
+measures text from the vendored TTFs, rsvg-convert rasterizes to
+var/og.png; `node cli.js og`, also run by `verdict` once per forecast day).
+server/index.js serves var/og.png at /og.png and stamps `?d=<date>` into
+index.html's og:image; Caddy proxies `/`, `/og.png` and `/api/*` to Node
+for that reason. Change-reachable for the next pass: the SVG/text escaping
+(city names reach the SVG), the rsvg child-process call, the new Caddy
+matcher, and the verdict path now calling refreshOg (wrapped; must never
+break a verdict run).
 
 ## Parked plans
 
@@ -92,6 +105,10 @@ days and the SKY/POP tables in public/index.html.
 - `data/cities.json`: regenerate with `node tools/extract-cities.js` when
   rotation-optimizer's `data/pool.json` changes (the gate-passers; 109
   after the auto-theft hard gate was dropped 2026-08-09).
+- `tools/og/fonts/*.ttf`: Bricolage Grotesque (variable) and IBM Plex Mono
+  from google/fonts on GitHub, OFL. Replace only if the card design changes
+  font; the weight-width factors in `engine/og.js` were calibrated against
+  these files.
 - `data/superchargers.json`: refresh monthly-ish with
   `node tools/fetch-superchargers.js`.
 - `data/rents.json`: refresh monthly with `node tools/fetch-rents.js`

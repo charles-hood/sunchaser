@@ -3,13 +3,25 @@
 // Sunchaser CLI.
 //   node cli.js fetch [--force]     refresh weather (honors TTLs)
 //   node cli.js rank  [--all]       fetch if due, score, print ranking table
-//   node cli.js verdict [--force] [--deep]   rank + AI verdict
+//   node cli.js verdict [--force] [--deep]   rank + AI verdict (+ daily OG card)
+//   node cli.js og [--force]        rebuild var/og.png (social card) from the snapshot
 const fs = require("node:fs");
 const cfg = require("./engine/config");
 const { refresh, loadCities, setPromotions } = require("./engine/fetch");
 const { buildSnapshot } = require("./engine/score");
 const { getVerdict, callModel } = require("./engine/verdict");
 const { planRoute } = require("./engine/route");
+const { renderOg } = require("./engine/og");
+
+// The OG card is a nice-to-have: never let it break a verdict run.
+function refreshOg(snapshot, force) {
+  try {
+    const r = renderOg(snapshot, { ifStale: !force });
+    console.error(r.skipped ? `og card: current for ${r.date}` : `og card: rebuilt for ${r.date} (${r.bytes} bytes)`);
+  } catch (e) {
+    console.error(`og card: ${e.message}`);
+  }
+}
 
 const args = process.argv.slice(2);
 const cmd = args[0] || "rank";
@@ -51,9 +63,12 @@ function printRanking(snapshot, limit) {
   } else if (cmd === "rank") {
     const snapshot = await makeSnapshot();
     printRanking(snapshot, flag("--all") ? snapshot.cities.length : 20);
+  } else if (cmd === "og") {
+    refreshOg(await makeSnapshot(), flag("--force"));
   } else if (cmd === "verdict") {
     const snapshot = await makeSnapshot();
     printRanking(snapshot, 10);
+    refreshOg(snapshot, false);
     const v = await getVerdict(snapshot, {
       model: flag("--deep") ? "deep" : "default",
       force: flag("--force"),
@@ -109,7 +124,7 @@ function printRanking(snapshot, limit) {
       console.log(msg.text);
     }
   } else {
-    console.error("usage: node cli.js fetch|rank|verdict|route [--force] [--all] [--deep] " +
+    console.error("usage: node cli.js fetch|rank|verdict|og|route [--force] [--all] [--deep] " +
       '[--from "City, ST"] [--to "City, ST"] [--ai]');
     process.exit(2);
   }

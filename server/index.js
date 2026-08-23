@@ -65,6 +65,16 @@ function json(res, code, obj) {
   res.end(body);
 }
 
+// Social card: the daily-rendered var/og.png when the CLI has produced one,
+// else the static public/og.png. Share scrapers cache images by URL, so
+// index.html's og:image carries the card's forecast date as a query string
+// and each day's link is a fresh object to them.
+const { ogPaths, readMeta, stampOgImage } = require("../engine/og");
+function ogDate() {
+  const d = readMeta()?.date;
+  return typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d) && fs.existsSync(ogPaths().png) ? d : null;
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   const ip = req.socket.remoteAddress || "?";
@@ -111,6 +121,14 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
+    if (url.pathname === "/og.png" && ogDate()) {
+      return fs.readFile(ogPaths().png, (err, data) => {
+        if (err) { res.writeHead(404); return res.end("not found"); }
+        res.writeHead(200, { "content-type": "image/png", "cache-control": "public, max-age=3600" });
+        res.end(data);
+      });
+    }
+
     // Static files. Resolve inside PUBLIC only; the boundary check must be
     // separator-aware so a sibling like "publicX/" can never match.
     let file = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -120,7 +138,7 @@ const server = http.createServer(async (req, res) => {
     fs.readFile(full, (err, data) => {
       if (err) { res.writeHead(404); return res.end("not found"); }
       res.writeHead(200, { "content-type": MIME[path.extname(full)] || "application/octet-stream" });
-      res.end(data);
+      res.end(rel === "index.html" ? stampOgImage(data.toString("utf8"), ogDate()) : data);
     });
   } catch (e) {
     console.error(`[${new Date().toISOString()}] ${req.method} ${req.url} failed: ${e.message}`);
