@@ -89,3 +89,79 @@ test("buildSnapshot ranks, ties, and promotes correctly", () => {
   assert.equal(snap._meta.weights.PRECIP_PROB_SLOPE, 0.25);
   assert.equal(snap._meta.weights.HI_IDEAL_LOW, 68);
 });
+
+// daySky: NWS-style daytime sky wording from sunFrac, never the worst-hour
+// WMO code. A pre-dawn overcast hour (code 3) must not label a sunny day.
+const { daySky, precipBand } = require("../engine/score");
+
+test("precipBand follows the NWS PoP wording bands", () => {
+  assert.equal(precipBand(0), null);
+  assert.equal(precipBand(14), null);
+  assert.equal(precipBand(15), "slight");
+  assert.equal(precipBand(29), "slight");
+  assert.equal(precipBand(30), "chance");
+  assert.equal(precipBand(59), "chance");
+  assert.equal(precipBand(60), "likely");
+  assert.equal(precipBand(NaN), null);
+});
+
+test("a slight chance highlights the number but leaves the sky glyph alone", () => {
+  assert.equal(daySky(day({ sunFrac: 0.94, precipProb: 23, code: 53 })), "sunny");
+  assert.equal(precipBand(23), "slight");
+});
+
+test("daySky ignores a worst-hour overcast code on a sunny day", () => {
+  assert.equal(daySky(day({ sunFrac: 0.97, code: 3, precipProb: 16 })), "sunny");
+  assert.equal(daySky(day({ sunFrac: 0.75, code: 51, precipProb: 1, precipSum: 0.004 })), "mostly-sunny");
+});
+
+test("daySky maps sunFrac onto the NWS eighths bands at the edges", () => {
+  assert.equal(daySky(day({ sunFrac: 0.875 })), "mostly-sunny"); // cloud 1/8 exactly: NWS band is 0 to <1/8
+  assert.equal(daySky(day({ sunFrac: 0.876 })), "sunny");
+  assert.equal(daySky(day({ sunFrac: 0.874 })), "mostly-sunny");
+  assert.equal(daySky(day({ sunFrac: 0.626 })), "mostly-sunny");
+  assert.equal(daySky(day({ sunFrac: 0.624 })), "partly-sunny");
+  assert.equal(daySky(day({ sunFrac: 0.376 })), "partly-sunny");
+  assert.equal(daySky(day({ sunFrac: 0.374 })), "mostly-cloudy");
+  assert.equal(daySky(day({ sunFrac: 0.126 })), "mostly-cloudy");
+  assert.equal(daySky(day({ sunFrac: 0.124 })), "cloudy");
+  assert.equal(daySky(day({ sunFrac: 0 })), "cloudy");
+  assert.equal(daySky(day({ sunFrac: 1.3 })), "sunny"); // clamped, never crashes
+});
+
+test("daySky shows rain only from the NWS chance band, regardless of sky", () => {
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 29 })), "sunny");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 30 })), "showers");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 59 })), "showers");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 60 })), "rain");
+});
+
+test("daySky always surfaces snow, thunder and freezing precipitation", () => {
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 5, code: 95 })), "thunder");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 5, code: 71 })), "snow");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 5, code: 66 })), "freezing");
+  assert.equal(daySky(day({ sunFrac: 0.95, precipProb: 90, code: 85 })), "snow"); // hazard outranks rain
+});
+
+test("daySky is null without sunshine data, and non-finite precipProb is 0", () => {
+  assert.equal(daySky(day({ sunFrac: null, code: 3 })), null);
+  assert.equal(daySky(day({ sunFrac: undefined })), null);
+  assert.equal(daySky(day({ sunFrac: 0.9, precipProb: NaN })), "sunny");
+});
+
+test("scoreCity attaches sky to every day without touching the scores", () => {
+  const daily = {
+    time: ["2026-08-23", "2026-08-24"],
+    temperature_2m_max: [72, 72], temperature_2m_min: [60, 56],
+    apparent_temperature_max: [71, 71], precipitation_probability_max: [16, 45],
+    precipitation_sum: [0, 0], snowfall_sum: [0, 0], wind_speed_10m_max: [11, 10],
+    wind_gusts_10m_max: [18, 16], uv_index_max: [6.7, 6.6],
+    sunshine_duration: [47000, 43000], daylight_duration: [48600, 48400], weather_code: [3, 3],
+  };
+  const a = scoreCity({ daily });
+  assert.deepEqual(a.days.map((d) => d.sky), ["sunny", "showers"]);
+  assert.deepEqual(a.days.map((d) => d.precipBand), ["slight", "chance"]);
+  const b = scoreCity({ daily: { ...daily, weather_code: [0, 0] } });
+  assert.deepEqual(a.days.map((d) => d.score), b.days.map((d) => d.score));
+  assert.equal(a.week, b.week);
+});

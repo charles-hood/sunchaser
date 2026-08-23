@@ -87,9 +87,13 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
 .week { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
 .wcity .cname { font-weight: 700; margin-bottom: 8px; font-size: 14.5px; }
 .wrow { display: grid; grid-template-columns: 34px 26px 1fr 42px; gap: 8px; align-items: center; font-size: 12.5px; margin: 3px 0; }
+.weeknote { font-size: 12px; margin: 8px 0 0; }
 .wbarwrap { position: relative; height: 8px; background: color-mix(in oklab, var(--line) 60%, transparent); border-radius: 4px; }
 .wbar { position: absolute; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #58a0d8, var(--accent)); }
 .wrain { color: var(--muted); text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+/* NWS PoP bands from the engine: the sky glyph stays, the number speaks up. */
+.wrain.slight { color: #3b82c4; }
+.wrain.chance, .wrain.likely { color: #3b82c4; font-weight: 700; }
 #map { height: 440px; border-radius: 12px; border: 1px solid var(--line); }
 .legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 3px -1px 8px; }
@@ -240,6 +244,11 @@ a { color: var(--accent); }
 
   <h2>The week ahead</h2>
   <div class="week" id="week"></div>
+  <p class="sub weeknote">Day icon = daytime sky, from the share of daylight with direct sun, in NWS
+    sky-cover bands (sunny, mostly sunny, partly sunny, mostly cloudy, cloudy); rain icon at a 30%+ chance,
+    snow, thunder and ice whenever forecast at any hour. The % is the day's peak rain chance, in blue
+    from a 15% "slight chance" upward: a sun icon next to a blue number is a mostly-dry day with a
+    real shot at a shower, not a perfect one.</p>
 
   <h2 id="allhead">All cities</h2>
   <div id="map"></div>
@@ -296,6 +305,16 @@ const WMO = {
   96: ["Thunderstorm w/ hail", "⛈️"], 99: ["Thunderstorm w/ hail", "⛈️"],
 };
 const wmo = (code) => WMO[code] || ["–", "·"];
+// Day-summary labels computed in engine/score.js (daySky): NWS-style daytime
+// sky wording, not the worst hour of the day. Falls back to the WMO code
+// glyph when the engine could not classify the day.
+const SKY = {
+  sunny: ["Sunny", "☀️"], "mostly-sunny": ["Mostly sunny", "🌤️"], "partly-sunny": ["Partly sunny", "⛅"],
+  "mostly-cloudy": ["Mostly cloudy", "🌥️"], cloudy: ["Cloudy", "☁️"], showers: ["Chance of showers", "🌦️"],
+  rain: ["Rain likely", "🌧️"], snow: ["Snow", "🌨️"], thunder: ["Thunderstorms", "⛈️"], freezing: ["Freezing rain", "🌧️"],
+};
+const sky = (d) => SKY[d.sky] || wmo(d.code);
+const POP = { slight: "Slight chance of precipitation", chance: "Chance of precipitation", likely: "Precipitation likely" };
 // Upstream numerics are coerced at the sink, not merely escaped: anything
 // non-finite renders as a dash and can never reach innerHTML verbatim.
 const num = (v) => (Number.isFinite(v) ? v : "–");
@@ -389,8 +408,7 @@ function renderHow(meta) {
 function renderCards(top) {
   $("cards").innerHTML = top.map((c) => {
     const cur = c.current;
-    const code = cur ? cur.weather_code : c.days[0].code;
-    const [label, icon] = wmo(code);
+    const [label, icon] = cur ? wmo(cur.weather_code) : sky(c.days[0]);
     const d0 = c.days[0];
     return `<div class="card">
       <div class="cname"><span>${esc(c.name)}</span><span class="cbadges">${c.curated ? '<span class="badge">curated</span>' : ""}${rentChip(c.name)}</span></div>
@@ -418,13 +436,13 @@ function renderWeek(top) {
   $("week").innerHTML = top.map((c) => `<div class="card wcity">
     <div class="cname">${esc(c.name)}</div>
     ${c.days.map((d) => {
-      const [, icon] = wmo(d.code);
+      const [label, icon] = sky(d);
       const l = ((d.lo - min) / span) * 100, w = ((d.hi - d.lo) / span) * 100;
       return `<div class="wrow">
-        <span>${dayName(d.date)}</span><span>${icon}</span>
+        <span>${dayName(d.date)}</span><span title="${esc(label)}">${icon}</span>
         <span class="wbarwrap" title="${Math.round(d.hi)}°/${Math.round(d.lo)}°">
           <span class="wbar" style="left:${l}%;width:${Math.max(3, w)}%"></span></span>
-        <span class="wrain">${num(d.precipProb)}%</span>
+        <span class="wrain${POP[d.precipBand] ? " " + d.precipBand : ""}"${POP[d.precipBand] ? ` title="${POP[d.precipBand]}"` : ""}>${num(d.precipProb)}%</span>
       </div>`;
     }).join("")}
   </div>`).join("");

@@ -74,7 +74,13 @@ SYSTEM prompt was reworked (tie claims scoped per-key to the
 Deterministic leaders line, fixing the combined-vs-week conflation nit;
 selectivity over stat dumps; ~250-word budget; Why = ranking mechanics
 only). The prompt text is change-reachable for the next pass alongside
-the validation code.
+the validation code. 2026-08-23: week-strip icons moved off Open-Meteo's
+worst-hour daily weather_code onto `daySky` in engine/score.js (NWS
+sky-cover bands over sunFrac, rain glyph at the NWS 30%/60% bands, snow/
+thunder/ice always) plus `precipBand` (slight 15%+, chance 30%+, likely
+60%+) which only tints the rain percentage; display-only, scores
+untouched. Change-reachable: the `sky` and `precipBand` fields on snapshot
+days and the SKY/POP tables in public/index.html.
 
 ## Parked plans
 

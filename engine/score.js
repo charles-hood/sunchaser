@@ -106,6 +106,46 @@ function extractDays(daily) {
   }));
 }
 
+// Day-summary label for display. Open-Meteo's daily weather_code is the
+// MOST SEVERE hour of the 24, so one overcast hour before dawn labels a
+// sunny day "Overcast"; that is not what a day glyph means to a reader.
+// Instead, mirror how NWS words a daytime period: sky from the fraction of
+// daylight with direct sun (the same sunFrac the scorer uses), mapped onto
+// the NWS sky-cover bands in eighths of cloud (sunny 0-1/8, mostly sunny
+// 1/8-3/8, partly sunny 3/8-5/8, mostly cloudy 5/8-7/8, cloudy 7/8-8/8);
+// rain shown at the NWS "chance" band (30%+) and "likely" band (60%+);
+// snow, thunder and freezing precipitation always shown, since a hazard at
+// any hour is worth the whole day's glyph. Nothing here feeds the scores.
+// NWS probability-of-precipitation wording bands: slight chance 15-29%,
+// chance 30-59%, likely 60%+. "slight" never changes the sky glyph (the
+// daily PoP is a 24 h max and would paint dry days wet); the UI highlights
+// the percentage instead, so a slight-chance day does not read as flawless.
+function precipBand(pop) {
+  const p = num(pop, 0);
+  if (p >= 60) return "likely";
+  if (p >= 30) return "chance";
+  if (p >= 15) return "slight";
+  return null;
+}
+const SNOW_CODES = new Set([71, 73, 75, 77, 85, 86]);
+const FREEZING_CODES = new Set([56, 57, 66, 67]);
+function daySky(d) {
+  const code = d.code;
+  if (code === 95 || code === 96 || code === 99) return "thunder";
+  if (SNOW_CODES.has(code)) return "snow";
+  if (FREEZING_CODES.has(code)) return "freezing";
+  const band = precipBand(d.precipProb);
+  if (band === "likely") return "rain";
+  if (band === "chance") return "showers";
+  if (!Number.isFinite(d.sunFrac)) return null;
+  const cloud = 1 - clamp(d.sunFrac, 0, 1);
+  if (cloud < 1 / 8) return "sunny";
+  if (cloud < 3 / 8) return "mostly-sunny";
+  if (cloud < 5 / 8) return "partly-sunny";
+  if (cloud < 7 / 8) return "mostly-cloudy";
+  return "cloudy";
+}
+
 // One city's raw record -> scores. Throws on malformed records; callers skip.
 function scoreCity(rec, W = WEIGHTS) {
   if (!Array.isArray(rec?.daily?.time) || !Array.isArray(rec.daily.temperature_2m_max)) {
@@ -113,7 +153,7 @@ function scoreCity(rec, W = WEIGHTS) {
   }
   const days = extractDays(rec.daily)
     .filter((d) => Number.isFinite(d.hi) && Number.isFinite(d.lo))
-    .map((d) => ({ ...d, score: dayComfort(d, W) }));
+    .map((d) => ({ ...d, sky: daySky(d), precipBand: precipBand(d.precipProb), score: dayComfort(d, W) }));
   if (!days.length) throw new Error("no usable forecast days");
 
   let nudge = 0;
@@ -185,4 +225,4 @@ function buildSnapshot(raw, cities) {
   };
 }
 
-module.exports = { WEIGHTS, SCORING_VERSION, dayComfort, extractDays, scoreCity, buildSnapshot };
+module.exports = { WEIGHTS, SCORING_VERSION, dayComfort, daySky, precipBand, extractDays, scoreCity, buildSnapshot };
