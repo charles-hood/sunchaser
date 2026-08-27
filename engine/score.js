@@ -93,6 +93,7 @@ function extractDays(daily) {
     hi: daily.temperature_2m_max[i],
     lo: daily.temperature_2m_min[i],
     appHi: num(daily.apparent_temperature_max?.[i], null),
+    dew: num(daily.dew_point_2m_mean?.[i], null),
     precipProb: num(daily.precipitation_probability_max?.[i], 0),
     precipSum: num(daily.precipitation_sum?.[i], 0),
     snow: num(daily.snowfall_sum?.[i], 0),
@@ -127,6 +128,26 @@ function precipBand(pop) {
   if (p >= 15) return "slight";
   return null;
 }
+// Humidity as a reader can act on it. Relative humidity is a ratio against a
+// temperature that moves all day, so a fine 79 deg F afternoon reads 100% at
+// dawn purely because the air cooled to its dew point (that is fog, not
+// misery) and 54% by 2 pm with the same moisture in the air. Dew point is the
+// moisture itself: it barely moves between morning and afternoon, so one
+// number describes the whole day honestly. Open-Meteo's daily mean tracks the
+// noon-to-6 pm median within ~2 deg F across the field, while the daily MAX
+// carries exactly the pre-dawn saturation spike this replaces. Bands are the
+// conventional NWS comfort wording. Display only: nothing here feeds a score,
+// which still reads humidity through the apparent-temp gap (MUGGY_GAP).
+function dewBand(dew) {
+  if (!Number.isFinite(dew)) return null;
+  if (dew < 50) return "very dry";
+  if (dew < 60) return "comfortable";
+  if (dew < 65) return "noticeable";
+  if (dew < 70) return "sticky";
+  if (dew < 75) return "oppressive";
+  return "miserable";
+}
+
 const SNOW_CODES = new Set([71, 73, 75, 77, 85, 86]);
 const FREEZING_CODES = new Set([56, 57, 66, 67]);
 function daySky(d) {
@@ -153,7 +174,13 @@ function scoreCity(rec, W = WEIGHTS) {
   }
   const days = extractDays(rec.daily)
     .filter((d) => Number.isFinite(d.hi) && Number.isFinite(d.lo))
-    .map((d) => ({ ...d, sky: daySky(d), precipBand: precipBand(d.precipProb), score: dayComfort(d, W) }));
+    .map((d) => ({
+      ...d,
+      sky: daySky(d),
+      precipBand: precipBand(d.precipProb),
+      dewBand: dewBand(d.dew),
+      score: dayComfort(d, W),
+    }));
   if (!days.length) throw new Error("no usable forecast days");
 
   let nudge = 0;
@@ -206,6 +233,7 @@ function buildSnapshot(raw, cities) {
   const shortlist = scored
     .filter((c, i) => i < cfg.SHORTLIST_TOP || leader - c.scores.combined <= cfg.SHORTLIST_EPSILON)
     .map((c) => c.name);
+  const leaders = scoreLeaders(scored, shortlist);
 
   return {
     _meta: {
@@ -221,8 +249,26 @@ function buildSnapshot(raw, cities) {
     ties,
     promotions,
     shortlist,
+    leaders,
     cities: scored,
   };
 }
 
-module.exports = { WEIGHTS, SCORING_VERSION, dayComfort, daySky, precipBand, extractDays, scoreCity, buildSnapshot };
+// Exact top holder(s) of each score key, over the shortlist, in combined
+// order (so [0] is the highest-ranked among exact ties). The same rule the
+// verdict narrates from (engine/verdict.js scoreLeaders), published on the
+// snapshot so the leader cards can show the same three cities the verdict
+// leads with: a now-leader with a weak week can sit outside the combined
+// top four, and a reader who has just been told "X is best right now" then
+// finds no card for X.
+function scoreLeaders(scored, shortlist) {
+  const pool = scored.filter((c) => shortlist.includes(c.name));
+  const out = {};
+  for (const key of ["now", "week", "combined"]) {
+    const top = Math.max(...pool.map((c) => c.scores[key]));
+    out[key] = pool.filter((c) => c.scores[key] === top).map((c) => c.name);
+  }
+  return out;
+}
+
+module.exports = { WEIGHTS, SCORING_VERSION, dayComfort, daySky, precipBand, dewBand, extractDays, scoreCity, buildSnapshot };

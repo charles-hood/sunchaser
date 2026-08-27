@@ -55,9 +55,14 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
   background: var(--card); border: 1px solid var(--line); border-radius: 12px;
   padding: 14px 16px; box-shadow: var(--shadow);
 }
-.card .cname { font-weight: 700; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
-.badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
-.cbadges { display: flex; gap: 6px; align-items: center; }
+/* Leader cards share one fixed skeleton so four of them read as a set: name
+   alone on its line, a badge row of constant height, one-line temp and
+   condition, a 2x2 stats grid with every cell present, a 3-column score grid.
+   Nothing may wrap; a too-long value ellipsizes instead of pushing rows. */
+.card .cname { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { font-size: 11px; padding: 1px 7px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; white-space: nowrap; }
+.badge.lead { background: var(--good); }
+.cbadges { display: flex; gap: 6px; align-items: center; min-height: 22px; margin-top: 4px; }
 .rentchip { font-size: 11px; padding: 1px 7px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", monospace; cursor: help; position: relative; }
 .utils { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .uchip {
@@ -72,11 +77,13 @@ h2 { font-size: 19px; font-weight: 700; margin: 34px 0 12px; }
   border-radius: 8px; padding: 6px 10px; font-size: 12px; font-family: "Bricolage Grotesque", system-ui, sans-serif;
   white-space: nowrap; z-index: 20; box-shadow: 0 4px 16px rgba(0,0,0,.25);
 }
-.bigtemp { font-size: 34px; font-weight: 800; margin: 6px 0 2px; }
-.cond { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
-.stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+.bigtemp { font-size: 34px; font-weight: 800; margin: 6px 0 2px; white-space: nowrap; }
+.cond { color: var(--muted); font-size: 13px; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stats { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 12px; color: var(--muted); }
+.stats span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .stats b { color: var(--ink); font-weight: 600; }
-.scores { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 12.5px; display: flex; gap: 12px; }
+.scores { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 12.5px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.scores > span { display: flex; flex-direction: column; }
 .scores .v { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
 #verdict { line-height: 1.5; }
 #verdict .card { padding: 18px 22px; }
@@ -240,6 +247,7 @@ a { color: var(--accent); }
   <div id="verdict"><div class="card">Loading verdict…</div></div>
 
   <h2>Leaders, current conditions</h2>
+  <p class="sub">The best city right now, the best for the week, then the next-best overall.</p>
   <div class="cards" id="cards"></div>
 
   <h2>The week ahead</h2>
@@ -315,6 +323,18 @@ const SKY = {
 };
 const sky = (d) => SKY[d.sky] || wmo(d.code);
 const POP = { slight: "Slight chance of precipitation", chance: "Chance of precipitation", likely: "Precipitation likely" };
+// Dew point, not relative humidity. RH is a ratio against a temperature that
+// swings all day, so it reads 100% in dawn fog on a fine 79 deg F afternoon;
+// dew point is the moisture itself and holds steady, so one number describes
+// the day. Bands from engine/score.js (dewBand); display only, never scored.
+const DEW = {
+  "very dry": "Dew point under 50 deg F: very dry air",
+  comfortable: "Dew point in the 50s: comfortable",
+  noticeable: "Dew point 60-64 deg F: humidity noticeable",
+  sticky: "Dew point 65-69 deg F: sticky",
+  oppressive: "Dew point 70-74 deg F: oppressive",
+  miserable: "Dew point 75 deg F and up: miserable",
+};
 // Upstream numerics are coerced at the sink, not merely escaped: anything
 // non-finite renders as a dash and can never reach innerHTML verbatim.
 const num = (v) => (Number.isFinite(v) ? v : "–");
@@ -376,7 +396,9 @@ function renderHow(meta) {
         lose another ${f(W.HI_EXTREME_SLOPE)}/°F.</li>
       <li><b>Overnight low</b> under ${f(W.LO_FLOOR)}°F: -${f(W.LO_SLOPE)}/°F.</li>
       <li><b>Mugginess:</b> feels-like more than ${f(W.MUGGY_GAP)}° above the actual high:
-        -${f(W.MUGGY_SLOPE)}/°F of excess.</li>
+        -${f(W.MUGGY_SLOPE)}/°F of excess. The dew point on the leader cards is a
+        separate, display-only reading of the same air: it labels how the day
+        will feel, but the score charges for humidity through this line only.</li>
       <li><b>Rain:</b> -${f(W.PRECIP_PROB_SLOPE)} per % of shower chance (so 20% costs
         ${f(20 * W.PRECIP_PROB_SLOPE)} points), plus -${f(W.PRECIP_SUM_SLOPE)} per inch
         actually expected (capped at ${f(W.PRECIP_SUM_CAP)}). A high chance of a brief
@@ -405,20 +427,46 @@ function renderHow(meta) {
     are context for your budget only: cost never enters the scores.` : ""}</p>`;
 }
 
+// The cards mirror the verdict, not the top of the combined table: the
+// now-leader first, then the week-leader, then the combined order fills the
+// remaining slots. Leaders come from the snapshot (exact top over the
+// shortlist, combined order, so [0] is the highest-ranked among ties); a
+// snapshot from before that field existed degrades to the combined top N.
+function leaderCards(snap, n = 4) {
+  const byName = new Map(snap.cities.map((c) => [c.name, c]));
+  const L = snap.leaders || {};
+  const picks = [];
+  const add = (name) => { const c = byName.get(name); if (c && !picks.includes(c)) picks.push(c); };
+  if (L.now?.length) add(L.now[0]);
+  if (L.week?.length) add(L.week[0]);
+  for (const c of snap.cities) { if (picks.length >= n) break; add(c.name); }
+  return picks;
+}
+function leadBadge(snap, c) {
+  const L = snap.leaders || {};
+  const keys = ["now", "week", "combined"].filter((k) => (L[k] || []).includes(c.name));
+  if (!keys.length) return "";
+  const text = keys.length === 3 ? "best all three" : "best " + keys.join(" & ");
+  return `<span class="badge lead">${text}</span>`;
+}
+
 function renderCards(top) {
   $("cards").innerHTML = top.map((c) => {
     const cur = c.current;
     const [label, icon] = cur ? wmo(cur.weather_code) : sky(c.days[0]);
     const d0 = c.days[0];
     return `<div class="card">
-      <div class="cname"><span>${esc(c.name)}</span><span class="cbadges">${c.curated ? '<span class="badge">curated</span>' : ""}${rentChip(c.name)}</span></div>
+      <div class="cname" title="${esc(c.name)}">${esc(c.name)}</div>
+      <div class="cbadges">${leadBadge(SNAP, c)}${c.curated ? '<span class="badge">curated</span>' : ""}${rentChip(c.name)}</div>
       <div class="bigtemp">${icon} ${cur ? Math.round(cur.temperature_2m) + "°" : Math.round(d0.hi) + "°"}</div>
-      <div class="cond">${esc(label)}${cur ? `, feels ${Math.round(cur.apparent_temperature)}°` : " (daily hi)"} </div>
+      <div class="cond" title="${esc(label)}">${esc(label)}${cur ? `, feels ${Math.round(cur.apparent_temperature)}°` : " (daily hi)"}</div>
       <div class="stats">
         <span>H/L <b>${Math.round(d0.hi)}°/${Math.round(d0.lo)}°</b></span>
         <span>Rain <b>${num(d0.precipProb)}%</b></span>
-        ${cur ? `<span>Wind <b>${Math.round(cur.wind_speed_10m)} mph</b></span>` : ""}
-        ${cur ? `<span>Hum <b>${num(cur.relative_humidity_2m)}%</b></span>` : ""}
+        <span>Wind <b>${cur ? Math.round(cur.wind_speed_10m) + " mph" : "–"}</b></span>
+        ${d0.dewBand
+          ? `<span${DEW[d0.dewBand] ? ` title="${DEW[d0.dewBand]}"` : ""}>Dew <b>${Math.round(d0.dew)}°</b> ${esc(d0.dewBand)}</span>`
+          : "<span>Dew <b>–</b></span>"}
       </div>
       <div class="scores">
         <span>now <span class="v" style="color:${scoreColor(c.scores.now)}">${c.scores.now}</span></span>
@@ -599,7 +647,7 @@ async function load() {
       <div class="vmeta"><a href="#" id="howlink" class="screenonly">How scores work</a></div></div>`;
   }
 
-  const top = SNAP.cities.slice(0, 4);
+  const top = leaderCards(SNAP, 4);
   renderCards(top);
   renderWeek(top);
   renderMap(SNAP.cities);

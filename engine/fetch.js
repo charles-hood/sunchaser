@@ -14,6 +14,7 @@ const RAW_FILE = path.join(cfg.VAR_DIR, "snapshot-raw.json");
 const DAILY_FIELDS = [
   "weather_code", "temperature_2m_max", "temperature_2m_min",
   "apparent_temperature_max", "apparent_temperature_min",
+  "dew_point_2m_mean",
   "precipitation_sum", "precipitation_probability_max", "snowfall_sum",
   "wind_speed_10m_max", "wind_gusts_10m_max", "uv_index_max",
   "sunshine_duration", "daylight_duration", "sunrise", "sunset",

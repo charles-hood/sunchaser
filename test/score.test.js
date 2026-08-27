@@ -84,15 +84,53 @@ test("buildSnapshot ranks, ties, and promotes correctly", () => {
   assert.ok(!snap.ties.includes("C, XX"));
   assert.ok(snap.promotions.includes("B, XX"), "dormant near-leader should promote");
   assert.ok(snap.shortlist.length >= 3);
+  // A and B both cap at 100, so the leaders line lists both, A first.
+  assert.equal(snap.leaders.combined[0], "A, XX");
   // The frontend's "how scores work" panel renders from _meta.weights;
   // dropping it silently breaks the explainer into its fallback text.
   assert.equal(snap._meta.weights.PRECIP_PROB_SLOPE, 0.25);
   assert.equal(snap._meta.weights.HI_IDEAL_LOW, 68);
 });
 
+// Snapshot leaders: exact top holder of each key over the shortlist, in
+// combined order. A city can lead "now" (two perfect days) while a hot back
+// half of the week keeps it off the combined podium; the leader cards need
+// the now/week/combined winners the verdict is built on, not the combined
+// top four, so the reader finds a card for the city the verdict just named.
+test("buildSnapshot leaders: now-leader with a weak week is still the now-leader", () => {
+  const mk = (days) => ({ tier: "active", fetched_at: "x", current: null, daily: fakeDaily(days) });
+  const steady = Array(7).fill(day({ precipProb: 40 })); // 95 every day, never the cap
+  const spike = [day(), day(), day({ hi: 96 }), day({ hi: 98 }), day({ hi: 100 }), day({ hi: 100 }), day({ hi: 101 })];
+  const raw = {
+    updated_at: "2026-08-27T00:00:00Z", season: "summer",
+    cities: { "Steady, XX": mk(steady), "Spike, XX": mk(spike) },
+  };
+  const cities = ["Steady, XX", "Spike, XX"].map((name) => ({ name, season_tags: [] }));
+  const snap = buildSnapshot(raw, cities);
+  assert.equal(snap.cities[0].name, "Steady, XX", "combined leader is the steady city");
+  assert.deepEqual(snap.leaders.now, ["Spike, XX"]);
+  assert.deepEqual(snap.leaders.week, ["Steady, XX"]);
+  assert.deepEqual(snap.leaders.combined, ["Steady, XX"]);
+});
+
+test("buildSnapshot leaders: exact ties list every holder in combined order", () => {
+  const mk = (days) => ({ tier: "active", fetched_at: "x", current: null, daily: fakeDaily(days) });
+  const perfect = Array(7).fill(day());
+  const raw = {
+    updated_at: "2026-08-27T00:00:00Z", season: "summer",
+    cities: { "B, XX": mk(perfect), "A, XX": mk(perfect) },
+  };
+  const cities = ["B, XX", "A, XX"].map((name) => ({ name, season_tags: [] }));
+  const snap = buildSnapshot(raw, cities);
+  const order = snap.cities.map((c) => c.name);
+  for (const key of ["now", "week", "combined"]) {
+    assert.deepEqual(snap.leaders[key], order, `${key} ties follow combined order`);
+  }
+});
+
 // daySky: NWS-style daytime sky wording from sunFrac, never the worst-hour
 // WMO code. A pre-dawn overcast hour (code 3) must not label a sunny day.
-const { daySky, precipBand } = require("../engine/score");
+const { daySky, precipBand, dewBand } = require("../engine/score");
 
 test("precipBand follows the NWS PoP wording bands", () => {
   assert.equal(precipBand(0), null);
@@ -149,6 +187,49 @@ test("daySky is null without sunshine data, and non-finite precipProb is 0", () 
   assert.equal(daySky(day({ sunFrac: 0.9, precipProb: NaN })), "sunny");
 });
 
+// dewBand: the leader cards report humidity as a dew point, not as relative
+// humidity, because RH is a ratio against a temperature that swings all day.
+test("dewBand follows the conventional comfort bands at the edges", () => {
+  assert.equal(dewBand(49.9), "very dry");
+  assert.equal(dewBand(50), "comfortable");
+  assert.equal(dewBand(59.9), "comfortable");
+  assert.equal(dewBand(60), "noticeable");
+  assert.equal(dewBand(64.9), "noticeable");
+  assert.equal(dewBand(65), "sticky");
+  assert.equal(dewBand(69.9), "sticky");
+  assert.equal(dewBand(70), "oppressive");
+  assert.equal(dewBand(74.9), "oppressive");
+  assert.equal(dewBand(75), "miserable");
+  assert.equal(dewBand(-10), "very dry"); // a Yukon January is still a band
+});
+
+// The card hides the chip rather than rendering "NaN deg" or "null": a
+// dormant-tier record from before dew_point_2m_mean was requested, or one
+// upstream field arriving as a string, must degrade to no chip at all.
+test("dewBand is null for a missing or non-numeric dew point", () => {
+  assert.equal(dewBand(null), null);
+  assert.equal(dewBand(undefined), null);
+  assert.equal(dewBand(NaN), null);
+  assert.equal(dewBand("64"), null);
+});
+
+// The Portland, ME case that prompted this: dawn fog put relative humidity at
+// 100% on a day whose 79F afternoon was merely a touch humid. The dew point
+// the card shows must land in a band that matches the afternoon, not the fog.
+test("a fogged-in dawn does not label the day muggy", () => {
+  const daily = {
+    time: ["2026-08-24"],
+    temperature_2m_max: [79.4], temperature_2m_min: [64.7],
+    apparent_temperature_max: [82.5], dew_point_2m_mean: [62.5],
+    precipitation_probability_max: [5], precipitation_sum: [0], snowfall_sum: [0],
+    wind_speed_10m_max: [7], wind_gusts_10m_max: [12], uv_index_max: [6],
+    sunshine_duration: [31600], daylight_duration: [48600], weather_code: [45],
+  };
+  const s = scoreCity({ daily });
+  assert.equal(s.days[0].dew, 62.5);
+  assert.equal(s.days[0].dewBand, "noticeable");
+});
+
 test("scoreCity attaches sky to every day without touching the scores", () => {
   const daily = {
     time: ["2026-08-23", "2026-08-24"],
@@ -158,10 +239,16 @@ test("scoreCity attaches sky to every day without touching the scores", () => {
     wind_gusts_10m_max: [18, 16], uv_index_max: [6.7, 6.6],
     sunshine_duration: [47000, 43000], daylight_duration: [48600, 48400], weather_code: [3, 3],
   };
-  const a = scoreCity({ daily });
+  const a = scoreCity({ daily: { ...daily, dew_point_2m_mean: [51, 68] } });
   assert.deepEqual(a.days.map((d) => d.sky), ["sunny", "showers"]);
   assert.deepEqual(a.days.map((d) => d.precipBand), ["slight", "chance"]);
+  assert.deepEqual(a.days.map((d) => d.dewBand), ["comfortable", "sticky"]);
   const b = scoreCity({ daily: { ...daily, weather_code: [0, 0] } });
   assert.deepEqual(a.days.map((d) => d.score), b.days.map((d) => d.score));
   assert.equal(a.week, b.week);
+  // Dew point is display context only: swapping it must not move a score.
+  const c = scoreCity({ daily: { ...daily, dew_point_2m_mean: [78, 30] } });
+  assert.deepEqual(a.days.map((d) => d.score), c.days.map((d) => d.score));
+  // A record predating the field still scores, it just has no chip.
+  assert.deepEqual(b.days.map((d) => d.dewBand), [null, null]);
 });

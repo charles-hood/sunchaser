@@ -58,42 +58,12 @@ units). Systemd units live there under `sunchaser/`, not here.
 
 ## Reviews
 
-Cross-model review rubric is frozen in REVIEW-PROMPT.md (base + three
-addenda). Pass 1 (Codex + GLM 5.2) complete, 21 findings fixed. Kimi K3
-pass 2 complete: 3 findings plus 1 sibling found via R0, all fixed
-(addendum 3, K* tests in `test/regressions.test.js`, see
-KIMI-PASS2-FINDINGS.md). Closure stands at zero clean passes: new findings
-are only valid if in-rubric or regressions from fixes; two consecutive
-clean passes against the frozen rubric terminate the review. 2026-08-09:
-the verdict layer moved to Fireworks/DeepSeek with precomputed winners
-(engine/verdict.js, engine/config.js); that surface is in scope for the
-next pass as change-reachable code. 2026-08-10: same surface changed again
-(production truncation fix): truncated/contract-breaking verdicts now
-rejected with one retry (sectionsOk, truncated flag in callModel,
-unterminated-<think> strip), VERDICT_MAX_TOKENS 4096 -> 8192. Still in
-scope for the next pass as change-reachable code; note the retry path can
-now fire on three conditions, so the daily-cap interaction (2 calls per
-bad verdict) is reachable from more states. Later on 2026-08-10 the
-SYSTEM prompt was reworked (tie claims scoped per-key to the
-Deterministic leaders line, fixing the combined-vs-week conflation nit;
-selectivity over stat dumps; ~250-word budget; Why = ranking mechanics
-only). The prompt text is change-reachable for the next pass alongside
-the validation code. 2026-08-23: week-strip icons moved off Open-Meteo's
-worst-hour daily weather_code onto `daySky` in engine/score.js (NWS
-sky-cover bands over sunFrac, rain glyph at the NWS 30%/60% bands, snow/
-thunder/ice always) plus `precipBand` (slight 15%+, chance 30%+, likely
-60%+) which only tints the rain percentage; display-only, scores
-untouched. Change-reachable: the `sky` and `precipBand` fields on snapshot
-days and the SKY/POP tables in public/index.html. Same day, later: daily
-social card (engine/og.js builds SVG from the snapshot, engine/ttf.js
-measures text from the vendored TTFs, rsvg-convert rasterizes to
-var/og.png; `node cli.js og`, also run by `verdict` once per forecast day).
-server/index.js serves var/og.png at /og.png and stamps `?d=<date>` into
-index.html's og:image; Caddy proxies `/`, `/og.png` and `/api/*` to Node
-for that reason. Change-reachable for the next pass: the SVG/text escaping
-(city names reach the SVG), the rsvg child-process call, the new Caddy
-matcher, and the verdict path now calling refreshOg (wrapped; must never
-break a verdict run).
+- Rubric: frozen in REVIEW-PROMPT.md (base + three addenda).
+- Passes completed: pass 1 (Codex + GLM 5.2, 21 findings fixed) and pass 2
+  (Kimi K3, 3 findings plus 1 sibling via R0, all fixed; K* tests in
+  `test/regressions.test.js`, see KIMI-PASS2-FINDINGS.md).
+- Current clean-pass count: zero.
+- Change-reachable surfaces since last pass: see REVIEW-QUEUE.md.
 
 ## Parked plans
 
