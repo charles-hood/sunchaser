@@ -25,7 +25,11 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
   `var/counters.json`, all providers combined). Keep it that way.
 - **Determinism first.** The scorer ranks; the AI only adjudicates a
   shortlist and must present ties as ties. All scoring weights live in the
-  `WEIGHTS` const in `engine/score.js`.
+  `WEIGHTS` const in `engine/score.js`. The now/week/combined winners are
+  precomputed (`leaders` on the snapshot; the leader cards show them, then
+  fill from combined order) and injected into the prompt as ground truth; `getVerdict`
+  rejects (and retries once) a verdict that is truncated at max_tokens,
+  breaks the five-section contract, or contradicts them in its week section.
 - **Weights discipline** (Charles, 2026-09-07, after the flat 68-82 band
   let a 68/34 day tie a 76/61 day): comfort terms are peaked curves, not
   plateaus, and every temperature anchor cites a published comfort range
@@ -34,11 +38,7 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
   under both `W`s; `scoreCity` takes the weights as a parameter), a
   `SCORING_VERSION` bump, matching explainer text in `public/index.html`,
   a regression test, and a REVIEW-QUEUE.md entry. Bring one recommendation
-  with the data, not a menu of options. The now/week/combined winners are
-  precomputed (`leaders` on the snapshot; the leader cards show them, then
-  fill from combined order) and injected into the prompt as ground truth; `getVerdict`
-  rejects (and retries once) a verdict that is truncated at max_tokens,
-  breaks the five-section contract, or contradicts them in its week section.
+  with the data, not a menu of options.
 
 ## Commands
 
