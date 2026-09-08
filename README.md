@@ -29,9 +29,12 @@ nothing else changes. Weather data by Open-Meteo (free tier, batched,
 two-tier cadence: active hourly, dormant daily; ~1,200 location-calls/day in
 summer). AI verdict via the Fireworks API (DeepSeek V4 Flash default,
 ~$0.001/verdict; the Anthropic API serves `--deep`), cached on disk and
-capped at 40 calls/day across all providers. The scorer precomputes the now/week/combined winners and injects
-them into the prompt as ground truth; the model narrates, it never re-derives
-them. Copy `.env.example` to `.env` and add dedicated keys.
+capped at 40 calls/day across all providers. The scorer precomputes the
+now/week/combined winners (`leaders` on the snapshot) and injects them into
+the prompt as ground truth; the model narrates, it never re-derives them.
+The leader cards show the same three winners, then fill from the combined
+ranking, so the city the verdict names always has a card. Copy
+`.env.example` to `.env` and add dedicated keys.
 
 ## Layout
 

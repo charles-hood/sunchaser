@@ -26,7 +26,8 @@ claude-opus-4-8 via `--deep`), plans Tesla road trips. History: PLAN.md
 - **Determinism first.** The scorer ranks; the AI only adjudicates a
   shortlist and must present ties as ties. All scoring weights live in the
   `WEIGHTS` const in `engine/score.js`. The now/week/combined winners are
-  precomputed and injected into the prompt as ground truth; `getVerdict`
+  precomputed (`leaders` on the snapshot; the leader cards show them, then
+  fill from combined order) and injected into the prompt as ground truth; `getVerdict`
   rejects (and retries once) a verdict that is truncated at max_tokens,
   breaks the five-section contract, or contradicts them in its week section.
 
