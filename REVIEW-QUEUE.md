@@ -71,3 +71,11 @@ pre-existing: leaders are computed over the shortlist (top 10 + 5-point
 band), so a city outside it with the top now score is neither named by the
 verdict nor carded; the table still shows it. engine/og.js still uses the
 combined top three for the social card.
+
+2026-09-07: scoring weights changed (SCORING_VERSION 1.0.0 -> 1.1.0) after
+Klamath Falls won "best all three" on a 68/34 day: LO_SLOPE 0.8 -> 1.5, new
+LO_EXTREME_COLD 36 / LO_EXTREME_SLOPE 1.5, new SUN_BONUS_CAP 5 (penalty side
+of the sun term unchanged). dayComfort in engine/score.js, the explainer text
+in public/index.html, and two new tests at the bottom of test/score.test.js
+are change-reachable for the next pass. Hot desert cities also lose ~4 pts
+from the sun cap; they were already at the bottom.

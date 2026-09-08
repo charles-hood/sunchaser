@@ -394,7 +394,9 @@ function renderHow(meta) {
         Below: -${f(W.HI_COLD_SLOPE)}/°F; above: -${f(W.HI_HOT_SLOPE)}/°F (heat hurts more
         than cold, by design). Extremes past ${f(W.HI_EXTREME_COLD)}° / ${f(W.HI_EXTREME_HOT)}°
         lose another ${f(W.HI_EXTREME_SLOPE)}/°F.</li>
-      <li><b>Overnight low</b> under ${f(W.LO_FLOOR)}°F: -${f(W.LO_SLOPE)}/°F.</li>
+      <li><b>Overnight low</b> under ${f(W.LO_FLOOR)}°F: -${f(W.LO_SLOPE)}/°F, and another
+        -${f(W.LO_EXTREME_SLOPE)}/°F below ${f(W.LO_EXTREME_COLD)}°. A frosty night costs
+        real points no matter how sunny the day.</li>
       <li><b>Mugginess:</b> feels-like more than ${f(W.MUGGY_GAP)}° above the actual high:
         -${f(W.MUGGY_SLOPE)}/°F of excess. The dew point on the leader cards is a
         separate, display-only reading of the same air: it labels how the day
@@ -406,8 +408,9 @@ function renderHow(meta) {
       <li><b>Snow:</b> -${f(W.SNOW_SLOPE)}/inch (capped at ${f(W.SNOW_CAP)}).</li>
       <li><b>Wind</b> over ${f(W.WIND_FLOOR)} mph: -${f(W.WIND_SLOPE)}/mph; gusts over
         ${f(W.GUST_FLOOR)}: -${f(W.GUST_SLOPE)}/mph.</li>
-      <li><b>Sunshine:</b> scored against ${pct(W.SUN_TARGET)}% of daylight; sunnier
-        earns a bonus, gloomier a penalty (roughly -15 to +10).</li>
+      <li><b>Sunshine:</b> scored against ${pct(W.SUN_TARGET)}% of daylight; gloomier
+        is a penalty (down to about -15), sunnier a bonus capped at +${f(W.SUN_BONUS_CAP)}.
+        Sun breaks ties between comfortable days; it can't buy back a cold night.</li>
       <li><b>UV</b> over ${f(W.UV_FLOOR)}: -${f(W.UV_SLOPE)}/point.</li>
     </ul>
     <h4>Rolling days up</h4>

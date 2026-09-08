@@ -15,7 +15,9 @@ const WEIGHTS = {
   HI_EXTREME_SLOPE: 1.5,   // additional pts per degree beyond extreme
 
   LO_FLOOR: 40,            // overnight lows below this start to hurt
-  LO_SLOPE: 0.8,
+  LO_SLOPE: 1.5,           // was 0.8 until 2026-09-07: a 34F night cost 5 pts and full sun paid it back
+  LO_EXTREME_COLD: 36,     // frost territory: extra slope below this
+  LO_EXTREME_SLOPE: 1.5,
 
   MUGGY_GAP: 3,            // appHi - hi above this = humidity penalty
   MUGGY_SLOPE: 2.5,        // pts per degree of apparent-temp excess
@@ -32,7 +34,8 @@ const WEIGHTS = {
   GUST_SLOPE: 0.8,
 
   SUN_TARGET: 0.6,         // sunshine as fraction of daylight; +/- around this
-  SUN_SLOPE: 25,           // (frac - target) * slope, so roughly -15..+10
+  SUN_SLOPE: 25,           // (frac - target) * slope, so roughly -15..+10 before the cap
+  SUN_BONUS_CAP: 5,        // sun is a tiebreaker among comfortable days, not a refund for cold nights
 
   UV_FLOOR: 9,
   UV_SLOPE: 1.5,
@@ -45,7 +48,7 @@ const WEIGHTS = {
   COMBINED_WEEK: 0.55,
 };
 
-const SCORING_VERSION = "1.0.0";
+const SCORING_VERSION = "1.1.0";
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
@@ -62,7 +65,10 @@ function dayComfort(day, W = WEIGHTS) {
     if (day.hi > W.HI_EXTREME_HOT) s -= (day.hi - W.HI_EXTREME_HOT) * W.HI_EXTREME_SLOPE;
   }
 
-  if (day.lo < W.LO_FLOOR) s -= (W.LO_FLOOR - day.lo) * W.LO_SLOPE;
+  if (day.lo < W.LO_FLOOR) {
+    s -= (W.LO_FLOOR - day.lo) * W.LO_SLOPE;
+    if (day.lo < W.LO_EXTREME_COLD) s -= (W.LO_EXTREME_COLD - day.lo) * W.LO_EXTREME_SLOPE;
+  }
 
   const muggy = (day.appHi ?? day.hi) - day.hi - W.MUGGY_GAP;
   if (muggy > 0) s -= muggy * W.MUGGY_SLOPE;
@@ -74,7 +80,7 @@ function dayComfort(day, W = WEIGHTS) {
   if ((day.wind ?? 0) > W.WIND_FLOOR) s -= (day.wind - W.WIND_FLOOR) * W.WIND_SLOPE;
   if ((day.gust ?? 0) > W.GUST_FLOOR) s -= (day.gust - W.GUST_FLOOR) * W.GUST_SLOPE;
 
-  if (day.sunFrac != null) s += (day.sunFrac - W.SUN_TARGET) * W.SUN_SLOPE;
+  if (day.sunFrac != null) s += Math.min((day.sunFrac - W.SUN_TARGET) * W.SUN_SLOPE, W.SUN_BONUS_CAP);
   if ((day.uv ?? 0) > W.UV_FLOOR) s -= (day.uv - W.UV_FLOOR) * W.UV_SLOPE;
 
   return clamp(Math.round(s * 10) / 10, 0, 100);

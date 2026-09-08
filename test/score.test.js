@@ -252,3 +252,21 @@ test("scoreCity attaches sky to every day without touching the scores", () => {
   // A record predating the field still scores, it just has no chip.
   assert.deepEqual(b.days.map((d) => d.dewBand), [null, null]);
 });
+
+// 2026-09-07: Klamath Falls won "best all three" on a 68/34 day. The old
+// 0.8/deg low penalty (-5.1) was smaller than the uncapped sun bonus (+8.8),
+// so a frosty clear day clamped to a perfect 100. Both halves are pinned here.
+test("a near-freezing night cannot score a perfect day, however sunny", () => {
+  const frosty = dayComfort(day({ hi: 68, lo: 34, appHi: 64, precipProb: 0, sunFrac: 0.95 }));
+  const mild = dayComfort(day({ hi: 68, lo: 48, appHi: 64, precipProb: 0, sunFrac: 0.95 }));
+  assert.ok(frosty <= 93, `frosty day should lose real points, got ${frosty}`);
+  assert.ok(mild - frosty >= 7, `mild ${mild} vs frosty ${frosty}: gap too small`);
+});
+
+test("sun bonus is capped: full sun cannot erase a moderate penalty", () => {
+  const overcast = dayComfort(day({ precipProb: 40, sunFrac: 0.6 })); // exactly at target
+  const brilliant = dayComfort(day({ precipProb: 40, sunFrac: 1.0 }));
+  assert.equal(brilliant - overcast, 5, "bonus above target is capped at SUN_BONUS_CAP");
+  const gloomy = dayComfort(day({ precipProb: 40, sunFrac: 0.0 }));
+  assert.equal(overcast - gloomy, 15, "penalty side is not capped");
+});
