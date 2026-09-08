@@ -390,13 +390,17 @@ function renderHow(meta) {
     scoring engine, not a copy.</p>
     <h4>One day's score</h4>
     <ul>
-      <li><b>Daily high:</b> full marks from ${f(W.HI_IDEAL_LOW)}-${f(W.HI_IDEAL_HIGH)}°F.
-        Below: -${f(W.HI_COLD_SLOPE)}/°F; above: -${f(W.HI_HOT_SLOPE)}/°F (heat hurts more
-        than cold, by design). Extremes past ${f(W.HI_EXTREME_COLD)}° / ${f(W.HI_EXTREME_HOT)}°
-        lose another ${f(W.HI_EXTREME_SLOPE)}/°F.</li>
-      <li><b>Overnight low</b> under ${f(W.LO_FLOOR)}°F: -${f(W.LO_SLOPE)}/°F, and another
-        -${f(W.LO_EXTREME_SLOPE)}/°F below ${f(W.LO_EXTREME_COLD)}°. A frosty night costs
-        real points no matter how sunny the day.</li>
+      <li><b>Daily high:</b> full marks at ${f(W.HI_PEAK)}°F, the warm end of the outdoor comfort
+        optimum in published indices, then -${f(W.HI_BAND_SLOPE)}/°F either way out to
+        ${f(W.HI_IDEAL_LOW)}-${f(W.HI_IDEAL_HIGH)}°. Beyond that, another -${f(W.HI_COLD_SLOPE)}/°F
+        below or -${f(W.HI_HOT_SLOPE)}/°F above (heat hurts more than cold, by design).
+        Extremes past ${f(W.HI_EXTREME_COLD)}° / ${f(W.HI_EXTREME_HOT)}° lose another
+        ${f(W.HI_EXTREME_SLOPE)}/°F. A curve, not a band: a 68° day and a 76° day are
+        not the same day.</li>
+      <li><b>Overnight low:</b> free at ${f(W.LO_IDEAL)}°F and up. Below that,
+        -${f(W.LO_SOFT_SLOPE)}/°F down to ${f(W.LO_FLOOR)}°, then -${f(W.LO_SLOPE)}/°F, and
+        another -${f(W.LO_EXTREME_SLOPE)}/°F below ${f(W.LO_EXTREME_COLD)}°. A frosty night
+        costs real points no matter how sunny the day.</li>
       <li><b>Mugginess:</b> feels-like more than ${f(W.MUGGY_GAP)}° above the actual high:
         -${f(W.MUGGY_SLOPE)}/°F of excess. The dew point on the leader cards is a
         separate, display-only reading of the same air: it labels how the day

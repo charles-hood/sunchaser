@@ -5,17 +5,31 @@
 const cfg = require("./config");
 
 const WEIGHTS = {
-  // Ideal daily-high band (deg F). Full marks inside; graceful falloff out.
-  HI_IDEAL_LOW: 68,
+  // Daily high (deg F): a peaked curve, not a flat band. Comfort indices
+  // (UTCI "no thermal stress" ~48-79F; Mieczkowski's Tourism Climate Index
+  // optimum ~68-80F for light outdoor activity) all peak once and fall off
+  // both ways; a flat 68-82 band asserted that 68 and 76 are equally
+  // pleasant, which let a 68/34 day tie a 76/61 day (2026-09-07). Full
+  // marks only at HI_PEAK; gentle loss inside the band, the steeper slopes
+  // outside it stack on top so the curve stays continuous.
+  HI_PEAK: 78,             // warm end of the published optimum: this app chases sun, not shade
+  HI_BAND_SLOPE: 0.5,      // pts per degree from the peak, inside the band
+  HI_IDEAL_LOW: 68,        // band edges: the steeper slopes begin here
   HI_IDEAL_HIGH: 82,
-  HI_COLD_SLOPE: 1.6,      // pts lost per degree below ideal
-  HI_HOT_SLOPE: 2.2,       // pts lost per degree above ideal (heat is worse)
+  HI_COLD_SLOPE: 1.6,      // pts lost per degree below the band
+  HI_HOT_SLOPE: 2.2,       // pts lost per degree above the band (heat is worse)
   HI_EXTREME_COLD: 50,     // extra slope kicks in below/above these
   HI_EXTREME_HOT: 95,
   HI_EXTREME_SLOPE: 1.5,   // additional pts per degree beyond extreme
 
-  LO_FLOOR: 40,            // overnight lows below this start to hurt
-  LO_SLOPE: 1.5,           // was 0.8 until 2026-09-07: a 34F night cost 5 pts and full sun paid it back
+  // Overnight low: free at LO_IDEAL and above (the UTCI comfort zone bottoms
+  // out near 48-50F), a soft slope down to LO_FLOOR, then steep. Until
+  // 2026-09-07 lows above 40 were free and a 34F night cost 5 pts, which
+  // the uncapped sun bonus paid back.
+  LO_IDEAL: 50,
+  LO_SOFT_SLOPE: 0.5,      // pts per degree from LO_IDEAL down to LO_FLOOR
+  LO_FLOOR: 40,            // steep slope begins here (stacks on the soft loss)
+  LO_SLOPE: 1.5,
   LO_EXTREME_COLD: 36,     // frost territory: extra slope below this
   LO_EXTREME_SLOPE: 1.5,
 
@@ -48,7 +62,7 @@ const WEIGHTS = {
   COMBINED_WEEK: 0.55,
 };
 
-const SCORING_VERSION = "1.1.0";
+const SCORING_VERSION = "1.2.0";
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
@@ -57,6 +71,10 @@ const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 function dayComfort(day, W = WEIGHTS) {
   let s = 100;
 
+  // Inside the band the loss is measured from the peak; outside it the band
+  // loss is frozen at the edge and the steeper slopes add to it.
+  const bandHi = clamp(day.hi, W.HI_IDEAL_LOW, W.HI_IDEAL_HIGH);
+  s -= Math.abs(bandHi - W.HI_PEAK) * W.HI_BAND_SLOPE;
   if (day.hi < W.HI_IDEAL_LOW) {
     s -= (W.HI_IDEAL_LOW - day.hi) * W.HI_COLD_SLOPE;
     if (day.hi < W.HI_EXTREME_COLD) s -= (W.HI_EXTREME_COLD - day.hi) * W.HI_EXTREME_SLOPE;
@@ -65,9 +83,12 @@ function dayComfort(day, W = WEIGHTS) {
     if (day.hi > W.HI_EXTREME_HOT) s -= (day.hi - W.HI_EXTREME_HOT) * W.HI_EXTREME_SLOPE;
   }
 
-  if (day.lo < W.LO_FLOOR) {
-    s -= (W.LO_FLOOR - day.lo) * W.LO_SLOPE;
-    if (day.lo < W.LO_EXTREME_COLD) s -= (W.LO_EXTREME_COLD - day.lo) * W.LO_EXTREME_SLOPE;
+  if (day.lo < W.LO_IDEAL) {
+    s -= (W.LO_IDEAL - Math.max(day.lo, W.LO_FLOOR)) * W.LO_SOFT_SLOPE;
+    if (day.lo < W.LO_FLOOR) {
+      s -= (W.LO_FLOOR - day.lo) * W.LO_SLOPE;
+      if (day.lo < W.LO_EXTREME_COLD) s -= (W.LO_EXTREME_COLD - day.lo) * W.LO_EXTREME_SLOPE;
+    }
   }
 
   const muggy = (day.appHi ?? day.hi) - day.hi - W.MUGGY_GAP;
@@ -192,8 +213,7 @@ function scoreCity(rec, W = WEIGHTS) {
   let nudge = 0;
   if (rec.current && Number.isFinite(rec.current.apparent_temperature)) {
     const app = rec.current.apparent_temperature;
-    const mid = (W.HI_IDEAL_LOW + W.HI_IDEAL_HIGH) / 2;
-    nudge = clamp((15 - Math.abs(app - mid)) / 15, -1, 1) * W.NOW_NUDGE_MAX;
+    nudge = clamp((15 - Math.abs(app - W.HI_PEAK)) / 15, -1, 1) * W.NOW_NUDGE_MAX;
   }
   const now = clamp(
     W.NOW_TODAY * days[0].score + W.NOW_TOMORROW * (days[1]?.score ?? days[0].score) + nudge,

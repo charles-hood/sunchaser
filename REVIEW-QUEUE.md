@@ -79,3 +79,13 @@ of the sun term unchanged). dayComfort in engine/score.js, the explainer text
 in public/index.html, and two new tests at the bottom of test/score.test.js
 are change-reachable for the next pass. Hot desert cities also lose ~4 pts
 from the sun cap; they were already at the bottom.
+
+2026-09-07 (later): SCORING_VERSION 1.1.0 -> 1.2.0, flat ideal bands replaced
+by peaked curves. Daily high: full marks only at HI_PEAK 78 (warm end of the published optimum), HI_BAND_SLOPE
+0.5/deg inside 68-82, the old slopes stack outside (continuous at the
+edges). Overnight low: free at LO_IDEAL 50 and up, LO_SOFT_SLOPE 0.5/deg
+down to 40, then the 1.1.0 slopes. The now-nudge centers on HI_PEAK instead
+of the band midpoint. Anchors (UTCI, Mieczkowski TCI) are cited in the
+WEIGHTS comments. Same-data effect: perfect now-scores fall from 19 cities
+to 7; Klamath Falls 95.7 -> 91.2. Change-reachable for the next pass:
+dayComfort, the nudge, explainer text, two new tests in test/score.test.js.

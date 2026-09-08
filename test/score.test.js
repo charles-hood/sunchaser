@@ -270,3 +270,27 @@ test("sun bonus is capped: full sun cannot erase a moderate penalty", () => {
   const gloomy = dayComfort(day({ precipProb: 40, sunFrac: 0.0 }));
   assert.equal(overcast - gloomy, 15, "penalty side is not capped");
 });
+
+// 1.2.0: the ideal band is a peak, not a plateau. Under 1.1.0 a dry sunny
+// 68/41 day and a dry sunny 76/61 day both clamped to 100, so the scale
+// could not say which was nicer; every published comfort index can.
+test("peaked curve: a mild 76/61 day outscores a 68/41 day, both clear", () => {
+  const mild = dayComfort(day({ hi: 76, lo: 61, appHi: 76, precipProb: 0, sunFrac: 0.95 }));
+  const crisp = dayComfort(day({ hi: 68, lo: 41, appHi: 66, precipProb: 0, sunFrac: 0.95 }));
+  assert.equal(mild, 100);
+  assert.ok(mild - crisp >= 2.5 && crisp >= 93, `68/41 should trail by a few points, got ${crisp}`);
+});
+
+test("peaked curve is continuous at the band edges", () => {
+  const eps = 0.01;
+  for (const edge of [68, 82]) {
+    const inside = dayComfort(day({ hi: edge, appHi: edge, precipProb: 40 }));
+    const outside = dayComfort(day({ hi: edge + (edge === 68 ? -eps : eps), appHi: edge, precipProb: 40 }));
+    assert.ok(Math.abs(inside - outside) < 0.1, `jump at hi=${edge}: ${inside} vs ${outside}`);
+  }
+  const at50 = dayComfort(day({ lo: 50, precipProb: 40 }));
+  const under50 = dayComfort(day({ lo: 50 - eps, precipProb: 40 }));
+  const at40 = dayComfort(day({ lo: 40, precipProb: 40 }));
+  const under40 = dayComfort(day({ lo: 40 - eps, precipProb: 40 }));
+  assert.ok(Math.abs(at50 - under50) < 0.1 && Math.abs(at40 - under40) < 0.1, "no jump in the low curve");
+});
