@@ -50,7 +50,7 @@ PORT=<chosen port>
 ```
 
 The default verdict model is now DeepSeek V4 Flash on Fireworks
-(`accounts/fireworks/models/deepseek-v4-flash-0731`), so the droplet needs
+(`accounts/fireworks/models/deepseek-v4p1-flash`), so the droplet needs
 `FIREWORKS_API_KEY`; ask Charles for it (on his Mac it lives in
 `~/fireworks-ai-api-key.txt`; never echo it). Keep the Anthropic key too:
 the `--deep` verdict path still uses claude-opus-4-8. Reuse Charles's

@@ -34,7 +34,7 @@ module.exports = {
   ANTHROPIC_VERSION: "2023-06-01",
   FIREWORKS_URL: "https://api.fireworks.ai/inference/v1/chat/completions",
   MODELS: { // allowlist
-    default: { provider: "fireworks", id: "accounts/fireworks/models/deepseek-v4-flash-0731" },
+    default: { provider: "fireworks", id: "accounts/fireworks/models/deepseek-v4p1-flash" },
     deep: { provider: "anthropic", id: "claude-opus-4-8" },
   },
   VERDICT_MAX_TOKENS: 8192, // DeepSeek spends reasoning tokens inside this budget; a
